@@ -10,4 +10,6 @@ Informacion variada:
 
 * Para el desarrollo en python os recomiendo usar virtualenv, os crea una instalacion privada de python para no mezclar modulos instalados con otros proyectos en vuestro equipo y evitar errores inesperados, pero no es obligatorio
 
-* para instalar todas las depencias necesarias bastara con hacer un `pip install -r requirements.txt` si en algun momento anadimos librerias nuevas al proyecto deberiamos actualizar el archivo con un `pip freeze`
+* Para instalar todas las depencias necesarias bastara con hacer un `pip install -r requirements.txt` si en algun momento anadimos librerias nuevas al proyecto deberiamos actualizar el archivo con un `pip freeze`
+
+* Si cambiais la extensión de los script de python de .py a .pyw no aparece la consola.

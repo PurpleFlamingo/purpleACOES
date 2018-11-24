@@ -14,8 +14,10 @@ class LogIn(base_1, form_1):
         self.bLogin.clicked.connect(self.usuario)
         self.bExit.clicked.connect(self.salir)
 
+    #TODO: Esta funcion debe ser modificada para que redireccione a la ventana de seleccion de subsistema
     def usuario(self):
-        self.child = GestorUsuario(self)
+        if self.child is None:
+            self.child = GestorUsuario(self)
         self.child.show()
         self.hide()
 

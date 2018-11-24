@@ -131,42 +131,28 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="lRecordatorio">
+   <widget class="QPushButton" name="bRecordatorio">
     <property name="geometry">
      <rect>
       <x>320</x>
       <y>190</y>
       <width>321</width>
-      <height>31</height>
+      <height>23</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>13</pointsize>
-      <weight>75</weight>
+      <weight>50</weight>
       <italic>true</italic>
-      <bold>true</bold>
-      <underline>true</underline>
-      <stylestrategy>PreferDefault</stylestrategy>
+      <bold>false</bold>
      </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>OpenHandCursor</cursorShape>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="accessibleDescription">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Recordatorio de contraseña&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(0, 0, 255);</string>
     </property>
     <property name="text">
      <string>¿Ha olvidado su contraseña?</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

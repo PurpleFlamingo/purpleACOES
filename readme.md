@@ -1,5 +1,11 @@
 # PurpleACOES
 
+Para conectar con la base de datos, modificar el archivo `src/BD/database.config` con la informacion de la base de datos, usuario y contrasena.
+
+**No hagais ningun commit/push de ese archivo.**
+
+
+
 Informacion variada:
 
 * En la carpeta `src` iremos metiendo el codigo que vaya a ser usado en la entrega final, pruebas y demas iran a la carpeta `pruebas`

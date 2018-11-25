@@ -22,12 +22,20 @@ Informacion variada:
 
 Inicio de sesión
 El funcionamiento del botón login es:
-     * si el nombre de usuario o la contraseña están vacíos, no hace nada
-     * en caso contrario paso al método inicio_sesión el nombre de usario y la contraseña
-     * inicio_sesión se conecta con la base de datos y  solicita en la tabla usuario la contraseña de ese usuario
-     * si el usuario no existe (se recibe una tupla vacia de la consulta) o la contraseña que se introdujo es erronea el método devuelve falso
-     * si el usuario existe y la contraseña es correcta el método devuelve verdadero
-     * al recibir la respuesta del método, si esta es verdadera, se reinicia el conteo de intentos erroneos y se inicia la aplicacion
-     * si se recibe una respuesta falsa, se incrementa en uno el conteo de intentos erroneos y si es menor de 5 se muestra un mensaje
-     * y si ese conteo es 5 se muestra un cuadro de dialogo, que bloqua la ventana de inicio de sesión y que solo tiene un botón que 
+
+* si el nombre de usuario o la contraseña están vacíos, no hace nada
+
+* en caso contrario paso al método inicio_sesión el nombre de usario y la contraseña
+
+* inicio_sesión se conecta con la base de datos y  solicita en la tabla usuario la contraseña de ese usuario
+
+* si el usuario no existe (se recibe una tupla vacia de la consulta) o la contraseña que se introdujo es erronea el método devuelve falso
+
+* si el usuario existe y la contraseña es correcta el método devuelve verdadero
+
+* al recibir la respuesta del método, si esta es verdadera, se reinicia el conteo de intentos erroneos y se inicia la aplicacion
+
+* si se recibe una respuesta falsa, se incrementa en uno el conteo de intentos erroneos y si es menor de 5 se muestra un mensaje
+
+* y si ese conteo es 5 se muestra un cuadro de dialogo, que bloqua la ventana de inicio de sesión y que solo tiene un botón que 
 cierra la aplicacion.

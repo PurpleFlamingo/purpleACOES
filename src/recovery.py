@@ -1,6 +1,9 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
+from BD.BD import BD
+from correoElectronico import CorreoElectronico
+from passwordDisplay import PasswordDisplay
 
 form_1, base_1 = uic.loadUiType('UI/recovery.ui')
 
@@ -11,18 +14,47 @@ class Recovery(base_1, form_1):
         self.parent = parent
         self.child = None
 
-        self.eUserName.setText(self.parent.eUser.text())
-        self.bOk.clicked.connect(self.aceptar)
+        
+        self.eUserName.setFocus()
         self.bExit.clicked.connect(self.salir)
-
-    def aceptar(self):
-        self.hide()
-        self.parent.show()
+        self.bOk.clicked.connect(self.olvido)
 
     def salir(self):
         self.hide()
         self.parent.show()
 
+    def olvido(self):
+        nombre = self.eUserName.text().replace(' ','')
+        self.recuperatorio(nombre)
+
+
+    def recuperatorio(self,user: str):
+        if user != None:
+            if user != "":
+                self.db = BD()
+                self.nombre = "LOWER(`nombre`) = \"" + user.lower() + "\""
+                self.claveBD = self.db.selectEscalar("id_usuario, clave, rol","usuario",self.nombre)
+                if self.claveBD[2].lower == "socio":
+                    self.tabla = "socio"
+                else:
+                    self.tabla = "voluntario"
+                self.cond = "LOWER(`usuario`) = " + (str(self.claveBD[0])).lower()
+
+                self.emailDB = self.db.selectEscalar("correo_electronico",self.tabla,self.cond)
+                if(self.emailDB == None):
+                    if self.child is None or self.child != CorreoElectronico(self):
+                        self.child = CorreoElectronico(self)
+                        self.child.setModal(True)
+                        self.child.show()
+                else:
+                    print("La contraseña es :", self.claveBD[1])
+                    if self.child is None or self.child != PasswordDisplay(self):
+                        self.child = PasswordDisplay(self)
+                        self.child.setModal(True)
+                        self.child.show()
+
+
+        
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

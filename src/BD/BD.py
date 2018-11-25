@@ -40,7 +40,7 @@ class BD:
 
     def selectEscalar(self, resultado: str, tabla: str, condicion: str = None):
         lista = self.select(resultado, tabla, condicion)
-        if lista == []:
+        if lista == None or lista == []:
             return None
         else:
             return lista[0]

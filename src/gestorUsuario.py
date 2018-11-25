@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
-from BD.BDOperaciones import BDOperaciones
+from BD import BD
 
 form_1, base_1 = uic.loadUiType('UI/gestorUsuario.ui')
 
@@ -11,23 +11,16 @@ class GestorUsuario(base_1, form_1):
         self.setupUi(self)
         self.parent = parent
         self.child = []
-
+        
         self.bAtras.clicked.connect(self.atras)
 
-        usuarios = self.getUsuarios()
-        print(usuarios)
-        tabla = self.tUsuarios
-        tabla.setRowCount(len(usuarios))
-        #tabla.setColCount(len(usuarios))
-
     def atras(self):
-        self.hide()
         self.parent.show()
+        self.hide()
 
     #TODO: Esta funcion debe recoger de la base de datos todos los usuarios y mostrarlos en la vista
     def getUsuarios(self):
-        db = BDOperaciones()
-        return db.getUsuarios()
+        return []
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

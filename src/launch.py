@@ -13,21 +13,19 @@ class LogIn(base_1, form_1):
         self.setupUi(self)
         self.child = None
 
-        
         self.bRecordatorio.clicked.connect(self.recordatorio)
         self.bLogin.clicked.connect(self.usuario)
         self.bExit.clicked.connect(self.salir)
 
     #TODO: Esta funcion debe ser modificada para que redireccione a la ventana de seleccion de subsistema
     def usuario(self):
-        if self.child is None:
-            self.child = GestorUsuario(self)
+        self.child = GestorUsuario(self)
         self.child.show()
         self.hide()
 
     def salir(self):
         exit()
-    
+
     def recordatorio(self):
         self.child = Recovery(self)
         self.child.show()

@@ -3,12 +3,7 @@ from BD import BD
 class login:
 
     def __init__(self,user: str, password: str):
-        self.server = "localhost"
-        self.puerto = 3307
-        self.base = "gestoracoes"
-        self.usuario = "root"
-        self.clave = "intendo64R"
-        self.db = BD(self.server,self.puerto,self.base,self.usuario,self.clave)
+        self.db = BD()
         self.nombre = "nombre = \"" + user + "\""
         self.claveBD = self.db.selectEscalar("clave","usuario",self.nombre)
         if password == self.claveBD[0]:
@@ -17,12 +12,7 @@ class login:
             print("login incorrecto")
 
     def recovery(self,user: str):
-        self.server = "localhost"
-        self.puerto = 3307
-        self.base = "gestoracoes"
-        self.usuario = "root"
-        self.clave = "intendo64R"
-        self.db = BD(self.server,self.puerto,self.base,self.usuario,self.clave)
+        self.db = BD()
         self.nombre = "nombre = \"" + user + "\""
         self.claveBD = self.db.selectEscalar("identificacion, clave, rol","usuario",self.nombre)
         if self.claveBD[2] == "Socio":
@@ -30,7 +20,7 @@ class login:
         else:
             self.tabla = "agente"
         self.cond = "identificacion = " + str(self.claveBD[0])
-        
+
         self.emailDB = self.db.selectEscalar("correo_electronico",self.tabla,self.cond)
         print(user)
         if(self.emailDB[0] == None):
@@ -46,4 +36,3 @@ if __name__ == '__main__':
     l.recovery("Rafael")
 
     l.recovery("Paco")
- 

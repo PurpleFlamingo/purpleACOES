@@ -5,13 +5,23 @@ from mysql.connector import Error
 
 class BD:
 
-    def __init__(self,servidor: str, puerto: int, baseDeDatos: str, usuario: str, clave: str):
+    def __init__(self):
         try:
-            self.conn = mysql.connector.connect(host=servidor,port=puerto,database=baseDeDatos,user=usuario,password=clave)
+            credenciales = self.leerCredenciales()
+            self.conn = mysql.connector.connect(host=credenciales[0],port=credenciales[1],database=credenciales[2],user=credenciales[3],password=credenciales[4])
             if self.conn.is_connected():
-                print('Connected to MySQL on host {}:{} to database {}'.format(servidor,puerto,baseDeDatos))
+                print('Connected to MySQL on host {}:{} to database {}'.format(credenciales[0],credenciales[1],credenciales[2]))
         except Error as e:
             print(e)
+
+    def leerCredenciales(self):
+        with open ('BD/database.config') as file:
+            i = 0
+            credenciales = [None]*5
+            for line in file:
+                credenciales[i] = line.strip().split(':')[1]
+                i = i + 1
+            return credenciales
 
     def select(self, resultado: str, tabla: str, condicion = None):
         try:
@@ -71,7 +81,7 @@ class BD:
             print(e)
 
 if __name__ == '__main__':
-    bd = BD('jfaldanam.ddns.net',3306,'gestorACOES','martin','password_martin')
+    bd = BD()
 
     #abc = bd.select('*','usuario','nombre = \'Rafael\'')
     #print(abc)

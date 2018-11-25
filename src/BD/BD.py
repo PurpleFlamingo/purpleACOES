@@ -39,7 +39,11 @@ class BD:
             print(e)
 
     def selectEscalar(self, resultado: str, tabla: str, condicion: str = None):
-        return self.select(resultado, tabla, condicion)[0]
+        lista = self.select(resultado, tabla, condicion)
+        if lista == []:
+            return None
+        else:
+            return lista[0]
 
     def insert(self, valores: list, tabla: str):
         try:
@@ -82,7 +86,7 @@ class BD:
 
 if __name__ == '__main__':
     bd = BD()
-
+    print("Me he conectado")
     #abc = bd.select('*','usuario','nombre = \'Rafael\'')
     #print(abc)
     abc = bd.select('*','usuario')

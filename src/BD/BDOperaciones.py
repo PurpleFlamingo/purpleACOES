@@ -15,19 +15,15 @@ class BDOperaciones:
 
     def recovery(self,user: str):
         db = BD()
-        nombre = "LOWER(`nombre`) = \"" + user + "\""
+        nombre = "LOWER(`nombre`) = \"" + user.lower() + "\""
         claveBD = db.selectEscalar("id_usuario, clave, rol","usuario",nombre)
         if claveBD != None:
             claveRecuperada = claveBD[1]
             cond = "LOWER(`usuario`) = " + (str(claveBD[0])).lower()
             if claveBD[2] == "Socio":
                 tabla = "socio"
-                identificacion = db.selectEscalar("id_socio",tabla,cond)
             else:
                 tabla = "voluntario"
-                identificacion = db.selectEscalar("id_voluntario",tabla,cond)
-            id = identificacion[0]
-            print("Identificacion: ",id)
             emailDB = db.selectEscalar("correo_electronico",tabla,cond)
             if(emailDB[0] != None):
                 return claveRecuperada, False
@@ -36,6 +32,22 @@ class BDOperaciones:
         else:
             return None, None
 
+    def actualizarEmail(self, user: str, email: str):
+        db = BD()
+        nombre = "LOWER(`nombre`) = \"" + user.lower() + "\""
+        claveBD = db.selectEscalar("id_usuario, rol","usuario",nombre)
+        if claveBD != None:
+            cond = "LOWER(`usuario`) = " + (str(claveBD[0])).lower()
+            if claveBD[1] == "Socio":
+                tabla = "socio"
+            else:
+                tabla = "voluntario"
+            setter = "correo_electronico = \'" + email + "\'"
+            cond = "usuario = " + str(claveBD[0])
+            db.update(tabla, setter, cond)
+            return True
+        else:
+            return False
 
     def getUsuarios(self):
         db = BD()

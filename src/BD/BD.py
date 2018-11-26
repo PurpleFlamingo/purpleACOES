@@ -65,6 +65,7 @@ class BD:
             query = 'insert values(' + stringValores +') into ' + tabla + ';'
             #print(query)
             cursor.execute(query)
+            self.conn.commit()
             cursor.close()
             return
         except Error as e:
@@ -79,6 +80,7 @@ class BD:
                 query = 'delete from ' + tabla + ' where ' + condicion + ';'
             #print(query)
             cursor.execute(query)
+            self.conn.commit()
             cursor.close()
             return
         except Error as e:
@@ -93,6 +95,7 @@ class BD:
                 query = 'UPDATE ' + tabla + ' SET ' + setData + ' WHERE ' + condicion + ';'
             #print(query)
             cursor.execute(query)
+            self.conn.commit()
             cursor.close()
         except Error as e:
             print(e)

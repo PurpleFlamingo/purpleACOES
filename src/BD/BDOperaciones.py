@@ -71,6 +71,11 @@ class BDOperaciones:
                 result.append([user, datosVoluntario])
         return result
 
+    def getSocio(self, ID):
+    	db=BD()
+    	datosSocio= db.selectEscalar('*','socio', 'id_socio='+str(ID));
+    	return datosSocio;
+
 if __name__ == '__main__':
     l = BDOperaciones()
 

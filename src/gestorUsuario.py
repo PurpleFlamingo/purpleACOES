@@ -25,11 +25,11 @@ class GestorUsuario(base_1, form_1):
         self.hide()
 
     def newUsuario(self):
-        self.child.append(PerfilUsuario(self))
+        self.child.append(PerfilUsuario(self,None))#el segundo valor es de prueba
         self.child[len(self.child)-1].show()
 
     def editarUsuario(self):
-        self.child.append(PerfilUsuario(self))
+        self.child.append(PerfilUsuario(self,1))#el segundo valor es de prueba
         self.child[len(self.child)-1].show()
 
     #TODO: Esta funcion debe recoger de la base de datos todos los usuarios y mostrarlos en la vista

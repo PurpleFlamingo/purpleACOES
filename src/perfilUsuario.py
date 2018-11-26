@@ -7,10 +7,11 @@ import recursosQT_rc
 form_1, base_1 = uic.loadUiType('UI/perfilUsuario.ui')
 
 class PerfilUsuario(base_1, form_1):
-    def __init__(self, parent = None):
+    def __init__(self, parent = None, usuario = None):
         super(base_1,self).__init__()
         self.setupUi(self)
         self.parent = parent
+        self.usuario= usuario
         self.child = []
 
 

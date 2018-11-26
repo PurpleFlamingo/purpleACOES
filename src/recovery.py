@@ -36,14 +36,19 @@ class Recovery(base_1, form_1):
                 self.claveBD = self.db.selectEscalar("id_usuario, clave, rol","usuario",self.nombre)
                 if self.claveBD != None:
                     self.claveRecuperada = self.claveBD[1]
+                    self.cond = "LOWER(`usuario`) = " + (str(self.claveBD[0])).lower()
+                    
                     if self.claveBD[2].lower == "socio":
                         self.tabla = "socio"
+                        self.identificacion = self.db.selectEscalar("id_socio",self.tabla,self.cond)
                     else:
                         self.tabla = "voluntario"
-                    self.cond = "LOWER(`usuario`) = " + (str(self.claveBD[0])).lower()
-
+                        self.identificacion = self.db.selectEscalar("id_voluntario",self.tabla,self.cond)
+                    self.id = self.identificacion[0]
+                    print("Identificacion: ",self.id)
                     self.emailDB = self.db.selectEscalar("correo_electronico",self.tabla,self.cond)
-                    if(self.emailDB == None):
+                    print("Email: ",self.emailDB)
+                    if(self.emailDB[0] == None):
                         if self.child is None or self.child != CorreoElectronico(self):
                             self.child = CorreoElectronico(self)
                             self.child.setModal(True)

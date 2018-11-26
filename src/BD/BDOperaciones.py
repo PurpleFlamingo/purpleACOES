@@ -2,6 +2,8 @@ from BD.BD import BD
 
 class BDOperaciones:
 
+    #Recibe un usuario y contrasena y comprueba contra la base de datos si es unb login correcto o no
+    #Returns boolean (False si el login es erroneo)
     def login(self,user: str, password: str):
         db = BD()
         nombre = "LOWER(`nombre`) = \"" + user + "\""
@@ -13,6 +15,9 @@ class BDOperaciones:
             print("login correcto")
             return True
 
+    #Recive un usuario y devuelve su contrasena y si tiene un correo electronico asociado o no
+    #Returns string, boolean (Contrasena, False si no tiene correo asociado)
+    #Returns NONE, NONE (si no se encuentra usuario)
     def recovery(self,user: str):
         db = BD()
         nombre = "LOWER(`nombre`) = \"" + user.lower() + "\""
@@ -32,6 +37,8 @@ class BDOperaciones:
         else:
             return None, None
 
+    #Recibe un usuario y un email y actualiza el email almacenado en la base de datos
+    #Reurns boolean (False si no se encuentra el usuario)
     def actualizarEmail(self, user: str, email: str):
         db = BD()
         nombre = "LOWER(`nombre`) = \"" + user.lower() + "\""
@@ -49,6 +56,8 @@ class BDOperaciones:
         else:
             return False
 
+    #Devuelve todos los usuarios de la base de datos y su correspondiente informacion de socio/voluntario
+    #Returns [users], where user is [[list with data from usuario],[list with data from voluntario/socio]]
     def getUsuarios(self):
         db = BD()
         usuarios = db.select('*', 'usuario')

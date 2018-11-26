@@ -51,7 +51,16 @@ class BDOperaciones:
 
     def getUsuarios(self):
         db = BD()
-        return db.select('*', 'usuario')
+        usuarios = db.select('*', 'usuario')
+        result = []
+        for user in usuarios:
+            if user[3] == 'Socio':
+                datosSocio = db.selectEscalar('*', 'socio', 'usuario=\'' + str(user[0]) + '\'')
+                result.append([user, datosSocio])
+            else:
+                datosVoluntario = db.selectEscalar('*', 'voluntario', 'usuario=\'' + str(user[0]) + '\'')
+                result.append([user, datosVoluntario])
+        return result
 
 if __name__ == '__main__':
     l = BDOperaciones()

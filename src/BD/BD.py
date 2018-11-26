@@ -77,10 +77,23 @@ class BD:
                 query = 'delete from ' + tabla + ';'
             else:
                 query = 'delete from ' + tabla + ' where ' + condicion + ';'
-            print(query)
-            #cursor.execute(query)
+            #print(query)
+            cursor.execute(query)
             cursor.close()
             return
+        except Error as e:
+            print(e)
+
+    def update(self, tabla: str, setData: str, condicion: str = None):
+        try:
+            cursor = self.conn.cursor()
+            if condicion is None:
+                query = 'UPDATE ' + tabla + ' SET ' + setData + ';'
+            else:
+                query = 'UPDATE ' + tabla + ' SET ' + setData + ' WHERE ' + condicion + ';'
+            #print(query)
+            cursor.execute(query)
+            cursor.close()
         except Error as e:
             print(e)
 

@@ -55,20 +55,42 @@ class BDOperaciones:
             return True
         else:
             return False
+    #Devuelve una lista con todos los nombres de columnas de una tabla
+    #Returns [string]
+    def nombreColumnas(self, tabla: str):
+        db = BD()
+        result = db.describe(tabla)
+        columnas = []
+        for columna in result:
+            columnas.append(columna[0])
+        return columnas
 
     #Devuelve todos los usuarios de la base de datos y su correspondiente informacion de socio/voluntario
-    #Returns [users], where user is [[list with data from usuario],[list with data from voluntario/socio]]
+    #Returns [users], where `user` is a dictionary with all data indexed by the column names in the database
     def getUsuarios(self):
         db = BD()
         usuarios = db.select('*', 'usuario')
+        colUsuario = self.nombreColumnas('usuario')
+        colSocio = self.nombreColumnas('socio')
+        colVoluntario = self.nombreColumnas('voluntario')
         result = []
         for user in usuarios:
             if user[3] == 'Socio':
                 datosSocio = db.selectEscalar('*', 'socio', 'usuario=\'' + str(user[0]) + '\'')
-                result.append([user, datosSocio])
+                dictSocio = {}
+                for i, col in enumerate(colUsuario):
+                    dictSocio[col] = user[i]
+                for i, col in enumerate(colSocio):
+                    dictSocio[col] = datosSocio[i]
+                result.append(dictSocio)
             else:
                 datosVoluntario = db.selectEscalar('*', 'voluntario', 'usuario=\'' + str(user[0]) + '\'')
-                result.append([user, datosVoluntario])
+                dictVoluntario = {}
+                for i, col in enumerate(colUsuario):
+                    dictVoluntario[col] = user[i]
+                for i, col in enumerate(colVoluntario):
+                    dictVoluntario[col] = datosVoluntario[i]
+                result.append(dictVoluntario)
         return result
 
 if __name__ == '__main__':

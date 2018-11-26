@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHeaderView
 from BD.BDOperaciones import BDOperaciones
 from perfilUsuario import PerfilUsuario
 import datetime
@@ -13,7 +13,9 @@ class GestorUsuario(base_1, form_1):
         self.setupUi(self)
         self.parent = parent
         self.child = []
-
+        #Estos deben de ser datos comunes a socios y voluntarios
+        self.datosComunes = ['nombre_pila', 'apellidos', 'provincia', 'estado']
+        self.datosUsuarios = ['rol', 'permiso']
         self.getUsuarios()
 
         self.bAtras.clicked.connect(self.atras)
@@ -36,22 +38,18 @@ class GestorUsuario(base_1, form_1):
     def getUsuarios(self):
         db = BDOperaciones()
         usuarios = db.getUsuarios()
-        self.tUsuarios.setColumnCount(len(usuarios[0][0]) + len(usuarios[0][1]))
+        self.tUsuarios.verticalHeader().hide()
+        self.tUsuarios.setColumnCount(len(self.datosComunes) + len(self.datosUsuarios))
         self.tUsuarios.setRowCount(len(usuarios))
+        self.tUsuarios.setHorizontalHeaderLabels(self.datosComunes+self.datosUsuarios)
+        self.tUsuarios.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
         for i, user in enumerate(usuarios):
-            for j, data in enumerate(user[0]):
-                if type(data) is int:
-                    self.tUsuarios.setItem(i, j, QTableWidgetItem(str(data)))
-                else:
-                    self.tUsuarios.setItem(i, j, QTableWidgetItem(data))
-            for j, data in enumerate(user[1]):
-                #print(type(data))
-                if type(data) is datetime.date:
-                    self.tUsuarios.setItem(i, len(user[0]) + j, QTableWidgetItem(data.strftime('%Y-%m-%d')))
-                elif type(data) is int:
-                    self.tUsuarios.setItem(i, len(user[0]) + j, QTableWidgetItem(str(data)))
-                else:
-                    self.tUsuarios.setItem(i, len(user[0]) + j, QTableWidgetItem(data))
+            for j, key in enumerate(self.datosComunes):
+                self.tUsuarios.setItem(i, j, QTableWidgetItem(user[key]))
+            for j, key in enumerate(self.datosUsuarios):
+                self.tUsuarios.setItem(i, len(self.datosComunes) + j, QTableWidgetItem(user[key]))
+
+
         return []
 
 if __name__ == '__main__':

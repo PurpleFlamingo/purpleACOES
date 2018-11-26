@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
-from BD import BD
+from BD.BDOperaciones import BDOperaciones
 import recursosQT_rc
 
 form_1, base_1 = uic.loadUiType('UI/perfilUsuario.ui')
@@ -12,12 +12,12 @@ class PerfilUsuario(base_1, form_1):
         self.setupUi(self)
         self.parent = parent
         self.child = []
-       
+
 
     def salir(self):
         self.parent.show()
         self.hide()
-    
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

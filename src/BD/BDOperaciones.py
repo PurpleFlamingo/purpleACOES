@@ -19,12 +19,15 @@ class BDOperaciones:
         claveBD = db.selectEscalar("id_usuario, clave, rol","usuario",nombre)
         if claveBD != None:
             claveRecuperada = claveBD[1]
+            cond = "LOWER(`usuario`) = " + (str(claveBD[0])).lower()
             if claveBD[2] == "Socio":
                 tabla = "socio"
+                identificacion = db.selectEscalar("id_socio",tabla,cond)
             else:
                 tabla = "voluntario"
-            cond = "LOWER(`usuario`) = " + (str(claveBD[0])).lower()
-
+                identificacion = db.selectEscalar("id_voluntario",tabla,cond)
+            id = identificacion[0]
+            print("Identificacion: ",id)
             emailDB = db.selectEscalar("correo_electronico",tabla,cond)
             if(emailDB[0] != None):
                 return claveRecuperada, False

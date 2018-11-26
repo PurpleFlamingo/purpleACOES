@@ -4,31 +4,35 @@ class BDOperaciones:
 
     def login(self,user: str, password: str):
         db = BD()
-        nombre = "nombre = \"" + user + "\""
+        nombre = "LOWER(`nombre`) = \"" + user + "\""
         claveBD = db.selectEscalar("clave","usuario",nombre)
         if password == claveBD[0]:
             print("login correcto")
+            return True
         else:
             print("login incorrecto")
+            return False
 
     def recovery(self,user: str):
         db = BD()
-        nombre = "nombre = \"" + user + "\""
-        claveBD = db.selectEscalar("identificacion, clave, rol","usuario",nombre)
-        if claveBD[2] == "Socio":
-            tabla = "socio"
-        else:
-            tabla = "agente"
-        cond = "identificacion = " + str(claveBD[0])
+        nombre = "LOWER(`nombre`) = \"" + user + "\""
+        claveBD = db.selectEscalar("id_usuario, clave, rol","usuario",nombre)
+        if claveBD != None:
+            claveRecuperada = claveBD[1]
+            if claveBD[2] == "Socio":
+                tabla = "socio"
+            else:
+                tabla = "voluntario"
+            cond = "LOWER(`usuario`) = " + (str(claveBD[0])).lower()
 
-        emailDB = db.selectEscalar("correo_electronico",tabla,cond)
-        print(user)
-        if(emailDB[0] == None):
-            print("El usuario no posee correo electronico")
+            emailDB = db.selectEscalar("correo_electronico",tabla,cond)
+            if(emailDB[0] != None):
+                return claveRecuperada, False
+            else:
+                return claveRecuperada, True
         else:
-            print("Correo_electronico: ",emailDB[0])
+            return None, None
 
-        print("La contraseña es :", claveBD[1])
 
     def getUsuarios(self):
         db = BD()

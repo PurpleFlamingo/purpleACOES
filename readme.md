@@ -4,7 +4,9 @@ Para conectar con la base de datos, modificar el archivo `src/BD/database.config
 
 **No hagais ningun commit/push de ese archivo.**
 
+Para que los import funcionen debeis correr debeis correr el archivo `purpleACOES/src/launch.py` con la carpeta `purpleACOES/src` como current directory
 
+Las operaciones con la base de datos se haran en `purpleACOES/src/BD/BDOperaciones.py`
 
 Informacion variada:
 
@@ -21,6 +23,7 @@ Informacion variada:
 * Si cambiais la extensión de los script de python de .py a .pyw no aparece la consola.
 
 Inicio de sesión
+
 El funcionamiento del botón login es:
 
 * si el nombre de usuario o la contraseña están vacíos, no hace nada
@@ -37,5 +40,5 @@ El funcionamiento del botón login es:
 
 * si se recibe una respuesta falsa, se incrementa en uno el conteo de intentos erroneos y si es menor de 5 se muestra un mensaje
 
-* y si ese conteo es 5 se muestra un cuadro de dialogo, que bloqua la ventana de inicio de sesión y que solo tiene un botón que 
+* y si ese conteo es 5 se muestra un cuadro de dialogo, que bloqua la ventana de inicio de sesión y que solo tiene un botón que
 cierra la aplicacion.

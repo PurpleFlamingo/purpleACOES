@@ -1,4 +1,4 @@
-# PurpleACOES
+﻿# PurpleACOES
 
 Para conectar con la base de datos, modificar el archivo `src/BD/database.config` con la informacion de la base de datos, usuario y contrasena.
 
@@ -42,3 +42,11 @@ El funcionamiento del botón login es:
 
 * y si ese conteo es 5 se muestra un cuadro de dialogo, que bloqua la ventana de inicio de sesión y que solo tiene un botón que
 cierra la aplicacion.
+
+Perfil de Usuario
+
+Para cargar la imagen desde el recurso se ha tenido que crear un modulo con el siguiente comando
+
+pyrcc5 recursosQT.qrc -o recursosQT_rc.py
+
+para despues importarlo en el archivo perfilUsuario.py

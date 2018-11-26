@@ -3,7 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
 from BD import BD
 
-form_1, base_1 = uic.loadUiType('UI/gestorUsuario.ui')
+form_1, base_1 = uic.loadUiType('UI/gestorUsuario.ui',resource_suffix='')
 
 class GestorUsuario(base_1, form_1):
     def __init__(self, parent = None):

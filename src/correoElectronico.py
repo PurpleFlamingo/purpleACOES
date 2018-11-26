@@ -29,6 +29,7 @@ class CorreoElectronico(base_1, form_1):
             db.actualizarEmail(self.parent.eUserName.text(), email)
             print("La contraseña es :", self.claveRecuperada)
             if self.child is None or self.child != PasswordDisplay(self):
+                self.passwordParent = "Correo"
                 self.child = PasswordDisplay(self)
                 self.child.setModal(True)
                 self.child.show()

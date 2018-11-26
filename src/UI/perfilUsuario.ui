@@ -158,8 +158,8 @@
   </widget>
  </widget>
  <resources>
-  <include location="Imagen.qrc"/>
-  <include location="purpleACOES/recursosQT.qrc"/>
+  <include location="../../recursosQT.qrc"/>
+  <include location="../../recursosQT.qrc"/>
  </resources>
  <connections/>
 </ui>

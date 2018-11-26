@@ -6,12 +6,12 @@ class BDOperaciones:
         db = BD()
         nombre = "LOWER(`nombre`) = \"" + user + "\""
         claveBD = db.selectEscalar("clave","usuario",nombre)
-        if password == claveBD[0]:
-            print("login correcto")
-            return True
-        else:
+        if claveBD == None or password != claveBD[0]:
             print("login incorrecto")
             return False
+        else:
+            print("login correcto")
+            return True
 
     def recovery(self,user: str):
         db = BD()

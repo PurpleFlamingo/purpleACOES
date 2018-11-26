@@ -12,11 +12,12 @@ class PasswordDisplay(base_1, form_1):
         self.setupUi(self)
         self.parent = parent
         self.child = None
-
         self.lPassword.setText(parent.claveRecuperada)
-
         self.bExit.clicked.connect(self.salir)
 
     def salir(self):
         self.hide()
-        self.parent.show()
+        self.parent.salir()
+        if self.parent.passwordParent == "Correo":
+            self.parent.parent.salir()
+        

@@ -41,6 +41,7 @@ class Recovery(base_1, form_1):
                 if self.claveRecuperada == None:
                     self.eUserName.setText('Usuario incorrecto')
                 elif self.child is None or self.child != PasswordDisplay(self):
+                    self.passwordParent = "Recovery"
                     print("La contraseña es :", self.claveRecuperada)
                     self.child = PasswordDisplay(self)
                     self.child.setModal(True)

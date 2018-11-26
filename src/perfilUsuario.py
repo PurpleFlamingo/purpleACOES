@@ -11,9 +11,9 @@ class PerfilUsuario(base_1, form_1):
         super(base_1,self).__init__()
         self.setupUi(self)
         self.parent = parent
-        self.id_socio= 1
+        self.id_socio = id_socio
         self.bSalirSinGuardar.clicked.connect(self.salir)
-        if self.id_socio!=None:
+        if self.id_socio != None:
             db= BDOperaciones()
             socio=db.getSocio(self.id_socio)
             self.eNombre.setText(socio[1])
@@ -36,7 +36,7 @@ class PerfilUsuario(base_1, form_1):
 
 
 
-        
+
 
 
     def salir(self):

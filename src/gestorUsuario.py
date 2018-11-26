@@ -12,7 +12,7 @@ class GestorUsuario(base_1, form_1):
         super(base_1,self).__init__()
         self.setupUi(self)
         self.parent = parent
-        self.child = []
+        self.child = None
         #Estos deben de ser datos comunes a socios y voluntarios
         self.datosComunes = ['nombre_pila', 'apellidos', 'provincia', 'estado']
         self.datosUsuarios = ['rol', 'permiso']
@@ -27,14 +27,13 @@ class GestorUsuario(base_1, form_1):
         self.hide()
 
     def newUsuario(self):
-        self.child.append(PerfilUsuario(self,None))#el segundo valor es de prueba
-        self.child[len(self.child)-1].show()
+        self.child = PerfilUsuario(self)
+        self.child.show()
 
     def editarUsuario(self):
-        self.child.append(PerfilUsuario(self,1))#el segundo valor es de prueba
-        self.child[len(self.child)-1].show()
+        self.child = PerfilUsuario(self,1)#el segundo valor es de prueba
+        self.child.show()
 
-    #TODO: Esta funcion debe recoger de la base de datos todos los usuarios y mostrarlos en la vista
     def getUsuarios(self):
         db = BDOperaciones()
         usuarios = db.getUsuarios()
@@ -49,8 +48,6 @@ class GestorUsuario(base_1, form_1):
             for j, key in enumerate(self.datosUsuarios):
                 self.tUsuarios.setItem(i, len(self.datosComunes) + j, QTableWidgetItem(user[key]))
 
-
-        return []
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

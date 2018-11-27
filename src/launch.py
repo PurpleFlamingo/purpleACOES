@@ -3,7 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
 from gestorUsuario import GestorUsuario
 from recovery import Recovery
-from warning import Advertencia
+from warning import WarningFifthWrongTry
 #from BD.BD import BD
 from BD.BDOperaciones import BDOperaciones
 
@@ -49,7 +49,7 @@ class LogIn(base_1, form_1):
                 if(self.numeroIntentosErroneos < 5):
                     self.lWarning.setText("Usuario o contraeña incorrectos")
                 else:
-                    self.child = Advertencia(self)
+                    self.child = WarningFifthWrongTry(self)
                     self.child.setModal(True)
                     self.child.show()
 

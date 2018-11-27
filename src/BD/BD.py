@@ -100,6 +100,18 @@ class BD:
         except Error as e:
             print(e)
 
+    def describe(self, tabla: str):
+        try:
+            cursor = self.conn.cursor()
+            query = 'describe ' + tabla + ';'
+            #print('El select es: ',self.query)
+            cursor.execute(query)
+            myresult = cursor.fetchall()
+            cursor.close()
+            return myresult
+        except Error as e:
+            print(e)
+
 if __name__ == '__main__':
     bd = BD()
     print("Me he conectado")

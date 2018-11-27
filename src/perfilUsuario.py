@@ -11,7 +11,7 @@ class PerfilUsuario(base_1, form_1):
         self.setupUi(self)
         self.parent = parent
         self.child = []
-        self.bAtras.clicked.connect(self.atras)
+        #self.bAtras.clicked.connect(self.atras)
 
     def atras(self):
         self.parent.show()

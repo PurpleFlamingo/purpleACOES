@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>wCambioContrasenia</class>
+ <widget class="QDialog" name="wCambioContrasenia">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>285</height>
+   </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
+  <property name="windowTitle">
+   <string>Cambiar Contraseña</string>
+  </property>
+  <widget class="QPushButton" name="bAtras">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>220</y>
+     <width>82</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Atrás</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="bEnviar">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>220</y>
+     <width>82</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enviar</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lCAntigua">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>42</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Contraseña Actual</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lCNueva">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>94</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nueva Contraseña</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lCConfirmacion">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>146</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Confirmar Contraseña</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="bCAntigua">
+   <property name="geometry">
+    <rect>
+     <x>157</x>
+     <y>38</y>
+     <width>261</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="bCNueva">
+   <property name="geometry">
+    <rect>
+     <x>157</x>
+     <y>90</y>
+     <width>261</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="bCConfirmacion">
+   <property name="geometry">
+    <rect>
+     <x>157</x>
+     <y>142</y>
+     <width>261</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

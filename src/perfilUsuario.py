@@ -12,10 +12,6 @@ class PerfilUsuario(base_1, form_1):
         super(base_1,self).__init__()
         self.setupUi(self)
         self.parent = parent
-<<<<<<< HEAD
-        self.child = []
-        #self.bAtras.clicked.connect(self.atras)
-=======
         self.id = id
         self.bSalirSinGuardar.clicked.connect(self.salir)
         self.bGuardarYSalir.clicked.connect(self.actualizar)
@@ -58,7 +54,6 @@ class PerfilUsuario(base_1, form_1):
             	self.eCorreoElectronico.setText(v[6])
             	self.eFechaAlta.setText(v[5].strftime('%Y-%m-%d'))
             	self.eFechaNacimiento.setText(v[4].strftime('%Y-%m-%d'))
->>>>>>> 435468c5c443a345cc8eff355055cdc9cd665745
 
 
 

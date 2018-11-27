@@ -1,9 +1,10 @@
 from BD.BD import BD
 
+
 class BDOperaciones:
 
-    #Recibe un usuario y contrasena y comprueba contra la base de datos si es unb login correcto o no
-    #Returns boolean (False si el login es erroneo)
+    # Recibe un usuario y contrasena y comprueba contra la base de datos si es unb login correcto o no
+    # Returns boolean (False si el login es erroneo)
     def login(self,user: str, password: str):
         db = BD()
         nombre = "LOWER(`nombre`) = \"" + user + "\""
@@ -15,9 +16,9 @@ class BDOperaciones:
             print("login correcto")
             return True
 
-    #Recive un usuario y devuelve su contrasena y si tiene un correo electronico asociado o no
-    #Returns string, boolean (Contrasena, False si no tiene correo asociado)
-    #Returns NONE, NONE (si no se encuentra usuario)
+    # Recive un usuario y devuelve su contrasena y si tiene un correo electronico asociado o no
+    # Returns string, boolean (Contrasena, False si no tiene correo asociado)
+    # Returns NONE, NONE (si no se encuentra usuario)
     def recovery(self,user: str):
         db = BD()
         nombre = "LOWER(`nombre`) = \"" + user.lower() + "\""
@@ -37,8 +38,8 @@ class BDOperaciones:
         else:
             return None, None
 
-    #Recibe un usuario y un email y actualiza el email almacenado en la base de datos
-    #Reurns boolean (False si no se encuentra el usuario)
+    # Recibe un usuario y un email y actualiza el email almacenado en la base de datos
+    # Reurns boolean (False si no se encuentra el usuario)
     def actualizarEmail(self, user: str, email: str):
         db = BD()
         nombre = "LOWER(`nombre`) = \"" + user.lower() + "\""
@@ -55,8 +56,8 @@ class BDOperaciones:
             return True
         else:
             return False
-    #Devuelve una lista con todos los nombres de columnas de una tabla
-    #Returns [string]
+    # Devuelve una lista con todos los nombres de columnas de una tabla
+    # Returns [string]
     def nombreColumnas(self, tabla: str):
         db = BD()
         result = db.describe(tabla)
@@ -65,8 +66,8 @@ class BDOperaciones:
             columnas.append(columna[0])
         return columnas
 
-    #Devuelve todos los usuarios de la base de datos y su correspondiente informacion de socio/voluntario
-    #Returns [users], where `user` is a dictionary with all data indexed by the column names in the database
+    # Devuelve todos los usuarios de la base de datos y su correspondiente informacion de socio/voluntario
+    # Returns [users], where `user` is a dictionary with all data indexed by the column names in the database
     def getUsuarios(self):
         db = BD()
         usuarios = db.select('*', 'usuario')
@@ -93,26 +94,27 @@ class BDOperaciones:
                 result.append(dictVoluntario)
         return result
 
-    #Devuelve la datos del socio que tiene esa ID
-    #Returns []
+    # Devuelve la datos del socio que tiene esa ID
+    # Returns []
     def getSocio(self, ID: int):
     	db=BD()
     	datosSocio= db.selectEscalar('*','socio', 'usuario=' + str(ID))
     	return datosSocio;
 
-    #Devuelve la datos del usuario que tiene esa ID
-    #Returns []
+    # Devuelve la datos del usuario que tiene esa ID
+    # Returns []
     def getUsuario(self, ID: int):
         db=BD()
         datosUsuario= db.selectEscalar('*','usuario', 'id_usuario=' + str(ID))
         return datosUsuario;
 
-    #Devuelve la datos del voluntario que tiene esa ID
-    #Returns []
+    # Devuelve la datos del voluntario que tiene esa ID
+    # Returns []
     def getVoluntario(self, ID: int):
         db=BD()
-        datosVoluntario= db.selectEscalar('*','voluntario', 'usuario=' + str(ID))
+        datosVoluntario= db.selectEscalar('*', 'voluntario', 'usuario=' + str(ID))
         return datosVoluntario;
+
 
     def actualizarUsuario(self, datosUsuario, datosOtros, idUser, rolUser):
         db = BD()
@@ -150,8 +152,14 @@ class BDOperaciones:
             #print(update)
             db.update('voluntario', update, 'usuario='+str(idUser))
 
-    def actualizarUsuario(self, datosUsuario, datosOtros, idUser, rolUser):
+    def insertarUsuario(self, datosUsuario, datosOtros, idUser, rolUser):
         print('insertar')
+
+
+    # Cambia la contraseña del usuario de ese ID
+    def setPassUsuario(self, passw: str, ID: int):
+        db = BD()
+        db.update('usuario', 'clave=\'' + passw + '\'', 'id_usuario=' + str(ID))
 
 
 

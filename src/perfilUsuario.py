@@ -19,7 +19,7 @@ class PerfilUsuario(base_1, form_1):
         if self.idUser != None:
             self.cargarDatos()
             self.rolUser = self.eRol.text()
-            print(self.eRol.text())
+            #print(self.eRol.text())
             self.bGuardarYSalir.clicked.connect(self.actualizar)
         else:
             self.bGuardarYSalir.clicked.connect(self.insertar)
@@ -58,7 +58,7 @@ class PerfilUsuario(base_1, form_1):
             self.eComentarios.setText(socio[17])
         else:
             v=db.getVoluntario(self.idUser)
-            print(v)
+            #print(v)
             self.eNombre.setText(v[1])
             self.eApellidos.setText(v[2])
             self.eNif.setText(v[3])

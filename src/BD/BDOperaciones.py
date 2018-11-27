@@ -92,21 +92,26 @@ class BDOperaciones:
                     dictVoluntario[col] = datosVoluntario[i]
                 result.append(dictVoluntario)
         return result
+
     #Devuelve la datos del socio que tiene esa ID
-    def getSocio(self, ID):
+    #Returns []
+    def getSocio(self, ID: int):
     	db=BD()
-    	datosSocio= db.selectEscalar('*','socio', 'id_socio='+str(ID))
+    	datosSocio= db.selectEscalar('*','socio', 'usuario=' + str(ID))
     	return datosSocio;
+
     #Devuelve la datos del usuario que tiene esa ID
-    def getUsuario(self, ID):
+    #Returns []
+    def getUsuario(self, ID: int):
         db=BD()
-        datosUsuario= db.selectEscalar('*','usuario', 'id_usuario='+str(ID))
+        datosUsuario= db.selectEscalar('*','usuario', 'id_usuario=' + str(ID))
         return datosUsuario;
 
     #Devuelve la datos del voluntario que tiene esa ID
-    def getVoluntario(self, ID):
+    #Returns []
+    def getVoluntario(self, ID: int):
         db=BD()
-        datosVoluntario= db.selectEscalar('*','voluntario', 'id_voluntario='+str(ID))
+        datosVoluntario= db.selectEscalar('*','voluntario', 'usuario=' + str(ID))
         return datosVoluntario;
 
 if __name__ == '__main__':

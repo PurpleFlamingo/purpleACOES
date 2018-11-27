@@ -22,7 +22,7 @@ class PerfilUsuario(base_1, form_1):
             self.eClave.setText(usuario[2])
             self.eRol.setText(usuario[3])
             self.ePermiso.setText(usuario[4])
-            if usuario[3]=="socio":
+            if usuario[3]=="Socio":
             	socio=db.getSocio(self.id)
             	self.eNombre.setText(socio[1])
             	self.eApellidos.setText(socio[2])
@@ -80,11 +80,11 @@ class PerfilUsuario(base_1, form_1):
     		db.delete('socio', 'id_socio='+str(self.id))
     		db.delete('voluntario','id_voluntario='+str(self.id))
 
-    		
+
     	db.insert(datosUsuario,"usuario")
     	if self.eRol.text()=="socio":
     		db.insert(datosSocio,"socio")
-    	else:	
+    	else:
     		db.insert(datosVoluntario,"voluntario")
 
 

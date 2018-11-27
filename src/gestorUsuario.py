@@ -28,6 +28,9 @@ class GestorUsuario(base_1, form_1):
         self.bAnadirUsuario.clicked.connect(self.newUsuario)
         self.bEditarUsuario.clicked.connect(self.editarUsuario)
 
+    def recargar(self):
+        self.getUsuarios()
+
     def atras(self):
         self.parent.show()
         self.hide()

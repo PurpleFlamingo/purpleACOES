@@ -114,6 +114,47 @@ class BDOperaciones:
         datosVoluntario= db.selectEscalar('*','voluntario', 'usuario=' + str(ID))
         return datosVoluntario;
 
+    def actualizarUsuario(self, datosUsuario, datosOtros, idUser, rolUser):
+        db = BD()
+        colUsuario = self.nombreColumnas('usuario')
+        update = ''
+        for i, col in enumerate(colUsuario[1:]):
+            if datosUsuario[i] == None:
+                continue
+            else:
+                update += (col + '=\'' + datosUsuario[i]+'\',')
+
+        update = update[:-1]
+        db.update('usuario', update, 'id_usuario='+str(idUser))
+
+        if rolUser == 'Socio':
+            colSocio = self.nombreColumnas('socio')
+            update = ''
+            for i, col in enumerate(colSocio[1:]):
+                if datosOtros[i] == None:
+                    continue
+                else:
+                    update += (col + '=\'' + datosOtros[i]+'\',')
+            update = update[:-1]
+            #print(update)
+            db.update('socio', update, 'usuario='+str(idUser))
+        else:
+            colVol = self.nombreColumnas('voluntario')
+            update = ''
+            for i, col in enumerate(colVol[1:]):
+                if datosOtros[i] == None:
+                    continue
+                else:
+                    update += (col + '=\'' + datosOtros[i]+'\',')
+            update = update[:-1]
+            #print(update)
+            db.update('voluntario', update, 'usuario='+str(idUser))
+
+    def actualizarUsuario(self, datosUsuario, datosOtros, idUser, rolUser):
+        print('insertar')
+
+
+
 if __name__ == '__main__':
     l = BDOperaciones()
 

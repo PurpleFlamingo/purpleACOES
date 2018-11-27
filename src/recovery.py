@@ -20,7 +20,7 @@ class Recovery(base_1, form_1):
         self.bOk.clicked.connect(self.olvido)
 
     def salir(self):
-        self.hide()
+        self.close()
         self.parent.show()
 
     def olvido(self):
@@ -33,17 +33,17 @@ class Recovery(base_1, form_1):
             db = BDOperaciones()
             self.claveRecuperada, emailSet = db.recovery(user)
             if(emailSet):
-                if self.child is None or self.child != CorreoElectronico(self):
-                    self.child = CorreoElectronico(self)
+                if self.child is None or self.child != CorreoElectronico(self, self.claveRecuperada, self.eUserName):
+                    self.child = CorreoElectronico(self, self.claveRecuperada, self.eUserName.text())
                     self.child.setModal(True)
                     self.child.show()
             else:
                 if self.claveRecuperada == None:
                     self.eUserName.setText('Usuario incorrecto')
-                elif self.child is None or self.child != PasswordDisplay(self):
-                    self.passwordParent = "Recovery"
+                elif self.child is None or self.child != PasswordDisplay(self,claveRecuperada= self.claveRecuperada, passwordParent= passwordParent):
+                    passwordParent = "Recovery"
                     print("La contraseña es :", self.claveRecuperada)
-                    self.child = PasswordDisplay(self)
+                    self.child = PasswordDisplay(self, claveRecuperada= self.claveRecuperada, passwordParent= passwordParent)
                     self.child.setModal(True)
                     self.child.show()
 

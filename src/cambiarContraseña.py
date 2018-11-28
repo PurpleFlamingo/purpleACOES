@@ -21,7 +21,7 @@ class CambiarContrasenia(base_1, form_1):
         bd = BDOperaciones()
         contrasenia = str(bd.getUsuario(self.idUsuario)[2])
         print(self.idUsuario)
-        print(contrasenia + " kebab")
+        print(contrasenia + " kebab " + str(bd.getUsuario(self.idUsuario)[1]))
         print(self.eCAntigua.text())
         print(self.eCNueva.text())
         print(self.eCConfirmacion.text())
@@ -44,12 +44,12 @@ class CambiarContrasenia(base_1, form_1):
                 self.eCNueva.setText("")
                 self.eCConfirmacion.setText("")
             else:
-                bd.setPassUsuario(str(self.eCNueva.text()), idusuario)
+                bd.setPassUsuario(self.eCNueva.text(), idusuario)
                 self.lMensaje.setText("Se ha cambiado la contraseña con exito.")
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    cambiarContraseniaW = CambiarContrasenia(2)
+    cambiarContraseniaW = CambiarContrasenia(1)
     cambiarContraseniaW.show()
     sys.exit(app.exec_())

@@ -28,6 +28,7 @@ class GestorUsuario(base_1, form_1):
         self.bAnadirUsuario.clicked.connect(self.newUsuario)
         self.bEditarUsuario.clicked.connect(self.editarUsuario)
         self.bActualizar.clicked.connect(self.recargar)
+        self.bBuscar.clicked.connect(self.busqueda)
 
     def recargar(self):
         self.getUsuarios()
@@ -37,7 +38,7 @@ class GestorUsuario(base_1, form_1):
         self.hide()
 
     def newUsuario(self):
-        rol = self.cRol.currentText()
+        rol = self.cRolNew.currentText()
         self.child = PerfilUsuario(self, rol = rol)
         self.child.show()
 
@@ -63,18 +64,46 @@ class GestorUsuario(base_1, form_1):
         self.tUsuarios.setHorizontalHeaderLabels(self.cabeceras)
         self.tUsuarios.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
         roles = []
+        permisos = []
+        provincias = []
+        estados = []
         for i, user in enumerate(usuarios):
             for j, key in enumerate(self.datosComunes):
+                if key == 'provincia':
+                    if user[key] not in provincias:
+                        provincias.append(user[key])
+                elif key == 'estado':
+                    if user[key] not in estados:
+                        estados.append(user[key])
                 self.tUsuarios.setItem(i, j, QTableWidgetItem(user[key]))
             for j, key in enumerate(self.datosUsuarios):
                 if key == 'rol':
                     if user[key] not in roles:
                         roles.append(user[key])
+                elif key == 'permiso':
+                    if user[key] not in permisos:
+                        permisos.append(user[key])
                 self.tUsuarios.setItem(i, len(self.datosComunes) + j, QTableWidgetItem(user[key]))
 
+        self.cProvincia.clear()
+        self.cProvincia.addItems([''])
+        self.cProvincia.addItems(provincias)
+        self.cEstado.clear()
+        self.cEstado.addItems([''])
+        self.cEstado.addItems(estados)
+        self.cRolNew.clear()
+        self.cRolNew.addItems(roles)
         self.cRol.clear()
+        self.cRol.addItems([''])
         self.cRol.addItems(roles)
+        self.cPermiso.clear()
+        self.cPermiso.addItems([''])
+        self.cPermiso.addItems(permisos)
+
         self.usuarios = usuarios
+
+    def busqueda(self):
+        print('Buscando')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

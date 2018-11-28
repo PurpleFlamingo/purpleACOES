@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>-10</y>
+      <y>10</y>
       <width>91</width>
-      <height>51</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -32,32 +32,17 @@
     <property name="text">
      <string>Busqueda:</string>
     </property>
-   </widget>
-   <widget class="QLineEdit" name="eBusqueda">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>10</y>
-      <width>651</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>13</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string extracomment="Busqueda por nombre/rol/pais"/>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QTableWidget" name="tUsuarios">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>60</y>
+      <y>80</y>
       <width>731</width>
-      <height>371</height>
+      <height>351</height>
      </rect>
     </property>
     <property name="sizeAdjustPolicy">
@@ -84,7 +69,12 @@
     </column>
     <column>
      <property name="text">
-      <string>Rol</string>
+      <string>Apellidos</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Provincia</string>
      </property>
     </column>
     <column>
@@ -92,19 +82,29 @@
       <string>Pais</string>
      </property>
     </column>
+    <column>
+     <property name="text">
+      <string>Rol</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Permiso</string>
+     </property>
+    </column>
     <item row="0" column="0">
      <property name="text">
       <string>Usuario1</string>
      </property>
     </item>
-    <item row="0" column="1">
-     <property name="text">
-      <string>Coordiandor de Proyecto</string>
-     </property>
-    </item>
-    <item row="0" column="2">
+    <item row="0" column="3">
      <property name="text">
       <string>Honduras</string>
+     </property>
+    </item>
+    <item row="0" column="4">
+     <property name="text">
+      <string>Coordiandor de Proyecto</string>
      </property>
     </item>
    </widget>
@@ -152,7 +152,7 @@
      <string>Editar usuario</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="cRol">
+   <widget class="QComboBox" name="cRolNew">
     <property name="geometry">
      <rect>
       <x>240</x>
@@ -173,6 +173,157 @@
     </property>
     <property name="text">
      <string>Actualizar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lNombre">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>20</y>
+      <width>64</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Nombre</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lApellidos">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>40</y>
+      <width>64</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Apellidos</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lProvincia">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>20</y>
+      <width>64</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Provincia</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lEstado">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>40</y>
+      <width>64</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Estado</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lRol">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>20</y>
+      <width>64</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Rol</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lPermiso">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>40</y>
+      <width>64</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Permiso</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bBuscar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>91</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Buscar</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cProvincia">
+    <property name="geometry">
+     <rect>
+      <x>385</x>
+      <y>10</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cEstado">
+    <property name="geometry">
+     <rect>
+      <x>385</x>
+      <y>40</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cRol">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>10</y>
+      <width>171</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cPermiso">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>40</y>
+      <width>171</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eNombre">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>10</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eApellidos">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>40</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
     </property>
    </widget>
   </widget>

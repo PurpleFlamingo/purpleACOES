@@ -21,27 +21,31 @@ class GestorUsuario(base_1, form_1):
         #Deben referirse a los datos de las dos listas de arriba concatenadas y ordenadas
         self.cabeceras = ['Nombre', 'Apellidos', 'Provincia', 'Estado', 'Rol', 'Permiso']
 
+        #Lista con toda la informacion de los usuarios actuales en la base de datos
         self.usuarios = []
-        self.getUsuarios()
+        self.recargar()
 
+        #Relacion entre eventos y funciones
         self.bAtras.clicked.connect(self.atras)
         self.bAnadirUsuario.clicked.connect(self.newUsuario)
         self.bEditarUsuario.clicked.connect(self.editarUsuario)
         self.bActualizar.clicked.connect(self.recargar)
         self.bBuscar.clicked.connect(self.busqueda)
 
-    def recargar(self):
-        self.getUsuarios()
 
+    #Carga la vista del padre
     def atras(self):
         self.parent.show()
-        self.hide()
+        self.close()
 
+    #Carga la vista de perfil de usuario con una vista vacia para crear un usuario nuevo
     def newUsuario(self):
         rol = self.cRolNew.currentText()
         self.child = PerfilUsuario(self, rol = rol)
         self.child.show()
 
+    #Carga la vista de perfil de usuario con los datos del usuario seleccionado
+    #Si no hay usuario seleccionado lanza un warning
     def editarUsuario(self):
         index = self.tUsuarios.selectedIndexes()
         if not index:
@@ -55,6 +59,7 @@ class GestorUsuario(base_1, form_1):
             self.child = PerfilUsuario(self,id = idSeleccionado)
             self.child.show()
 
+    #Reinicia todos los campos usados en el filtrado
     def resetBusqueda(self):
         self.eNombre.setText('')
         self.eApellidos.setText('')
@@ -63,9 +68,12 @@ class GestorUsuario(base_1, form_1):
         self.cRol.setCurrentIndex(0)
         self.cPermiso.setCurrentIndex(0)
 
-    def getUsuarios(self):
+    #Actualiza la informacion de usuarios de la base de datos y los muestra todos en la tabla
+    def recargar(self):
         db = BDOperaciones()
         usuarios = db.getUsuarios()
+
+        #Cargamos los metadatos de la tabla
         self.tUsuarios.verticalHeader().hide()
         self.tUsuarios.setColumnCount(len(self.cabeceras))
         self.tUsuarios.setRowCount(len(usuarios))
@@ -75,6 +83,7 @@ class GestorUsuario(base_1, form_1):
         permisos = []
         provincias = []
         estados = []
+        #Iteramos por todos los usuarios y datos de cada usuario, y guardamos los elementos que necesitaremos para los desplegables
         for i, user in enumerate(usuarios):
             for j, key in enumerate(self.datosComunes):
                 if key == 'provincia':
@@ -93,6 +102,7 @@ class GestorUsuario(base_1, form_1):
                         permisos.append(user[key])
                 self.tUsuarios.setItem(i, len(self.datosComunes) + j, QTableWidgetItem(user[key]))
 
+        #Cargar lista de opciones en cada comboBox
         self.cProvincia.clear()
         self.cProvincia.addItems([''])
         self.cProvincia.addItems(provincias)
@@ -112,7 +122,9 @@ class GestorUsuario(base_1, form_1):
 
         self.usuarios = usuarios
 
+    #Filtra el contenido de la tabla y actualiza la vista
     def busqueda(self):
+        #lectura de los campos de filtrado
         nombre = self.eNombre.text()
         apellido = self.eApellidos.text()
         provincia = self.cProvincia.currentText()
@@ -120,6 +132,7 @@ class GestorUsuario(base_1, form_1):
         rol = self.cRol.currentText()
         permiso = self.cPermiso.currentText()
 
+        #Filtramos todos los resultados por todos los campos
         result = self.usuarios
 
         result = [user for user in result if nombre == '' or nombre.lower() in user['nombre_pila'].lower()]
@@ -129,6 +142,7 @@ class GestorUsuario(base_1, form_1):
         result = [user for user in result if rol == '' or rol.lower() in user['rol'].lower()]
         result = [user for user in result if permiso == '' or permiso.lower() in user['permiso'].lower()]
 
+        #Actualizamos la vista por los contenidos fitrados
         self.tUsuarios.setRowCount(len(result))
         for i, user in enumerate(result):
             for j, key in enumerate(self.datosComunes):

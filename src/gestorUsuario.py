@@ -103,7 +103,13 @@ class GestorUsuario(base_1, form_1):
         self.usuarios = usuarios
 
     def busqueda(self):
-        print('Buscando')
+        nombre = self.eNombre.text()
+        apellido = self.eApellidos.text()
+        provincia = self.cProvincia.currentText()
+        estado = self.cEstado.currentText()
+        rol = self.cRol.currentText()
+        permiso = self.cPermiso.currentText()
+        print(nombre + apellido + provincia + estado + rol + permiso)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

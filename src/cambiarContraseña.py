@@ -20,7 +20,7 @@ class CambiarContrasenia(base_1, form_1):
 
     # Metodo que devuelve a perfil de usuario pulsando el boton atras
     def atras(self):
-        self.parent.show()
+        # self.parent.show()
         self.close()
 
     # Metodo que actualiza la contraseña de usuario o notifica un error en la bd

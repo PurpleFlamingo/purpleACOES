@@ -124,9 +124,9 @@
    <widget class="QPushButton" name="bAnadirUsuario">
     <property name="geometry">
      <rect>
-      <x>559</x>
+      <x>530</x>
       <y>440</y>
-      <width>91</width>
+      <width>111</width>
       <height>25</height>
      </rect>
     </property>
@@ -142,14 +142,37 @@
    <widget class="QPushButton" name="bEditarUsuario">
     <property name="geometry">
      <rect>
-      <x>659</x>
+      <x>649</x>
       <y>440</y>
-      <width>91</width>
+      <width>101</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
      <string>Editar usuario</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cRol">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>440</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bActualizar">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>440</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Actualizar</string>
     </property>
    </widget>
   </widget>

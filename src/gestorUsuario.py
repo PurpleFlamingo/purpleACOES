@@ -27,6 +27,7 @@ class GestorUsuario(base_1, form_1):
         self.bAtras.clicked.connect(self.atras)
         self.bAnadirUsuario.clicked.connect(self.newUsuario)
         self.bEditarUsuario.clicked.connect(self.editarUsuario)
+        self.bActualizar.clicked.connect(self.recargar)
 
     def recargar(self):
         self.getUsuarios()
@@ -36,7 +37,8 @@ class GestorUsuario(base_1, form_1):
         self.hide()
 
     def newUsuario(self):
-        self.child = PerfilUsuario(self)
+        rol = self.cRol.currentText()
+        self.child = PerfilUsuario(self, rol = rol)
         self.child.show()
 
     def editarUsuario(self):
@@ -49,7 +51,7 @@ class GestorUsuario(base_1, form_1):
         else:
             user = index[0].row()
             idSeleccionado = self.usuarios[user]['id_usuario']
-            self.child = PerfilUsuario(self,idSeleccionado)
+            self.child = PerfilUsuario(self,id = idSeleccionado)
             self.child.show()
 
     def getUsuarios(self):
@@ -60,11 +62,18 @@ class GestorUsuario(base_1, form_1):
         self.tUsuarios.setRowCount(len(usuarios))
         self.tUsuarios.setHorizontalHeaderLabels(self.cabeceras)
         self.tUsuarios.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
+        roles = []
         for i, user in enumerate(usuarios):
             for j, key in enumerate(self.datosComunes):
                 self.tUsuarios.setItem(i, j, QTableWidgetItem(user[key]))
             for j, key in enumerate(self.datosUsuarios):
+                if key == 'rol':
+                    if user[key] not in roles:
+                        roles.append(user[key])
                 self.tUsuarios.setItem(i, len(self.datosComunes) + j, QTableWidgetItem(user[key]))
+
+        self.cRol.clear()
+        self.cRol.addItems(roles)
         self.usuarios = usuarios
 
 if __name__ == '__main__':

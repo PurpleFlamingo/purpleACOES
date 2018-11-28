@@ -7,12 +7,12 @@ import recursosQT_rc
 form_1, base_1 = uic.loadUiType('UI/perfilUsuario.ui')
 
 class PerfilUsuario(base_1, form_1):
-    def __init__(self, parent = None, id = None):
+    def __init__(self, parent = None, id = None, rol = None):
         super(base_1,self).__init__()
         self.setupUi(self)
         self.parent = parent
         self.idUser = id
-        self.rolUser = None
+        self.rolUser = rol
         self.bSalirSinGuardar.clicked.connect(self.salir)
 
 
@@ -26,7 +26,6 @@ class PerfilUsuario(base_1, form_1):
 
 
     def salir(self):
-        self.parent.recargar()
         self.parent.show()
         self.close()
 

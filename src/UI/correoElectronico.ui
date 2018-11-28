@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Correo electrónico</string>
+   <string>Gestor ACOES: Recuperacion de Contraseña</string>
   </property>
   <widget class="QLabel" name="lEmail">
    <property name="geometry">

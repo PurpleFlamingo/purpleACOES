@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Gestor ACOES: Log In</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="bExit">

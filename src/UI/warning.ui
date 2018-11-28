@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Inicio de sesión invalido</string>
+   <string>Gestor ACOES: Inicio de sesión invalido</string>
   </property>
   <widget class="QLabel" name="lMensaje">
    <property name="geometry">

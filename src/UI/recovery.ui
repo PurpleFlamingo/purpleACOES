@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Recordatorio de contraseña</string>
+   <string>Gestor ACOES: Recordatorio de contraseña</string>
   </property>
   <property name="toolTipDuration">
    <number>-4</number>

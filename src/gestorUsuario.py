@@ -55,6 +55,14 @@ class GestorUsuario(base_1, form_1):
             self.child = PerfilUsuario(self,id = idSeleccionado)
             self.child.show()
 
+    def resetBusqueda(self):
+        self.eNombre.setText('')
+        self.eApellidos.setText('')
+        self.cProvincia.setCurrentIndex(0)
+        self.cEstado.setCurrentIndex(0)
+        self.cRol.setCurrentIndex(0)
+        self.cPermiso.setCurrentIndex(0)
+
     def getUsuarios(self):
         db = BDOperaciones()
         usuarios = db.getUsuarios()
@@ -100,6 +108,8 @@ class GestorUsuario(base_1, form_1):
         self.cPermiso.addItems([''])
         self.cPermiso.addItems(permisos)
 
+        #self.resetBusqueda()
+
         self.usuarios = usuarios
 
     def busqueda(self):
@@ -109,7 +119,24 @@ class GestorUsuario(base_1, form_1):
         estado = self.cEstado.currentText()
         rol = self.cRol.currentText()
         permiso = self.cPermiso.currentText()
-        print(nombre + apellido + provincia + estado + rol + permiso)
+
+        result = self.usuarios
+
+        result = [user for user in result if nombre == '' or nombre.lower() in user['nombre_pila'].lower()]
+        result = [user for user in result if apellido == '' or apellido.lower() in user['apellidos'].lower()]
+        result = [user for user in result if provincia == '' or provincia.lower() in user['provincia'].lower()]
+        result = [user for user in result if estado == '' or estado.lower() in user['estado'].lower()]
+        result = [user for user in result if rol == '' or rol.lower() in user['rol'].lower()]
+        result = [user for user in result if permiso == '' or permiso.lower() in user['permiso'].lower()]
+
+        self.tUsuarios.setRowCount(len(result))
+        for i, user in enumerate(result):
+            for j, key in enumerate(self.datosComunes):
+                self.tUsuarios.setItem(i, j, QTableWidgetItem(user[key]))
+            for j, key in enumerate(self.datosUsuarios):
+                self.tUsuarios.setItem(i, len(self.datosComunes) + j, QTableWidgetItem(user[key]))
+
+        #self.resetBusqueda()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

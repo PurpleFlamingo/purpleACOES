@@ -27,7 +27,7 @@
 font: 75 italic 10pt &quot;Arial&quot;;</string>
    </property>
    <property name="text">
-    <string>Se han introducido 5 veces seguidas datos de  
+    <string>Se han introducido 5 veces seguidas datos de
   inicio de sesión erroneos, la aplicación se cerrará.</string>
    </property>
    <property name="alignment">

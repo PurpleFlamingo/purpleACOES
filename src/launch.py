@@ -3,8 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
 from gestorUsuario import GestorUsuario
 from recovery import Recovery
-from warning import WarningFifthWrongTry
-#from BD.BD import BD
+from warningFifthWrongTry import WarningFifthWrongTry
 from BD.BDOperaciones import BDOperaciones
 
 

@@ -19,7 +19,7 @@ class GestorUsuario(base_1, form_1):
         self.datosUsuarios = ['rol', 'permiso']
         #Lista de nombres de las columnas
         #Deben referirse a los datos de las dos listas de arriba concatenadas y ordenadas
-        self.cabeceras = ['Nombre', 'Apellidos', 'Provincia', 'Estado', 'Rol', 'Permiso']
+        self.cabeceras = ['Nombre', 'Apellidos', 'Provincia', 'Pais', 'Rol', 'Permiso']
 
         #Lista con toda la informacion de los usuarios actuales en la base de datos
         self.usuarios = []

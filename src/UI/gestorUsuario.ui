@@ -224,7 +224,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Estado</string>
+     <string>Pais</string>
     </property>
    </widget>
    <widget class="QLabel" name="lRol">

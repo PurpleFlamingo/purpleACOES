@@ -56,7 +56,8 @@ class GestorUsuario(base_1, form_1):
         else:
             user = index[0].row()
             idSeleccionado = self.usuarios[user]['id_usuario']
-            self.child = PerfilUsuario(self,id = idSeleccionado)
+            rolSeleccionado = self.usuarios[user]['rol']
+            self.child = PerfilUsuario(self,id = idSeleccionado, rol = rolSeleccionado)
             self.child.show()
 
     #Reinicia todos los campos usados en el filtrado

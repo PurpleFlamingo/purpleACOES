@@ -159,7 +159,7 @@
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>140</y>
+      <y>170</y>
       <width>51</width>
       <height>20</height>
      </rect>
@@ -172,7 +172,7 @@
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>140</y>
+      <y>170</y>
       <width>381</width>
       <height>21</height>
      </rect>
@@ -182,17 +182,17 @@
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>170</y>
+      <y>140</y>
       <width>381</width>
       <height>21</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="lPoblacion_2">
+   <widget class="QLabel" name="lCodigoPostal">
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>170</y>
+      <y>140</y>
       <width>71</width>
       <height>20</height>
      </rect>
@@ -214,7 +214,7 @@
      <string>Estado</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lNombre_3">
+   <widget class="QLabel" name="lTelefono1">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -227,46 +227,7 @@
      <string>Telefono </string>
     </property>
    </widget>
-   <widget class="QLabel" name="lNombre_4">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>280</y>
-      <width>51</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Telefono</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lNombre_5">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>310</y>
-      <width>51</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Correo</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lNombre_6">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>280</y>
-      <width>81</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Fecha de Alta</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lNombre_7">
+   <widget class="QLabel" name="lTelefono2">
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -276,10 +237,36 @@
      </rect>
     </property>
     <property name="text">
-     <string>Sector</string>
+     <string>Telefono 2</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lNombre_8">
+   <widget class="QLabel" name="lCorreo">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>280</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Correo</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lFechaAlta">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>310</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fecha de Alta</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lSector">
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -289,10 +276,23 @@
      </rect>
     </property>
     <property name="text">
+     <string>Sector</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lCertificado">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>340</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
      <string>Certificado</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lNombre_9">
+   <widget class="QLabel" name="lFechaSalida">
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -305,11 +305,11 @@
      <string>Fecha de salida</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lNombre_10">
+   <widget class="QLabel" name="lRelacion">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>340</y>
+      <x>360</x>
+      <y>280</y>
       <width>51</width>
       <height>20</height>
      </rect>
@@ -332,7 +332,7 @@
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>220</y>
+      <y>340</y>
       <width>241</width>
       <height>21</height>
      </rect>
@@ -352,7 +352,7 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>310</y>
+      <y>280</y>
       <width>231</width>
       <height>21</height>
      </rect>
@@ -362,7 +362,7 @@
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>250</y>
+      <y>220</y>
       <width>241</width>
       <height>21</height>
      </rect>
@@ -371,9 +371,9 @@
    <widget class="QLineEdit" name="eRelacion">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>340</y>
-      <width>231</width>
+      <x>450</x>
+      <y>280</y>
+      <width>241</width>
       <height>21</height>
      </rect>
     </property>
@@ -381,9 +381,9 @@
    <widget class="QLineEdit" name="eTelefono2">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>280</y>
-      <width>231</width>
+      <x>450</x>
+      <y>250</y>
+      <width>241</width>
       <height>21</height>
      </rect>
     </property>
@@ -391,9 +391,9 @@
    <widget class="QLineEdit" name="eFechaAlta">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>280</y>
-      <width>241</width>
+      <x>100</x>
+      <y>310</y>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>
@@ -411,7 +411,7 @@
    <widget class="QLabel" name="lProvincia">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>30</x>
       <y>340</y>
       <width>71</width>
       <height>20</height>
@@ -424,9 +424,9 @@
    <widget class="QLineEdit" name="eProvincia">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>100</x>
       <y>340</y>
-      <width>241</width>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>

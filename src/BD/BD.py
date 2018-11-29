@@ -61,8 +61,7 @@ class BD:
                 stringValores += ','
             #Elimina la ultima ','
             stringValores = stringValores[:-1]
-
-            query = 'insert values(' + stringValores +') into ' + tabla + ';'
+            query = 'insert into ' + tabla + ' values (' + stringValores +');'
             #print(query)
             cursor.execute(query)
             self.conn.commit()

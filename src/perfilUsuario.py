@@ -31,6 +31,7 @@ class PerfilUsuario(base_1, form_1):
             self.eFechaSalida.hide()
             self.lCertificado.hide()
             self.eCertificado.hide()
+            self.eComentarios.hide()
 
         if self.idUser != None:
             self.cargarDatos()

@@ -15,6 +15,22 @@ class PerfilUsuario(base_1, form_1):
         self.rolUser = rol
         self.bSalirSinGuardar.clicked.connect(self.salir)
 
+        if self.rolUser=="Socio":
+        	self.lFechaNacimiento.hide()
+        	self.eFechaNacimiento.hide()
+        else:
+            self.lPoblacion.hide()
+            self.ePoblacion.hide()
+            self.lSector.hide()
+            self.eSector.hide()
+            self.lTelefono2.hide()
+            self.eTelefono2.hide()
+            self.lRelacion.hide()
+            self.eRelacion.hide()
+            self.lFechaSalida.hide()
+            self.eFechaSalida.hide()
+            self.lCertificado.hide()
+            self.eCertificado.hide()
 
         if self.idUser != None:
             self.cargarDatos()

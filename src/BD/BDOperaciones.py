@@ -152,8 +152,17 @@ class BDOperaciones:
             #print(update)
             db.update('voluntario', update, 'usuario='+str(idUser))
 
-    def insertarUsuario(self, datosUsuario, datosOtros, idUser, rolUser):
-        print('insertar')
+    def insertarUsuario(self, datosUsuario, datosOtros):
+        db=BD()
+        id=db.selectEscalar("max(id_usuario)", "usuario")[0]+1
+        print(id)
+        db.insert([id]+datosUsuario, "usuario" )
+        if datosUsuario[3]=="Socio":
+            db.insert([id]+datosOtros,"socio")
+        else:
+            db.insert([id]+datosOtros,"voluntario")
+        
+
 
 
     # Cambia la contraseña del usuario de ese ID

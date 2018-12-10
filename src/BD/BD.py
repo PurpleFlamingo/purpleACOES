@@ -70,6 +70,37 @@ class BD:
         except Error as e:
             print(e)
 
+    def insertParcial(self,columnas: list, valores: list, tabla: str):
+        try:
+            cursor = self.conn.cursor()
+
+            #Format the insert values depending on type
+            stringValores = ''
+            for elemento in valores:
+                if type(elemento) is bool:
+                    stringValores += ('TRUE' if elemento else 'FALSE')
+                elif type(elemento) is not int:
+                    stringValores +='\"'+elemento+'\"'
+                else:
+                    stringValores += str(elemento)
+                stringValores += ','
+            #Elimina la ultima ','
+            stringValores = stringValores[:-1]
+
+            stringColumnas = ''
+            for elemento in columnas:
+                stringColumnas+=elemento
+                stringColumnas+=','
+            stringColumnas = stringColumnas[:-1]
+            query = 'insert into ' + tabla + '(' + stringColumnas + ') values (' + stringValores +');'
+            #print(query)
+            cursor.execute(query)
+            self.conn.commit()
+            cursor.close()
+            return
+        except Error as e:
+            print(e)
+
     def delete(self, tabla: str, condicion: str = None):
         try:
             cursor = self.conn.cursor()

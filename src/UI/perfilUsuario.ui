@@ -45,12 +45,12 @@
      <rect>
       <x>220</x>
       <y>20</y>
-      <width>51</width>
+      <width>61</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Nombre</string>
+     <string>Nombre*</string>
     </property>
    </widget>
    <widget class="QLabel" name="lApellidos">
@@ -58,12 +58,12 @@
      <rect>
       <x>220</x>
       <y>50</y>
-      <width>47</width>
+      <width>81</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Apellidos</string>
+     <string>Apellidos*</string>
     </property>
    </widget>
    <widget class="QLabel" name="lNif">
@@ -84,12 +84,12 @@
      <rect>
       <x>220</x>
       <y>110</y>
-      <width>47</width>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Direccion</string>
+     <string>Direccion*</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="eNombre">
@@ -181,9 +181,9 @@
    <widget class="QLineEdit" name="eCodigoPostal">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>330</x>
       <y>140</y>
-      <width>381</width>
+      <width>361</width>
       <height>21</height>
      </rect>
     </property>
@@ -193,12 +193,12 @@
      <rect>
       <x>220</x>
       <y>140</y>
-      <width>71</width>
+      <width>111</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Codigo Postal</string>
+     <string>Codigo Postal*</string>
     </property>
    </widget>
    <widget class="QLabel" name="lEstado">
@@ -258,12 +258,12 @@
      <rect>
       <x>30</x>
       <y>310</y>
-      <width>81</width>
+      <width>101</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Fecha de Alta</string>
+     <string>Fecha de Alta*</string>
     </property>
    </widget>
    <widget class="QLabel" name="lSector">
@@ -391,9 +391,9 @@
    <widget class="QLineEdit" name="eFechaAlta">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>140</x>
       <y>310</y>
-      <width>231</width>
+      <width>191</width>
       <height>21</height>
      </rect>
     </property>
@@ -418,7 +418,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Provincia</string>
+     <string>Provincia*</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="eProvincia">
@@ -436,12 +436,12 @@
      <rect>
       <x>30</x>
       <y>420</y>
-      <width>51</width>
+      <width>61</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Usuario</string>
+     <string>Usuario*</string>
     </property>
    </widget>
    <widget class="QLabel" name="lRol">
@@ -454,7 +454,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Rol</string>
+     <string>Rol*</string>
     </property>
    </widget>
    <widget class="QLabel" name="lFechaNacimiento">
@@ -475,12 +475,12 @@
      <rect>
       <x>30</x>
       <y>450</y>
-      <width>71</width>
+      <width>91</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Contraseña</string>
+     <string>Contraseña*</string>
     </property>
    </widget>
    <widget class="QLabel" name="lPermiso">
@@ -488,12 +488,12 @@
      <rect>
       <x>360</x>
       <y>450</y>
-      <width>51</width>
+      <width>61</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Permiso</string>
+     <string>Permiso*</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="eUsuario">
@@ -519,9 +519,9 @@
    <widget class="QLineEdit" name="eClave">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>130</x>
       <y>450</y>
-      <width>231</width>
+      <width>201</width>
       <height>21</height>
      </rect>
     </property>

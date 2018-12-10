@@ -155,13 +155,24 @@ class BDOperaciones:
     def insertarUsuario(self, datosUsuario, datosOtros):
         db=BD()
         id=db.selectEscalar("max(id_usuario)", "usuario")[0]+1
-        print(id)
         db.insert([id]+datosUsuario, "usuario" )
-        if datosUsuario[3]=="Socio":
-            db.insert([id]+datosOtros,"socio")
+        if datosUsuario[2]=="Socio":
+            allColumnas = self.nombreColumnas('socio')
+            columnas = ['usuario']
+            for i, col in enumerate(allColumnas[1:]):
+                if datosOtros[i] != '':
+                    columnas.append(col)
+            datosOtros = [x for x in datosOtros if x != '']
+            db.insertParcial(columnas, [id]+datosOtros,"socio")
         else:
-            db.insert([id]+datosOtros,"voluntario")
-        
+            allColumnas = self.nombreColumnas('voluntario')
+            columnas = ['usuario']
+            for i, col in enumerate(allColumnas[1:]):
+                if datosOtros[i] != '':
+                    columnas.append(col)
+            datosOtros = [x for x in datosOtros if x != '']
+            db.insertParcial(columnas, [id]+datosOtros,"voluntario")
+
 
 
 

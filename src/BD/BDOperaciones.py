@@ -16,7 +16,7 @@ class BDOperaciones:
             print("login correcto")
             return True
 
-    # Recive un usuario y devuelve su contrasena y si tiene un correo electronico asociado o no
+    # Recibe un usuario y devuelve su contrasena y si tiene un correo electronico asociado o no
     # Returns string, boolean (Contrasena, False si no tiene correo asociado)
     # Returns NONE, NONE (si no se encuentra usuario)
     def recovery(self,user: str):

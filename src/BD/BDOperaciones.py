@@ -115,7 +115,9 @@ class BDOperaciones:
         datosVoluntario= db.selectEscalar('*', 'voluntario', 'usuario=' + str(ID))
         return datosVoluntario;
 
-
+    #Actualiza los datos de un usuario(idUser) que tiene rol(rolUser)
+    #datosUsuario y datosOtros deben tener todos los campos que de usuario, con
+    #None en los que no se vayan a actualizar
     def actualizarUsuario(self, datosUsuario, datosOtros, idUser, rolUser):
         db = BD()
         colUsuario = self.nombreColumnas('usuario')
@@ -152,6 +154,9 @@ class BDOperaciones:
             #print(update)
             db.update('voluntario', update, 'usuario='+str(idUser))
 
+    #Inserta un usuario nuevo en la base de datos
+    #datosUsuario y datosOtros deben tener todos los campos que de usuario, con
+    #'' en los que no se vayan a actualizar
     def insertarUsuario(self, datosUsuario, datosOtros):
         db=BD()
         id=db.selectEscalar("max(id_usuario)", "usuario")[0]+1

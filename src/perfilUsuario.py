@@ -15,6 +15,9 @@ class PerfilUsuario(base_1, form_1):
         self.rolUser = rol
         self.bSalirSinGuardar.clicked.connect(self.salir)
 
+        self.eRol.setText(self.rolUser)
+        self.eRol.setEnabled(False)
+        
         if self.rolUser=="Socio":
         	self.lFechaNacimiento.hide()
         	self.eFechaNacimiento.hide()

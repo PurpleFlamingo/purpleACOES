@@ -54,6 +54,8 @@ class BD:
             for elemento in valores:
                 if type(elemento) is bool:
                     stringValores += ('TRUE' if elemento else 'FALSE')
+                elif elemento == 'null':
+                    stringValores += elemento
                 elif type(elemento) is not int:
                     stringValores +='\"'+elemento+'\"'
                 else:

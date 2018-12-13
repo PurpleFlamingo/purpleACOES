@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.37-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: gestorACOES
+-- Host: jfaldanam.ddns.net    Database: gestorACOES
 -- ------------------------------------------------------
 -- Server version	5.7.24-0ubuntu0.18.04.1
 
@@ -14,6 +14,14 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `gestorACOES`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `gestorACOES` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `gestorACOES`;
 
 --
 -- Table structure for table `apadrinamiento`
@@ -34,9 +42,9 @@ CREATE TABLE `apadrinamiento` (
   KEY `fk_apadrinamiento_joven1_idx` (`joven`),
   KEY `fk_apadrinamiento_socio1_idx` (`socio`),
   KEY `fk_apadrinamiento_voluntario1_idx` (`agente`),
-  CONSTRAINT `fk_apadrinamiento_joven1` FOREIGN KEY (`joven`) REFERENCES `joven` (`id_joven`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_apadrinamiento_socio1` FOREIGN KEY (`socio`) REFERENCES `socio` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_apadrinamiento_voluntario1` FOREIGN KEY (`agente`) REFERENCES `voluntario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_apadrinamiento_joven1` FOREIGN KEY (`joven`) REFERENCES `joven` (`id_joven`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_apadrinamiento_socio1` FOREIGN KEY (`socio`) REFERENCES `socio` (`usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_apadrinamiento_voluntario1` FOREIGN KEY (`agente`) REFERENCES `voluntario` (`usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -46,6 +54,7 @@ CREATE TABLE `apadrinamiento` (
 
 LOCK TABLES `apadrinamiento` WRITE;
 /*!40000 ALTER TABLE `apadrinamiento` DISABLE KEYS */;
+INSERT INTO `apadrinamiento` VALUES (2,1,3,2,'2015-12-12',NULL);
 /*!40000 ALTER TABLE `apadrinamiento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,6 +82,7 @@ CREATE TABLE `colegio` (
 
 LOCK TABLES `colegio` WRITE;
 /*!40000 ALTER TABLE `colegio` DISABLE KEYS */;
+INSERT INTO `colegio` VALUES (1,1,'AAA',1);
 /*!40000 ALTER TABLE `colegio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,6 +109,7 @@ CREATE TABLE `colonia` (
 
 LOCK TABLES `colonia` WRITE;
 /*!40000 ALTER TABLE `colonia` DISABLE KEYS */;
+INSERT INTO `colonia` VALUES (1,'AAA',1,'111');
 /*!40000 ALTER TABLE `colonia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,6 +185,7 @@ CREATE TABLE `joven` (
 
 LOCK TABLES `joven` WRITE;
 /*!40000 ALTER TABLE `joven` DISABLE KEYS */;
+INSERT INTO `joven` VALUES (1,'A','AAA','A','AAA','AAA',NULL,'2010-12-12','2015-12-12','2016-01-01',NULL,'4',NULL,NULL,1,1,1),(2,'A','AAA','A','AAA','AAA',NULL,'2011-10-10','2012-12-12','2011-11-11',NULL,'0',NULL,NULL,1,1,1);
 /*!40000 ALTER TABLE `joven` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,10 +211,7 @@ CREATE TABLE `permiso` (
 
 LOCK TABLES `permiso` WRITE;
 /*!40000 ALTER TABLE `permiso` DISABLE KEYS */;
-INSERT INTO `permiso` VALUES ('Alicante','La localidad de Alicante','Acceso de lectura y escritura a todos los datos de dicha localidad');
-INSERT INTO `permiso` VALUES ('BatCountry','La localidad de Bat Country','Acceso de lectura y escritura a toda la informacion de dicha localidad');
-INSERT INTO `permiso` VALUES ('General','Todos los datos','Acceso de lectura y escritura a toda la informcacion');
-INSERT INTO `permiso` VALUES ('Socio','Apadrinados','Solo lectura datos concretos de los jovenes a los que apadrine');
+INSERT INTO `permiso` VALUES ('Alicante','La localidad de Alicante','Acceso de lectura y escritura a todos los datos de dicha localidad'),('BatCountry','La localidad de Bat Country','Acceso de lectura y escritura a toda la informacion de dicha localidad'),('General','Todos los datos','Acceso de lectura y escritura a toda la informcacion'),('Socio','Apadrinados','Solo lectura datos concretos de los jovenes a los que apadrine');
 /*!40000 ALTER TABLE `permiso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,6 +256,7 @@ CREATE TABLE `proyecto` (
   `nombre` varchar(45) NOT NULL,
   `requisitos_participacion` longtext,
   `descripcion` longtext,
+  `tipo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_proyecto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -282,13 +292,7 @@ CREATE TABLE `rol` (
 
 LOCK TABLES `rol` WRITE;
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
-INSERT INTO `rol` VALUES ('Agente Local','Agente encaragado de apadrinamientos de una localidad en ACOES',1);
-INSERT INTO `rol` VALUES ('Coordinador de Proyecto','Coordinador de un proyecto en Honduras en ACOES',1);
-INSERT INTO `rol` VALUES ('Coordinador General','Coordinador general en ACOES',1);
-INSERT INTO `rol` VALUES ('Coordinador Local','Coordinador de una localidad en Espana en ACOES',1);
-INSERT INTO `rol` VALUES ('Responsable Economico de Proyecto','Responsable economico de un proyecto en Honduras en ACOES',1);
-INSERT INTO `rol` VALUES ('Responsable Economico General','Responsable economico general en ACOES',1);
-INSERT INTO `rol` VALUES ('Socio','Socio en ACOES',0);
+INSERT INTO `rol` VALUES ('Agente Local','Agente encaragado de apadrinamientos de una localidad en ACOES',1),('Coordinador de Proyecto','Coordinador de un proyecto en Honduras en ACOES',1),('Coordinador General','Coordinador general en ACOES',1),('Coordinador Local','Coordinador de una localidad en Espana en ACOES',1),('Responsable Economico de Proyecto','Responsable economico de un proyecto en Honduras en ACOES',1),('Responsable Economico General','Responsable economico general en ACOES',1),('Socio','Socio en ACOES',0);
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,9 +334,7 @@ CREATE TABLE `socio` (
 
 LOCK TABLES `socio` WRITE;
 /*!40000 ALTER TABLE `socio` DISABLE KEYS */;
-INSERT INTO `socio` VALUES (1,'Carlos','El Tapero','123A','calle','Pueblo1','1','nani','Espana','123','321','carlos@lobati.com','SI',1,'No','2012-12-12','2019-11-13','Ninguna');
-INSERT INTO `socio` VALUES (3,'Pablo','Prueba23','3','calle2','Pobla','3','Valencia','Espana','1234','4321','pablete@elDelClavete.lol','No',0,'SI','1998-01-01','1777-07-17','None');
-INSERT INTO `socio` VALUES (4,'Paco','Paquito','Abc','Ahi','Aqui','5','Malaga','Espana','12345','54321','paquito@paco.quito','No',1,'Si','2017-12-15',NULL,'Buenas');
+INSERT INTO `socio` VALUES (1,'Carlos','El Tapero','123A','calle','Pueblo1','1','nani','Espana','','321','carlos@lobati.com','SI',1,'No','2012-12-12','2019-11-13','Ninguna'),(3,'Pablo','Prueba23','3','calle2','Pobla','3','Valencia','Espana','1234','4321','pablete@elDelClavete.lol','No',0,'SI','1998-01-01','1777-07-17','None'),(4,'Paco','Paquito','Abc','Ahi','Aqui','5','Malaga','Espana','12345','54321','paquito@paco.quito','No',1,'Si','2017-12-15',NULL,'Buenas'),(21,'alez','alez','1','Alicante','Alicante','213','Alicante','Espana','123','12341','correo@cooreo.corer','Alsda',1,'Alicante','2016-08-12','2016-08-12','asfdasfasfasf'),(24,'Name','Apellido','NIFF','Callee','SI porfavor','123','Alicante','España','123',NULL,NULL,'No',1,NULL,'2017-11-11',NULL,NULL),(26,'Pepito','Perez','58983322','MiCasa','Casa de Chocolate','25908','Turron','España','1111 2222 3333 4',NULL,'PPrez@email.es','Estable',0,NULL,'1000-10-03',NULL,'Este usuario fue creado como prueba');
 /*!40000 ALTER TABLE `socio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,6 +356,7 @@ CREATE TABLE `transaccion` (
   `motivo` varchar(45) DEFAULT NULL,
   `proyecto` int(11) DEFAULT NULL,
   `apadrinamiento` int(11) DEFAULT NULL,
+  `beneficiario` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_transaccion`),
   KEY `fk_transaccion_proyecto1_idx` (`proyecto`),
   KEY `fk_transaccion_apadrinamiento1_idx` (`apadrinamiento`),
@@ -391,7 +394,7 @@ CREATE TABLE `usuario` (
   KEY `fk_usuario_permiso1_idx` (`permiso`),
   CONSTRAINT `fk_usuario_permiso1` FOREIGN KEY (`permiso`) REFERENCES `permiso` (`permiso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `rol_usuario` FOREIGN KEY (`rol`) REFERENCES `rol` (`rol_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -400,26 +403,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Carlos','1234','Socio','Socio');
-INSERT INTO `usuario` VALUES (2,'Marta','1234','Coordinador General','General');
-INSERT INTO `usuario` VALUES (3,'Pablo','1234','Socio','Socio');
-INSERT INTO `usuario` VALUES (4,'Paco','9876','Socio','Socio');
-INSERT INTO `usuario` VALUES (5,'Juan','5874','Coordinador Local','General');
-INSERT INTO `usuario` VALUES (6,'Pepito','6345','Responsable Economico General','General');
-INSERT INTO `usuario` VALUES (7,'Enrique','3456','Responsable Economico de Proyecto','Alicante');
-INSERT INTO `usuario` VALUES (8,'Coche','2342','Responsable Economico de Proyecto','Alicante');
-INSERT INTO `usuario` VALUES (9,'Azul','2434','Coordinador General','Alicante');
-INSERT INTO `usuario` VALUES (10,'MShadow','Nightmare','Responsable Economico General','BatCountry');
-INSERT INTO `usuario` VALUES (11,'ZackyV','Runaway','Coordinador Local','BatCountry');
-INSERT INTO `usuario` VALUES (12,'SynysterGaytes','So far away','Responsable Economico General','BatCountry');
-INSERT INTO `usuario` VALUES (13,'JohnnyChrist','Demons','Agente Local','BatCountry');
-INSERT INTO `usuario` VALUES (14,'Brooks','The Stage','Coordinador Local','BatCountry');
-INSERT INTO `usuario` VALUES (15,'TheRev','Fiction','Agente Local','BatCountry');
-INSERT INTO `usuario` VALUES (16,'python','django','Coordinador Local','Alicante');
-INSERT INTO `usuario` VALUES (17,'MrGoblikon','TrollsSucks','Coordinador General','Alicante');
-INSERT INTO `usuario` VALUES (18,'last3','3','Agente Local','Alicante');
-INSERT INTO `usuario` VALUES (19,'last2','2','Coordinador de Proyecto','Alicante');
-INSERT INTO `usuario` VALUES (20,'lastOne','1','Agente Local','Alicante');
+INSERT INTO `usuario` VALUES (1,'Carlos','1234','Socio','Socio'),(2,'Marta','1234','Coordinador General','General'),(3,'Pablo','1234','Socio','Socio'),(4,'Paco','9876','Socio','Socio'),(5,'Juan','5874','Coordinador Local','General'),(6,'Pepito','6345','Responsable Economico General','General'),(7,'Enrique','3456','Responsable Economico de Proyecto','Alicante'),(8,'Coche','2342','Responsable Economico de Proyecto','Alicante'),(9,'Azul','2434','Coordinador General','Alicante'),(10,'MShadow','Nightmare','Responsable Economico General','BatCountry'),(11,'ZackyV','Runaway','Coordinador Local','BatCountry'),(12,'SynysterGaytes','So far away','Responsable Economico General','BatCountry'),(13,'JohnnyChrist','Demons','Agente Local','BatCountry'),(14,'Brooks','The Stage','Coordinador Local','BatCountry'),(15,'TheRev','Fiction','Agente Local','BatCountry'),(16,'python','django','Coordinador Local','Alicante'),(17,'MrGoblikon','TrollsSucks','Coordinador General','Alicante'),(18,'last3','3','Agente Local','Alicante'),(19,'last2','2','Coordinador de Proyecto','Alicante'),(20,'lastOne','1','Agente Local','Alicante'),(21,'Alex','1234','Socio','Socio'),(22,'Bond','JamesBond','Agente Local','Alicante'),(23,'ramon','1234','Responsable Economico de Proyecto','Alicante'),(24,'prueba','prueba','Socio','Socio'),(25,'user','pass','Coordinador Local','Alicante'),(26,'PPrez','holo','Socio','Alicante'),(27,'Caramelo','candy','Responsable Economico de Proyecto','Alicante');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -456,23 +440,7 @@ CREATE TABLE `voluntario` (
 
 LOCK TABLES `voluntario` WRITE;
 /*!40000 ALTER TABLE `voluntario` DISABLE KEYS */;
-INSERT INTO `voluntario` VALUES (2,'Martilla','Martillo','2','2077-07-17','2012-01-03','martita@marta.mazo','453','calleMODIFICADO','4','prov1prueba','Honduras');
-INSERT INTO `voluntario` VALUES (5,'Juan','Lopez','5','2077-07-17','2012-01-03',NULL,'23423','calle1','2','Alicante','Honduras');
-INSERT INTO `voluntario` VALUES (6,'Pepito','Grillo','6','2077-07-17','2012-01-03',NULL,'423423','calle3','6','Alicante','Honduras');
-INSERT INTO `voluntario` VALUES (7,'Enrique','Kike','7','2077-07-17','2012-01-03',NULL,'5435','calle1','3','Alicante','Honduras');
-INSERT INTO `voluntario` VALUES (8,'Coche','McQueen','8','2077-07-17','2012-01-03',NULL,'645','callef','5','Algeciras','Espana');
-INSERT INTO `voluntario` VALUES (9,'Azul','Color','9','2077-07-17','2012-01-03',NULL,'64564','calleasdad','7','Algeciras','Espana');
-INSERT INTO `voluntario` VALUES (10,'Mister','Shadow','10','2077-07-17','2012-01-03','mshadows@a7x.com','756','calleadsd','8','BatCountry','Espana');
-INSERT INTO `voluntario` VALUES (11,'Zacky','Vengeance','11','2077-07-17','2012-01-03','zackyV@a7x.com','75675','calle5','4','BatCountry','Espana');
-INSERT INTO `voluntario` VALUES (12,'Synyster','Gates','12','2077-07-17','2012-01-03','gates@a7x.com','5675','callers','3','BatCountry','Espana');
-INSERT INTO `voluntario` VALUES (13,'Johnny','Christ','13','2077-07-17','2012-01-03','christ@a7x.com','35435','callersd','5','BatCountry','Espana');
-INSERT INTO `voluntario` VALUES (14,'Brooks','Wackerman','14','2077-07-17','2012-01-03','wackerman@a7x.com','234','callea12343','7','BatCountry','Espana');
-INSERT INTO `voluntario` VALUES (15,'Jimmy','\'The Rev\' Sullivan','15','2077-07-17','2012-01-03','theRev@a7x.com','54353','calle1234','2','BatCountry','Espana');
-INSERT INTO `voluntario` VALUES (16,'python','el lenguage','16','2077-07-17','2012-01-03','python@python.python','123','calledasds','5','Phytonlandia','Espana');
-INSERT INTO `voluntario` VALUES (17,'John','Goblikon','17','2077-07-17','2012-01-03',NULL,'345345','calle13434','8','Goblin Island','Espana');
-INSERT INTO `voluntario` VALUES (18,'last','third','18','2077-07-17','2012-01-03',NULL,'4566','calle345343','3','Alicante','Honduras');
-INSERT INTO `voluntario` VALUES (19,'last','second','19','2077-07-17','2012-01-03',NULL,'345','calleffsdf','6','Alicante','Honduras');
-INSERT INTO `voluntario` VALUES (20,'last','first','20','2077-07-17','2012-01-03',NULL,'24324','calle12345','9','Alicante','Honduras');
+INSERT INTO `voluntario` VALUES (2,'Martilla','Martillo','2','2077-07-17','2012-01-03','martita@marta.mazo','453','calleMODIFICADO','4','prov1prueba','Honduras'),(5,'Juan','Lopez','5','2077-07-17','2012-01-03',NULL,'23423','calle1','2','Alicante','Honduras'),(6,'Pepito','Grillo','6','2077-07-17','2012-01-03',NULL,'423423','calle3','6','Alicante','Honduras'),(7,'Enrique','Kike','7','2077-07-17','2012-01-03',NULL,'5435','calle1','3','Alicante','Honduras'),(8,'Coche','McQueen','8','2077-07-17','2012-01-03',NULL,'645','callef','5','Algeciras','Espana'),(9,'Azul','Color','9','2077-07-17','2012-01-03',NULL,'64564','calleasdad','7','Algeciras','Espana'),(10,'Mister','Shadow','10','2077-07-17','2012-01-03','mshadows@a7x.com','756','calleadsd','8','BatCountry','Espana'),(11,'Zacky','Vengeance','11','2077-07-17','2012-01-03','zackyV@a7x.com','75675','calle5','4','BatCountry','Espana'),(12,'Synyster','Gates','12','2077-07-17','2012-01-03','gates@a7x.com','5675','callers','3','BatCountry','Espana'),(13,'Johnny','Christ','13','2077-07-17','2012-01-03','christ@a7x.com','35435','callersd','5','BatCountry','Espana'),(14,'Brooks','Wackerman','14','2077-07-17','2012-01-03','wackerman@a7x.com','234','callea12343','7','BatCountry','Espana'),(15,'Jimmy','\'The Rev\' Sullivan','15','2077-07-17','2012-01-03','theRev@a7x.com','54353','calle1234','2','BatCountry','Espana'),(16,'python','el lenguage','16','2077-07-17','2012-01-03','python@python.python','123','calledasds','5','Phytonlandia','Espana'),(17,'John','Goblikon','17','2077-07-17','2012-01-03',NULL,'345345','calle13434','8','Goblin Island','Espana'),(18,'last','third','18','2077-07-17','2012-01-03','correo@correo.correo','4566','calle345343','3','Alicante','Honduras'),(19,'last','second','19','2077-07-17','2012-01-03','jfaldanam@gmail.com','345','calleffsdf','6','Alicante','Honduras'),(20,'last','first','20','2077-07-17','2012-01-03','','24324','calle12345','1232','Alicante','Honduras'),(22,'007','Bond, James Bond','1','1978-06-12','1978-06-12','correo@alicante.007','1234','Alicante','35','Alicante','Honduras'),(23,'carlos','asd','123','2017-10-01','2019-12-11','asd','dasdas','asd','adssa','asda','adsads'),(25,'Name','Ape','NIFFF','2001-02-02','2000-01-01',NULL,NULL,'ssi','no','Alicante','España'),(27,'Cara','Melo',NULL,NULL,'1550-03-03',NULL,NULL,'Piruleta','5528','Alicante',NULL);
 /*!40000 ALTER TABLE `voluntario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -485,4 +453,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-28 17:11:08
+-- Dump completed on 2018-12-13 10:20:56

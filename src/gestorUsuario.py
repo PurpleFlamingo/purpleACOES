@@ -23,6 +23,10 @@ class GestorUsuario(base_1, form_1):
 
         #Lista con toda la informacion de los usuarios actuales en la base de datos
         self.usuarios = []
+
+        self.filtrada = []
+
+
         self.recargar()
 
         #Relacion entre eventos y funciones
@@ -54,9 +58,10 @@ class GestorUsuario(base_1, form_1):
             self.child.show()
             print('No elemento seleccionado')
         else:
+            print(index[0])
             user = index[0].row()
-            idSeleccionado = self.usuarios[user]['id_usuario']
-            rolSeleccionado = self.usuarios[user]['rol']
+            idSeleccionado = self.filtrada[user]['id_usuario']
+            rolSeleccionado = self.filtrada[user]['rol']
             self.child = PerfilUsuario(self,id = idSeleccionado, rol = rolSeleccionado)
             self.child.show()
 
@@ -143,6 +148,7 @@ class GestorUsuario(base_1, form_1):
         result = [user for user in result if rol == '' or rol.lower() in user['rol'].lower()]
         result = [user for user in result if permiso == '' or permiso.lower() in user['permiso'].lower()]
 
+        self.filtrada = result
         #Actualizamos la vista por los contenidos fitrados
         self.tUsuarios.setRowCount(len(result))
         for i, user in enumerate(result):

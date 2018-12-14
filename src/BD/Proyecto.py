@@ -98,7 +98,7 @@ class Proyecto:
             bd.update(self.tabla,setter,condicion)
             self.nombre = nombre       
         else:
-            print ('joven no puede ser null') 
+            print ('nombre no puede ser null') 
 
     def setRequisitosDeParticipacion(self, requisitos_participacion: str = None):
         bd = BD()
@@ -154,7 +154,7 @@ class Proyecto:
         else:
             cadena += 'Sin requisitos de participación - '
         if self.descripcion != None:
-            cadena += 'Descripción ' + self.decripcion + ' - '
+            cadena += 'Descripción ' + self.descripcion + ' - '
         if self.tipo != None:
             cadena += 'Tipo ' + self.tipo
         if cadena == '':

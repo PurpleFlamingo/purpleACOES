@@ -79,7 +79,7 @@ class Apadrinamiento:
             condicion = 'id_apadrinamiento = ' + str(id_apadrinamiento)
             resultado = '*'
             ap = bd.selectEscalar(resultado,self.tabla,condicion)
-            #compruebo que el valor existe en su tabla, por ser en apadrinamiento una clave foranea
+            #compruebo que el valor no existe en la tabla para no incumplir la unicidad del atributo
             if ap == None or ap == []:
                 condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
                 setter = 'id_apadrinamiento = ' + str(id_apadrinamiento)

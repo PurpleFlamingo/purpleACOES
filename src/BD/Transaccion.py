@@ -34,31 +34,41 @@ class Transaccion:
         if beneficiario == None:
             beneficiario = 'null'
 
-        valores = [id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario]
+        condicion = 'id_transaccion = ' + str(id_transaccion)
+        #Compruebo que el valor es unico
+        res = bd.selectEscalar('*', Transaccion.tabla, condicion)
+        if not res:
+            valores = [id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario]
 
-        bd.insert(valores, Transaccion.tabla)
-        newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
-        return newTrans
+            bd.insert(valores, Transaccion.tabla)
+            newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
+            return newTrans
+        else:
+            print('Error: La id {} ya esta en uso'.format(id_transaccion))
+            return None
 
     @staticmethod
     def getTransaccion(id_transaccion):
         bd = BD()
         cond = 'id_transaccion = ' + str(id_transaccion)
         trans = bd.selectEscalar('*', Transaccion.tabla, cond)
-        print(trans)
-        id_transaccion = trans[0]
-        gasto = True if (trans[1] == 1) else False
-        fechaEmision = trans[2]
-        cuantia = trans[3]
-        moneda = trans[4]
-        destino = trans[5]
-        formaPago = trans[6]
-        motivo = trans[7]
-        proyecto = Proyecto(trans[8]) if trans[8]!=None else None
-        apadrinamiento = Apadrinamiento(trans[9]) if trans[9]!=None else None
-        beneficiario = trans[10]
-        newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
-        return newTrans
+        if not trans:
+            #La transaccion solicitada no existe
+            return None
+        else:
+            id_transaccion = trans[0]
+            gasto = True if (trans[1] == 1) else False
+            fechaEmision = trans[2]
+            cuantia = trans[3]
+            moneda = trans[4]
+            destino = trans[5]
+            formaPago = trans[6]
+            motivo = trans[7]
+            proyecto = Proyecto(trans[8]) if trans[8]!=None else None
+            apadrinamiento = Apadrinamiento(trans[9]) if trans[9]!=None else None
+            beneficiario = trans[10]
+            newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
+            return newTrans
 
     @staticmethod
     def listaTransacciones():
@@ -119,49 +129,14 @@ class Transaccion:
     def setIdTransaccion(self, newId: int):
         #No se pueden modificar transacciones
         return False
-        if newId != None:
-            bd = BD()
-            condicion = 'id_transaccion = ' + str(newId)
-            #Compruebo que el valor es unico
-            res = bd.selectEscalar('*', Transaccion.tabla, condicion)
-            if not res:
-                condicion = 'id_transaccion = ' + str(self.id_transaccion)
-                setter = 'id_transaccion =  '+ str(newId)
-                bd.update(Transaccion.tabla, setter, condicion)
-                self.id_transaccion = newId
-                return True
-            else:
-                #El newID ya esta ocupado
-                return False
-        else:
-            #El id no puede ser null
-            return False
 
     def setGasto(self, newGasto: bool):
         #No se pueden modificar transacciones
         return False
-        if newGasto != None:
-            bd = BD()
-            condicion = 'id_transaccion = ' + str(self.id_transaccion)
-            setter = 'gasto =  '+ ('1' if newGasto else '0')
-            bd.update(Transaccion.tabla, setter, condicion)
-            self.gasto = newGasto
-            return True
-        else:
-            return False
 
     def setFechaEmision(self, newFecha: str):
         #No se pueden modificar transacciones
         return False
-        if newFecha != None:
-            bd = BD()
-            condicion = 'id_transaccion = ' + str(self.id_transaccion)
-            setter = 'fechaEmision =  \'' + str(newFecha) + '\''
-            bd.update(Transaccion.tabla, setter, condicion)
-            self.fechaEmision = newFecha
-            return True
-        else:
-            return False
 
     def setCuantia(self, newCuantia: int):
         #No se pueden modificar transacciones
@@ -240,7 +215,8 @@ class Transaccion:
         return toStr[:-5]
 
 if __name__ == '__main__':
-    #Transaccion.newTransaccion(1, 1, '2017-1-1', 128, 'Euros', 'Honduras', 'Transferencia', 'Porque si', None, None, 'Yo')
+    Transaccion.newTransaccion(4, 1, '2017-1-1', 128, 'Euros', 'Honduras', 'Transferencia', 'Porque si', None, None, 'Yo')
     t = Transaccion.getTransaccion(4)
+    print(t.getFechaEmision())
     #print(t.setApadrinamiento())
     print(Transaccion.listaTransacciones())

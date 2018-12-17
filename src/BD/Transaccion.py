@@ -212,7 +212,7 @@ class Transaccion:
             toStr+=('Apadrinamiento: ' + self.apadrinamiento + ' - ')
         if self.beneficiario != None:
             toStr+=('Beneficiario: ' + self.beneficiario + ' - ')
-        return toStr[:-5]
+        return toStr[:-3]
 
 if __name__ == '__main__':
     Transaccion.newTransaccion(4, 1, '2017-1-1', 128, 'Euros', 'Honduras', 'Transferencia', 'Porque si', None, None, 'Yo')

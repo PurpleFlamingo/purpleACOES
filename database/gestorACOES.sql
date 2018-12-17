@@ -72,7 +72,7 @@ CREATE TABLE `colegio` (
   `colonia` int(11) NOT NULL,
   PRIMARY KEY (`id_colegio`),
   KEY `fk_colegio_colonia1_idx` (`colonia`),
-  CONSTRAINT `fk_colegio_colonia1` FOREIGN KEY (`colonia`) REFERENCES `colonia` (`id_colonia`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_colegio_colonia1` FOREIGN KEY (`colonia`) REFERENCES `colonia` (`id_colonia`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -130,8 +130,8 @@ CREATE TABLE `envios` (
   PRIMARY KEY (`id_envios`),
   KEY `fk_envios_envios1_idx` (`respuestaA`),
   KEY `fk_envios_apadrinamiento1_idx` (`apadrinamiento`),
-  CONSTRAINT `fk_envios_apadrinamiento1` FOREIGN KEY (`apadrinamiento`) REFERENCES `apadrinamiento` (`id_apadrinamiento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_envios_envios1` FOREIGN KEY (`respuestaA`) REFERENCES `envios` (`id_envios`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_envios_apadrinamiento1` FOREIGN KEY (`apadrinamiento`) REFERENCES `apadrinamiento` (`id_apadrinamiento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_envios_envios1` FOREIGN KEY (`respuestaA`) REFERENCES `envios` (`id_envios`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -173,9 +173,9 @@ CREATE TABLE `joven` (
   KEY `fk_joven_colonia1_idx` (`colonia_nacimiento`),
   KEY `fk_joven_colonia2_idx` (`colonia_residencia`),
   KEY `fk_joven_colegio1_idx` (`colegio`),
-  CONSTRAINT `fk_joven_colegio1` FOREIGN KEY (`colegio`) REFERENCES `colegio` (`id_colegio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_joven_colonia1` FOREIGN KEY (`colonia_nacimiento`) REFERENCES `colonia` (`id_colonia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_joven_colonia2` FOREIGN KEY (`colonia_residencia`) REFERENCES `colonia` (`id_colonia`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_joven_colegio1` FOREIGN KEY (`colegio`) REFERENCES `colegio` (`id_colegio`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_joven_colonia1` FOREIGN KEY (`colonia_nacimiento`) REFERENCES `colonia` (`id_colonia`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_joven_colonia2` FOREIGN KEY (`colonia_residencia`) REFERENCES `colonia` (`id_colonia`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -230,8 +230,8 @@ CREATE TABLE `pertenecer_proyecto` (
   PRIMARY KEY (`joven`,`proyecto`),
   KEY `fk_joven_has_proyecto_proyecto1_idx` (`proyecto`),
   KEY `fk_joven_has_proyecto_joven1_idx` (`joven`),
-  CONSTRAINT `fk_joven_has_proyecto_joven1` FOREIGN KEY (`joven`) REFERENCES `joven` (`id_joven`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_joven_has_proyecto_proyecto1` FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_joven_has_proyecto_joven1` FOREIGN KEY (`joven`) REFERENCES `joven` (`id_joven`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_joven_has_proyecto_proyecto1` FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`id_proyecto`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -324,7 +324,7 @@ CREATE TABLE `socio` (
   `observaciones` longtext,
   PRIMARY KEY (`usuario`),
   KEY `fk_socio_usuario1_idx` (`usuario`),
-  CONSTRAINT `fk_socio_usuario1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_socio_usuario1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -360,8 +360,8 @@ CREATE TABLE `transaccion` (
   PRIMARY KEY (`id_transaccion`),
   KEY `fk_transaccion_proyecto1_idx` (`proyecto`),
   KEY `fk_transaccion_apadrinamiento1_idx` (`apadrinamiento`),
-  CONSTRAINT `fk_transaccion_apadrinamiento1` FOREIGN KEY (`apadrinamiento`) REFERENCES `apadrinamiento` (`id_apadrinamiento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_transaccion_proyecto1` FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_transaccion_apadrinamiento1` FOREIGN KEY (`apadrinamiento`) REFERENCES `apadrinamiento` (`id_apadrinamiento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_transaccion_proyecto1` FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`id_proyecto`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -392,8 +392,8 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   KEY `rol_usuario_idx` (`rol`),
   KEY `fk_usuario_permiso1_idx` (`permiso`),
-  CONSTRAINT `fk_usuario_permiso1` FOREIGN KEY (`permiso`) REFERENCES `permiso` (`permiso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `rol_usuario` FOREIGN KEY (`rol`) REFERENCES `rol` (`rol_name`)
+  CONSTRAINT `fk_usuario_permiso1` FOREIGN KEY (`permiso`) REFERENCES `permiso` (`permiso`)  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rol_usuario` FOREIGN KEY (`rol`) REFERENCES `rol` (`rol_name`)  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -430,7 +430,7 @@ CREATE TABLE `voluntario` (
   PRIMARY KEY (`usuario`),
   UNIQUE KEY `nif_UNIQUE` (`nif`),
   KEY `fk_voluntario_usuario1_idx` (`usuario`),
-  CONSTRAINT `fk_voluntario_usuario1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_voluntario_usuario1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

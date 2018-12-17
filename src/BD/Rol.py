@@ -105,7 +105,12 @@ class Rol:
 
 
     def delete(self):
-        print('ya')
+        bd = BD()
+        condicion = 'rol_name = \'' + self.rol_name + '\''
+        bd.delete(Rol.tabla, condicion)
+        self.rol_name = None
+        self.descripcion = None
+        self.modificacion = None
         
     def __repr__(self):
         toStr = ''
@@ -115,6 +120,9 @@ class Rol:
         return toStr[:-3]
 
 if __name__ == '__main__':
+    t = Rol.getRol('Hola')
+    print(Rol.listaRoles())
+    t.delete()
     print(Rol.listaRoles())
     #temp = Rol.getRol('Socio')
     #print('\n\n')

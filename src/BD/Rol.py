@@ -2,7 +2,7 @@ from BD import BD
 
 class Rol:
     tabla = 'rol'
-    def __init__(self, rol_name: str, descripcion: str, modificacion: bool):
+    def __init__(self, rol_name: str = None, descripcion: str = None, modificacion: bool = None):
         self.rol_name = rol_name
         self.descripcion = descripcion
         self.modificacion = modificacion
@@ -89,9 +89,9 @@ class Rol:
             bd.update(Rol.tabla, setter, condicion)
             self.descripcion = newDesc
             return True
-        else:  
+        else:
             return False
-        
+
     def setModificacion(self, newModificacion: bool):
         if newModificacion != None:
             bd = BD()
@@ -100,7 +100,7 @@ class Rol:
             bd.update(Rol.tabla, setter, condicion)
             self.modificacion = newModificacion
             return True
-        else:  
+        else:
             return False
 
 
@@ -111,7 +111,7 @@ class Rol:
         self.rol_name = None
         self.descripcion = None
         self.modificacion = None
-        
+
     def __repr__(self):
         toStr = ''
         toStr += ('Nombre: ' + self.rol_name + ' - ')

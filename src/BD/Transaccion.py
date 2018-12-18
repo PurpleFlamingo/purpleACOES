@@ -5,7 +5,7 @@ from Apadrinamiento import Apadrinamiento
 
 class Transaccion:
     tabla = 'transaccion'
-    def __init__(self, id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario):
+    def __init__(self, id_transaccion = None, gasto = None, fechaEmision = None, cuantia = None, moneda = None, destino = None, formaPago = None, motivo = None, proyecto = None, apadrinamiento = None, beneficiario = None):
         self.id_transaccion = id_transaccion
         self.gasto = gasto
         self.fechaEmision = fechaEmision
@@ -19,7 +19,7 @@ class Transaccion:
         self.beneficiario = beneficiario
 
     @staticmethod
-    def newTransaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario):
+    def newTransaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino = None, formaPago = None, motivo = None, proyecto = None, apadrinamiento = None, beneficiario = None):
         bd = BD()
         if destino == None:
             destino = 'null'
@@ -48,7 +48,7 @@ class Transaccion:
             return None
 
     @staticmethod
-    def getTransaccion(id_transaccion):
+    def getTransaccion(id_transaccion: int):
         bd = BD()
         cond = 'id_transaccion = ' + str(id_transaccion)
         trans = bd.selectEscalar('*', Transaccion.tabla, cond)
@@ -165,7 +165,7 @@ class Transaccion:
     def setApadrinamiento(self, newApadrinamiento: Apadrinamiento):
         #No se pueden modificar transacciones
         return False
-        
+
     def setBeneficiario(self, newBeneficiario: str):
         #No se pueden modificar transacciones
         return False

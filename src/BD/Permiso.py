@@ -2,11 +2,11 @@ from BD import BD
 
 class Permiso:
     tabla = 'permiso'
-    def __init__(self, permiso: str, alcance: str, descripcion: str):
+    def __init__(self, permiso: str = None, alcance: str = None, descripcion: str = None):
         self.permiso = permiso
         self.alcance = alcance
         self.descripcion = descripcion
-    
+
     @staticmethod
     def newPermiso(permiso: str, alcance: str, descripcion: str):
         bd = BD()
@@ -89,7 +89,7 @@ class Permiso:
             bd.update(Permiso.tabla, setter, condicion)
             self.alcance = newAlcance
             return True
-        else:  
+        else:
             return False
 
     def setDescripcion(self, newDesc: str):
@@ -100,9 +100,9 @@ class Permiso:
             bd.update(Permiso.tabla, setter, condicion)
             self.descripcion = newDesc
             return True
-        else:  
+        else:
             return False
-    
+
     def delete(self):
         bd = BD()
         condicion = 'permiso = \'' + self.permiso + '\''
@@ -119,7 +119,7 @@ class Permiso:
         return toStr[:-3]
 
 if __name__ == '__main__':
-    print(Permiso.getPermiso('Hola'))
+    print(Permiso.getPermiso('asd'))
     print(Permiso.listaPermisos())
     temp = Permiso.getPermiso('Hola')
     #print('\n\n')

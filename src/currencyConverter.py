@@ -8,7 +8,7 @@ import json
 class CurrencyConverter:
     def __init__(self):
         currentRatio, status = self.getCurrentRatio()
-        print(status)
+        #print(status)
         if status == 200:
 
             self.lastUpdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

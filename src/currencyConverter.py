@@ -7,6 +7,19 @@ import json
 
 class CurrencyConverter:
     def __init__(self):
+        with open('DATA/currency.json') as f:
+            currentRatio = json.load(f)
+            timeDelta = datetime.now() - datetime.strptime(currentRatio['lastUpdate'], '%Y-%m-%d %H:%M:%S')
+            if timeDelta.seconds>1800:
+                self.updateOnline()
+            else:
+                self.lastUpdate = currentRatio['lastUpdate']
+                self.EUR_HNL = currentRatio['EUR_HNL']
+                self.HNL_EUR = currentRatio['HNL_EUR']
+
+        
+
+    def updateOnline(self):
         currentRatio, status = self.getCurrentRatio()
         #print(status)
         if status == 200:

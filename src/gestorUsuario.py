@@ -36,6 +36,12 @@ class GestorUsuario(base_1, form_1):
         self.bActualizar.clicked.connect(self.recargar)
         self.bBuscar.clicked.connect(self.busqueda)
 
+        self.cProvincia.currentIndexChanged.connect(self.busqueda)
+        self.cEstado.currentIndexChanged.connect(self.busqueda)
+        self.cRol.currentIndexChanged.connect(self.busqueda)
+        self.cPermiso.currentIndexChanged.connect(self.busqueda)
+        self.eNombre.textChanged.connect(self.busqueda)
+        self.eApellidos.textChanged.connect(self.busqueda)
 
     #Carga la vista del padre
     def atras(self):

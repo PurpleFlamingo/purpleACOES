@@ -4,43 +4,98 @@ from BD import BD
 
 class Apadrinamiento:
 
-    def __init__(self, id_apadrinamiento: int = None, joven: int = None, socio: int = None, agente: int = None, fecha_de_inicio: str = None, fecha_de_baja: str = None, enBase = False):
-        self.tabla = 'apadrinamiento'
-        #si todas las variables son nulas crea una instancia nula del objeto (sirve para crear listas de tuplas de la base de datos)
-        if (id_apadrinamiento == None and joven == None and socio == None and agente == None and fecha_de_inicio == None and fecha_de_baja == None):
-            self.id_apadrinamiento = None
-            self.joven = None
-            self.socio = None
-            self.agente = None
-            self.fecha_de_inicio = None
-            self.fecha_de_baja = None
-        else:
-            #si la variable enBase es True se indica que el apadrinamiento se encuentra en la tabla, por lo que no hace falta comprobarlo
-            #vale principalmente para la creación de listas, que se hace luego de hacer una consulta en la base de datos y con las tuplas
-            #obtenidas se crean instancias de la clase
-            if enBase == False:
-                #me conecto a la base de datos
-                bd = BD() 
-                #consulto si los valores estan en la tabla
-                condicion = 'joven = ' + str(joven) + ' and socio = ' + str(socio)
-                ap = bd.select('*',self.tabla,condicion)
 
-                #inserto los valores en la tabla si no existen
-                if ap == None or ap == []:
-                    print ('Inserto el apadrinamiento en la tabla')
-                    if fecha_de_baja == None:
-                        fecha_de_baja = 'null'
-                    valores = [id_apadrinamiento, joven, socio, agente, fecha_de_inicio, fecha_de_baja]
-                    bd.insert(valores, self.tabla)
-            #inicializo las variables de la instancia
+    tabla = 'apadrinamiento'
+
+    def __init__(self, id_apadrinamiento: int = None, joven: int = None, socio: int = None, agente: int = None, fecha_de_inicio: str = None, fecha_de_baja: str = None):
             self.id_apadrinamiento = id_apadrinamiento
             self.joven = joven
             self.socio = socio
-            self.agente = agente
+            self.agente = agenyte 
             self.fecha_de_inicio = fecha_de_inicio
             self.fecha_de_baja = fecha_de_baja
 
-    
+    @staticmethod
+    def newApadrinamiento(self, id_apadrinamiento: int, joven: int, socio: int, agente: int, fecha_de_inicio: str, fecha_de_baja: str = None):
+            if id_apadrinamiento == None or joven == None or socio == None or agente == None or fecha_de_inicio == None:
+                print('Error: los datos del apadrinamiento (excepto la fecha de baja) no pueden ser nulos')
+                return None
+            if fecha_de_baja == None:
+                fecha_de_baja = 'null'
+
+            #compruebo que el valor no existe en la tabla para no incumplir la unicidad del atributo
+            condicion = 'id_apadrinamiento = ' + str(id_apadrinamiento)
+            ap = estaEnLaTabla(Apadrinamiento.tabla,condicion)
+            if ap:
+                print('Apadrinamiento ya existente')
+                return None
+            #compruebo que la combinacion de joven y socio no se encuentra en la tabla (por ser la clave primaria)
+            condicion = 'joven = ' + str(joven) + ' and socio = ' + str(socio)
+            ap = estaEnLaTabla(Apadrinamiento.tabla,condicion)
+            if ap:
+                print('Apadrinamiento ya existente')
+                return None
+            #compruebo que las claves foraneas existen en sus tablas de origen (joven, socio, agente)
+            condicion = ' id_joven = ' + str(joven)
+            ap = estaEnLaTabla(' joven ',condicion)
+            if not ap:
+                print('Joven no existente')
+                return None
+            condicion = ' usuario = ' + str(socio)
+            ap = estaEnLaTabla(' socio ',condicion)
+            if not ap:
+                print('Socio no existente')
+                return None
+            condicion = ' usuario = ' + str(agente)
+            ap = estaEnLaTabla(' voluntario ',condicion)
+            if not ap:
+                print('Agente no existente')
+                return None
+
+            bd = BD() 
+            #consulto si los valores estan en la tabla
+            condicion = 'id_apadrinamiento = ' + str(id_apadrinamiento)
+            ap = bd.select('*',Apadrinamiento.tabla,condicion)
+
+            #inserto los valores en la tabla si no existen
+            if not ap:
+                valores = [id_apadrinamiento, joven, socio, agente, fecha_de_inicio, fecha_de_baja]
+                bd.insert(valores, Apadrinamiento.tabla)
+                #inicializo las variables de la instancia
+                newAp = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio, fecha_de_baja)
+                print(newAp)
+                return newAp
+            else:
+                print('Error: La id {} ya esta en uso',format(id_apadrinamiento))
+                return None
+
+    #metodo que comprueba si la condicion pasada como parametro devuelve tuplas en la query o si esta devuele un nulo 
+    #el resultado es verdadero si se devuelve una tupla (o una lista de tuplas) y falso si no se encuentran tuplas
+    def estaEnLaTabla(self, tabla: str, condicion: str)
+        bd = BD()
+        resultado = '*'
+        ap = bd.selectEscalar(resultado,tabla,condicion)
+        return ap != None
+        
+    #dado un valor de la clave se lo busca en la tabla y se crea una instancia de la clase con esos valores y en caso de no existir se 
+    # devuelve el valor nulo (None) 
+    @staticmethod
+    def getApadrinamiento(id_apadrinamiento: int):
+        bd = BD()
+        condicion = 'id_apadrinamiento = ' + str(id_apadrinamiento)
+        resultado = '*'
+        ap = bd.selectEscalar(resultado,Apadrinamiento.tabla,condicion)
+        if not ap:
+            print('Apadrinamiento no existente')
+            return None
+        else:
+            id_apdrinamiento = id_apadrinamiento
+            joven = ap[1]
+            socio = ap[2]
+            agente = ap[3]
+            fecha_de_inicio = ap[4]
+            fecha_de_baja = ap[5]
+
     #serie de comandos que devuelven los valores de los campos de la instancia
     def getIdApadrinamiento(self):
         return self.id_apadrinamiento
@@ -64,7 +119,7 @@ class Apadrinamiento:
     def delete(self):
         bd = BD()   
         condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
-        bd.delete(self.tabla,condicion)
+        bd.delete(Apadrinamiento.tabla,condicion)
         self.id_apadrinamiento = None
         self.joven = None
         self.socio = None
@@ -78,17 +133,19 @@ class Apadrinamiento:
             bd = BD()
             condicion = 'id_apadrinamiento = ' + str(id_apadrinamiento)
             resultado = '*'
-            ap = bd.selectEscalar(resultado,self.tabla,condicion)
+            ap = bd.selectEscalar(resultado,Apadrinamiento.tabla,condicion)
             #compruebo que el valor no existe en la tabla para no incumplir la unicidad del atributo
             if ap == None or ap == []:
                 condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
                 setter = 'id_apadrinamiento = ' + str(id_apadrinamiento)
-                bd.update(self.tabla,setter,condicion)
+                bd.update(Apadrinamiento.tabla,setter,condicion)
                 self.id_apadrinamiento = id_apadrinamiento
             else:
                 print ('id_apadrinamiento existente')
+                return False
         else:
             print ('id_apadrinamiento no puede ser null')
+            return False
 
     def setJoven(self, joven: int = None):
         #comprobación de que el valor no sea nulo
@@ -101,19 +158,22 @@ class Apadrinamiento:
             if ap != None:
                 condicion = 'joven = ' + str(joven) + ' and socio = ' + str(self.socio)
                 resultado = '*'
-                ap = bd.selectEscalar(resultado,self.tabla,condicion)
+                ap = bd.selectEscalar(resultado,Apadrinamiento.tabla,condicion)
                 #compruebo que la combinacion de joven y socio no se encuentre en la tabla de apadrinamientos al ser ambas la clave primaria
                 if ap == None or ap == []:
                     condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
                     setter = 'joven = ' + str(joven)
-                    bd.update(self.tabla,setter,condicion)
+                    bd.update(Apadrinamiento.tabla,setter,condicion)
                     self.joven = joven       
                 else:
                     print ('apadrinamiento existente')
+                    return False
             else:
                 print ('joven no existente')
+                return False
         else:
             print ('joven no puede ser null') 
+            return False
 
     def setSocio(self, socio: int = None):
         #comprobación de que el valor no sea nulo
@@ -126,19 +186,22 @@ class Apadrinamiento:
             if ap != None:
                 condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(socio)
                 resultado = '*'
-                ap = bd.selectEscalar(resultado,self.tabla,condicion)
+                ap = bd.selectEscalar(resultado,Apadrinamiento.tabla,condicion)
                 #compruebo que la combinacion de joven y socio no se encuentre en la tabla de apadrinamientos al ser ambas la clave primaria
                 if ap == None or ap == []:
                     condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
                     setter = 'socio = ' + str(socio)
-                    bd.update(self.tabla,setter,condicion)
+                    bd.update(Apadrinamiento.tabla,setter,condicion)
                     self.socio = socio
                 else:
                     print ('apadrinamiento existente')
+                    return False
             else:
                 print ('socio no existente')
+                return False
         else:
             print ('socio no puede ser null')
+            return False
 
     def setAgente(self, agente: int = None):
         #comprobación de que el valor no sea nulo
@@ -151,12 +214,14 @@ class Apadrinamiento:
             if ap != None:
                 condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
                 setter = 'agente = ' + str(agente)
-                bd.update(self.tabla,setter,condicion)
+                bd.update(Apadrinamiento.tabla,setter,condicion)
                 self.agente = agente
             else:
                  print ('agente no existente')
+                 return False
         else:
             print ('agente no puede ser null')
+            return False
            
 
     def setFechaDeInicio(self, fecha_de_inicio: str = None):
@@ -165,19 +230,22 @@ class Apadrinamiento:
             bd = BD()
             condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
             setter = 'fecha_de_inicio = ' + str(fecha_de_inicio)
-            bd.update(self.tabla,setter,condicion)
+            bd.update(Apadrinamiento.tabla,setter,condicion)
             self.fecha_de_inicio = fecha_de_inicio
         else:
             print ('fecha de inicio no puede ser null')
+            return False
 
     def setFechaDeBaja(self, fecha_de_baja: str = None):
         bd = BD()
         condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
         setter = 'fecha_de_baja = ' + str(fecha_de_baja)
-        bd.update(self.tabla,setter,condicion)
+        bd.update(Apadrinamiento.tabla,setter,condicion)
         self.fecha_de_baja = fecha_de_baja
 
-    def listaApadrinamientos(self, socio: int = None, agente: int = None):
+    # método que permite crear una lista de proyectos y que permite filtrarlos por tipo
+    @staticmethod
+    def listaApadrinamientos(socio: int = None, agente: int = None):
         bd = BD()
         #si agente y socio son nulos la busqueda es total
         if socio == None and agente == None:
@@ -191,7 +259,7 @@ class Apadrinamiento:
         #busqueda por agente
         elif agente != None:
             condicion = ' agente = ' + str(agente)
-        ap = bd.select('*',self.tabla,condicion)
+        ap = bd.select('*',Apadrinamiento.tabla,condicion)
         #creo una lista vacia (que se usara para devolver el resultado)
         lista = []
         #cada tupla en la lista obtenida en la consulta se usa para crear una instancia de apadrinamiento y se agregan a la lista vacia
@@ -203,11 +271,33 @@ class Apadrinamiento:
             fecha_de_inicio = apad[4]
             fecha_de_baja = apad[5]
             if fecha_de_baja == None:
-                apadrina = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio.strftime('%Y-%m-%d'), None, True)
+                apadrina = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio.strftime('%Y-%m-%d'), None)
             else:
-                apadrina = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio.strftime('%Y-%m-%d'), fecha_de_baja.strftime('%Y-%m-%d'), True)
+                apadrina = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio.strftime('%Y-%m-%d'), fecha_de_baja.strftime('%Y-%m-%d'))
             lista.append(apadrina)
         return lista
+        
+    # método que retorna una representación de la instancia de la clase
+    def __repr__(self):
+        cadena = ''
+        if self.id_apadrinamiento != None: 
+            cadena += 'Apadrinamiento '+ str(self.id_apadrinamiento) + ' - '
+        if self.joven != None: 
+            cadena += 'Joven ' + str(self.joven) + ' - '
+        if self.socio != None: 
+            cadena += 'Socio ' + str(self.socio) + ' - '
+        if self.agente != None:
+            cadena += 'Agente ' + str(self.agente) + ' - '
+        if self.fecha_de_inicio != None:
+            cadena += 'Fecha de inicio ' + self.fecha_de_inicio + ' - '
+        if self.fecha_de_baja != None:
+            cadena += 'Fecha de baja ' + self.fecha_de_baja + ' - '
+        else:
+            cadena += 'Sin fecha de baja - '
+        if cadena == '':
+            cadena = 'Apadrinamiento vacío - ' 
+
+        return cadena[:-3]
 
     def toString(self):
         cadena = ''

@@ -67,10 +67,10 @@ class Colonia:
     def getDescripcion(self):
         return self.descripcion
 
-    #se borra la instancia actual de apadrinamiento de la base de datos y la instancia se convierte en nula
+    #se borra la instancia actual de colonia de la base de datos y la instancia se convierte en nula
     def delete(self):
         bd = BD()   
-        condicion = 'id_colonia = ' + str(id_colonia)
+        condicion = 'id_colonia = ' + str(self.id_colonia)
         bd.delete(Colonia.tabla,condicion)
         self.id_colonia = None
         self.nombre = None
@@ -129,7 +129,7 @@ class Colonia:
         self.descripcion = descripcion
 
 
-    # método que permite crear una lista de proyectos y que permite filtrarlos por tipo
+    # método que permite crear una lista de colonias
     @staticmethod
     def listaColonias():
         bd = BD()
@@ -165,9 +165,4 @@ class Colonia:
         return cadena[:-3]
 
 if __name__ == '__main__':
-    col = Colonia()
-    lista = col.listaProyectos()
-    if lista == []:
-        print ('Tabla vacía')
-    for c in lista:
-        c.toString()
+   

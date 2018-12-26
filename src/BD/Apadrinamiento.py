@@ -9,9 +9,9 @@ class Apadrinamiento:
 
     def __init__(self, id_apadrinamiento: int = None, joven: int = None, socio: int = None, agente: int = None, fecha_de_inicio: str = None, fecha_de_baja: str = None):
             self.id_apadrinamiento = id_apadrinamiento
-            self.joven = joven
-            self.socio = socio
-            self.agente = agenyte 
+            self.joven = getJoven(joven) if joven != None else None
+            self.socio = getSocio(socio) if socio != None else None
+            self.agente = getAgente(agente) if agente != None else None
             self.fecha_de_inicio = fecha_de_inicio
             self.fecha_de_baja = fecha_de_baja
 
@@ -23,12 +23,6 @@ class Apadrinamiento:
             if fecha_de_baja == None:
                 fecha_de_baja = 'null'
 
-            #compruebo que el valor no existe en la tabla para no incumplir la unicidad del atributo
-            condicion = 'id_apadrinamiento = ' + str(id_apadrinamiento)
-            ap = estaEnLaTabla(Apadrinamiento.tabla,condicion)
-            if ap:
-                print('Apadrinamiento ya existente')
-                return None
             #compruebo que la combinacion de joven y socio no se encuentra en la tabla (por ser la clave primaria)
             condicion = 'joven = ' + str(joven) + ' and socio = ' + str(socio)
             ap = estaEnLaTabla(Apadrinamiento.tabla,condicion)
@@ -90,9 +84,9 @@ class Apadrinamiento:
             return None
         else:
             id_apdrinamiento = id_apadrinamiento
-            joven = ap[1]
-            socio = ap[2]
-            agente = ap[3]
+            joven = getJoven(ap[1]) if joven != None else None
+            socio = getSocio(ap[2]) if socio != None else None
+            agente = getAgente(ap[3]) if agente != None else None
             fecha_de_inicio = ap[4]
             fecha_de_baja = ap[5]
 
@@ -102,12 +96,21 @@ class Apadrinamiento:
 
     def getJoven(self):
         return self.joven
+    
+    def getJovenID(self):
+        return self.joven.getIdJoven()
 
     def getSocio(self):
         return self.socio
 
+    def getSocioId(self):
+        return self.socio.getUsuario()
+
     def getAgente(self):
         return self.agente
+
+    def getAgenteId(self):
+        return self.agente.getUsuario()
 
     def getFechaDeInicio(self):
         return self.fecha_de_inicio
@@ -283,11 +286,11 @@ class Apadrinamiento:
         if self.id_apadrinamiento != None: 
             cadena += 'Apadrinamiento '+ str(self.id_apadrinamiento) + ' - '
         if self.joven != None: 
-            cadena += 'Joven ' + str(self.joven) + ' - '
+            cadena += 'Joven ' + str(self.joven.getIdJoven()) + ' - '
         if self.socio != None: 
-            cadena += 'Socio ' + str(self.socio) + ' - '
+            cadena += 'Socio ' + str(self.socio.getUsuario()) + ' - '
         if self.agente != None:
-            cadena += 'Agente ' + str(self.agente) + ' - '
+            cadena += 'Agente ' + str(self.agente.getUsuario()) + ' - '
         if self.fecha_de_inicio != None:
             cadena += 'Fecha de inicio ' + self.fecha_de_inicio + ' - '
         if self.fecha_de_baja != None:
@@ -299,26 +302,6 @@ class Apadrinamiento:
 
         return cadena[:-3]
 
-    def toString(self):
-        cadena = ''
-        if self.id_apadrinamiento != None: 
-            cadena += 'Apadrinamiento '+ str(self.id_apadrinamiento) + ' - '
-        if self.joven != None: 
-            cadena += 'Joven ' + str(self.joven) + ' - '
-        if self.socio != None: 
-            cadena += 'Socio ' + str(self.socio) + ' - '
-        if self.agente != None:
-            cadena += 'Agente ' + str(self.agente) + ' - '
-        if self.fecha_de_inicio != None:
-            cadena += 'Fecha de inicio ' + self.fecha_de_inicio + ' - '
-        if self.fecha_de_baja != None:
-            cadena += 'Fecha de baja ' + self.fecha_de_baja
-        else:
-            cadena += 'Sin fecha de baja'
-        if cadena == '':
-            cadena = 'Apadrinamiento vacío' 
-        
-        print(cadena)
 
 if __name__ == '__main__':
     

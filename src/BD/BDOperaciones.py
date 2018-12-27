@@ -115,6 +115,11 @@ class BDOperaciones:
         datosVoluntario= db.selectEscalar('*', 'voluntario', 'usuario=' + str(ID))
         return datosVoluntario;
 
+    def getID(self, nombre: str):
+        db = BD()
+        id = db.selectEscalar('id_usuario', 'usuario', 'nombre = \'' + str(nombre) + '\'')
+        return id[0]
+
     #Actualiza los datos de un usuario(idUser) que tiene rol(rolUser)
     #datosUsuario y datosOtros deben tener todos los campos que de usuario, con
     #None en los que no se vayan a actualizar

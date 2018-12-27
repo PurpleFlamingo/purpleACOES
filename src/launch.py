@@ -1,10 +1,10 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
-from gestorUsuario import GestorUsuario
 from recovery import Recovery
 from warningFifthWrongTry import WarningFifthWrongTry
 from BD.BDOperaciones import BDOperaciones
+from subsistemas import Subsistemas
 
 
 form_1, base_1 = uic.loadUiType('UI/login.ui')
@@ -14,7 +14,6 @@ class LogIn(base_1, form_1):
         super(base_1,self).__init__()
         self.setupUi(self)
         self.child = None
-
         #variable para llevar la cuenta de los intentos erroneos consecutivos que se producen al iniciar sesión
         self.numeroIntentosErroneos = 0
         self.eUser.setFocus(True)
@@ -27,13 +26,15 @@ class LogIn(base_1, form_1):
         #si el usuario no introduce el nombre de usuario o la contraseña el botón no hace nada
         if (self.eUser.text() != '') and (self.ePassword.text()) != '':
             if(self.inicio_sesion(self.eUser.text(), self.ePassword.text())):
+                bd = BDOperaciones()
+                id = bd.getID(self.eUser.text())
                 #Al iniciarse correctamente la sesión el número de intentos erroneos se resetea y se borra el mensaje de error
                 self.numeroIntentosErroneos = 0
                 self.lWarning.setText("")
                 self.eUser.setText("")
                 self.ePassword.setText("")
-                if self.child is None or self.child != GestorUsuario(self):
-                    self.child = GestorUsuario(self)
+                if self.child is None or self.child != Subsistemas(id, self):
+                    self.child = Subsistemas(id, self)
                     self.child.show()
                     self.hide()
                 else:

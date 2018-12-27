@@ -25,9 +25,42 @@ class Joven:
         self.colegio = colegio
 
     @staticmethod
-    def newJoven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento, fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones, coloniaNacimiento, coloniaResidencia, colegio):
+    def newJoven(idJoven, nombre, apellidos, nombrePadre = None, nombreMadre = None, estado = None, urlFoto = None, fechaNacimiento = None, fechaAlta = None, fechaAltaACOES = None, fechaSalidaACOES = None, grado = None, historial = None, observaciones = None, coloniaNacimiento = None, coloniaResidencia = None, colegio = None):
         bd = BD()
-
+        if nombrePadre == None:
+            nombrePadre = 'null'
+        if nombreMadre == None:
+            nombreMadre = 'null'
+        if estado == None:
+            estado = 'null'
+        if urlFoto == None:
+            urlFoto = 'null'
+        if fechaNacimiento == None:
+            fechaNacimiento = 'null'
+        if fechaAlta == None:
+            fechaAlta = 'null'
+        if fechaAltaACOES == None:
+            fechaAltaACOES = 'null'
+        if fechaSalidaACOES == None:
+            fechaSalidaACOES = 'null'
+        if grado == None:
+            grado = 'null'
+        if historial == None:
+            historial = 'null'
+        if observaciones == None:
+            observaciones = 'null'
+        if coloniaNacimiento == None:
+            #Campo obligatorio
+            return None
+        if coloniaResidencia == None:
+            #Campo obligatorio
+            return None
+        if colegio == None:
+            #Campo obligatorio
+            return None
+        
+        
+        
         condicion = 'id_joven = \'' + idJoven + '\''
         res = bd.selectEscalar('*', Joven.tabla, condicion)
         if not res:

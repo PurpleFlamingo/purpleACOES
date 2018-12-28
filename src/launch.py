@@ -27,7 +27,7 @@ class LogIn(base_1, form_1):
         if (self.eUser.text() != '') and (self.ePassword.text()) != '':
             if(self.inicio_sesion(self.eUser.text(), self.ePassword.text())):
                 bd = BDOperaciones()
-                id = bd.getID(self.eUser.text())
+                id = bd.getIdUsuario(self.eUser.text())
                 #Al iniciarse correctamente la sesión el número de intentos erroneos se resetea y se borra el mensaje de error
                 self.numeroIntentosErroneos = 0
                 self.lWarning.setText("")

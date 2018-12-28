@@ -79,6 +79,8 @@ class BDOperaciones:
             if user[3] == 'Socio':
                 datosSocio = db.selectEscalar('*', 'socio', 'usuario=\'' + str(user[0]) + '\'')
                 dictSocio = {}
+                if datosSocio is None:
+                    continue
                 for i, col in enumerate(colUsuario):
                     dictSocio[col] = user[i]
                 for i, col in enumerate(colSocio):
@@ -87,6 +89,8 @@ class BDOperaciones:
             else:
                 datosVoluntario = db.selectEscalar('*', 'voluntario', 'usuario=\'' + str(user[0]) + '\'')
                 dictVoluntario = {}
+                if datosVoluntario is None:
+                    continue
                 for i, col in enumerate(colUsuario):
                     dictVoluntario[col] = user[i]
                 for i, col in enumerate(colVoluntario):
@@ -115,7 +119,9 @@ class BDOperaciones:
         datosVoluntario= db.selectEscalar('*', 'voluntario', 'usuario=' + str(ID))
         return datosVoluntario;
 
-    def getID(self, nombre: str):
+    # Devuelve el ID de un usuario a partir del nombre pasado como parametro
+    # Returns int
+    def getIdUsuario(self, nombre: str):
         db = BD()
         id = db.selectEscalar('id_usuario', 'usuario', 'nombre = \'' + str(nombre) + '\'')
         return id[0]

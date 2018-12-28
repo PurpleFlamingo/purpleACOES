@@ -6,7 +6,7 @@ from perfilUsuario import PerfilUsuario
 from warningNoUserSelected import WarningNoUserSelected
 import datetime
 
-form_1, base_1 = uic.loadUiType('UI/gestorUsuario.ui',resource_suffix='')
+form_1, base_1 = uic.loadUiType('UI/gestorUsuario.ui')
 
 class GestorUsuario(base_1, form_1):
     def __init__(self, parent = None):

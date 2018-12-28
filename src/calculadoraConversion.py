@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHeaderView
 from currencyConverter import CurrencyConverter
 import datetime
 
-form_1, base_1 = uic.loadUiType('UI/calculadoraConversion.ui',resource_suffix='')
+form_1, base_1 = uic.loadUiType('UI/calculadoraConversion.ui')
 
 class CalculadoraConversion(base_1, form_1):
     def __init__(self, parent = None):

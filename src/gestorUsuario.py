@@ -91,10 +91,10 @@ class GestorUsuario(base_1, form_1):
         self.tUsuarios.setRowCount(len(usuarios))
         self.tUsuarios.setHorizontalHeaderLabels(self.cabeceras)
         self.tUsuarios.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
-        roles = []
-        permisos = []
-        provincias = []
-        estados = []
+        roles = ['']
+        permisos = ['']
+        provincias = ['']
+        estados = ['']
         #Iteramos por todos los usuarios y datos de cada usuario, y guardamos los elementos que necesitaremos para los desplegables
         for i, user in enumerate(usuarios):
             for j, key in enumerate(self.datosComunes):
@@ -116,18 +116,14 @@ class GestorUsuario(base_1, form_1):
 
         #Cargar lista de opciones en cada comboBox
         self.cProvincia.clear()
-        self.cProvincia.addItems([''])
         self.cProvincia.addItems(provincias)
         self.cEstado.clear()
-        self.cEstado.addItems([''])
         self.cEstado.addItems(estados)
         self.cRolNew.clear()
-        self.cRolNew.addItems(roles)
+        self.cRolNew.addItems(roles[1:])
         self.cRol.clear()
-        self.cRol.addItems([''])
         self.cRol.addItems(roles)
         self.cPermiso.clear()
-        self.cPermiso.addItems([''])
         self.cPermiso.addItems(permisos)
 
         #self.resetBusqueda()

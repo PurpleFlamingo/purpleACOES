@@ -1,6 +1,6 @@
-from BD import BD
-from Proyecto import Proyecto
-from Apadrinamiento import Apadrinamiento
+from BD.BD import BD
+from BD.Proyecto import Proyecto
+from BD.Apadrinamiento import Apadrinamiento
 
 
 class Transaccion:
@@ -84,8 +84,8 @@ class Transaccion:
             destino = transaccion[5]
             formaPago = transaccion[6]
             motivo = transaccion[7]
-            proyecto = Proyecto(transaccion[8]) if transaccion[8]!=None else None
-            apadrinamiento = Apadrinamiento(transaccion[9]) if transaccion[9]!=None else None
+            proyecto = Proyecto.getProyecto(transaccion[8]) if transaccion[8]!=None else None
+            apadrinamiento = Apadrinamiento.getApadrinamiento(transaccion[9]) if transaccion[9]!=None else None
             beneficiario = transaccion[10]
             newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
             listTransacciones.append(newTrans)

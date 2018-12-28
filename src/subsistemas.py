@@ -3,7 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit
 from BD.BDOperaciones  import BDOperaciones
 from gestorUsuario import GestorUsuario
-#from gestorFinanciero import gestorFinanciero
+from gestorFinanciero import GestorFinanciero
 #from gestorApadrinamiento import GestorApadrinamiento
 
 
@@ -36,14 +36,14 @@ class Subsistemas(base_1, form_1):
             self.child.show()
 
     def financiero(self):
-        #if self.child is None or self.child != GestorFinanciero(self, self.idUsuario):
-        #    self.child = GestorFinanciero(self, self.idUsuario)
-        #    self.child.show()
-        #    self.hide()
-        #else:
-        #    self.hide()
-        #    self.child.show()
-        print('Hola, el boton funciona :D')
+        if self.child is None or self.child != GestorFinanciero(self, self.idUsuario):
+            self.child = GestorFinanciero(self, self.idUsuario)
+            self.child.show()
+            self.hide()
+        else:
+            self.hide()
+            self.child.show()
+        #print('Hola, el boton funciona :D')
 
     def apadrinamiento(self):
         #if self.child is None or self.child != GestorApadrinamiento(self, self.idUsuario):

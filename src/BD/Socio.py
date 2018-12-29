@@ -23,6 +23,7 @@ class Socio:
         self.telefono1 = telefono1
         self.telefono2 =  telefono2
         self.correo_electronico = correo_electronico
+        self.relacion = relacion
         self.sector = sector 
         self.certificado = certificado
         self.fecha_de_alta = fecha_de_alta
@@ -33,7 +34,7 @@ class Socio:
     def newSocio(self, usuario: int, nombre_pila: str = None, apellidos: str = None, nif: str = None
         , direccion: str = None, codigo_postal: str = None, provincia: str = None, estado: str = None
         , telefono1: str = None, telefono2: str = None, correo_electronico: str = None, relacion: str = None
-        , sector: str = None, certificado: str = None, fecha_de_alta: str, fecha_de_baja: str = None, observaciones: str = None):
+        , sector: str = None, certificado: str = None, fecha_de_alta: str = None , fecha_de_baja: str = None, observaciones: str = None):
         if usuario == None or fecha_de_alta == None:
             print('Error: la identificación del socio o la fecha de alta no pueden ser nulos')
             return None
@@ -121,11 +122,12 @@ class Socio:
             telefono1 = ap[9]
             telefono2 =  ap[10]
             correo_electronico = ap[11]
-            sector = ap[12] 
-            certificado = ap[13]
-            fecha_de_alta = ap[14]
-            fecha_de_baja = ap[15]
-            observaciones = ap[16]
+            relacion = ap[12]
+            sector = ap[13]
+            certificado = ap[14]
+            fecha_de_alta = ap[15]
+            fecha_de_baja = ap[16]
+            observaciones = ap[17]
 
 
     #serie de comandos que devuelven los valores de los campos de la instancia
@@ -183,7 +185,220 @@ class Socio:
     def getObservaciones(self):
         return self.observaciones
     
-    
+    def delete(self):
+        bd = BD()
+        condicion = 'nif = \'' + str(self.nif) + '\''
+        bd.delete(Socio.tabla, condicion)
+        self.usuario = None
+        self.nombre_pila = None
+        self.apellidos = None
+        self.nif = None
+        self.direccion = None
+        self.poblacion = None
+        self.codigo_postal = None
+        self.provincia = None
+        self.estado = None
+        self.telefono1 = None
+        self.telefono2 = None
+        self.correo_electronico = None
+        self.relacion = None
+        self.sector = None
+        self.certificado = None
+        self.fecha_de_alta = None
+        self.fecha_de_baja = None
+        self.observaciones = None
+
+    def setUsuario(self):
+        print ('El id de usuaro no es modificable, es autoincremental')
+        return False
+
+    def setNombrePila(self, nombre_pila:str = None):
+        if nombre_pila != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'nombre_pila = \'' + nombre_pila + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.nombre_pila = nombre_pila
+        else:
+            print('El nombre de pila no puede ser null')
+            return False
+
+    def setApellidos(self, apellidos:str = None):
+        if apellidos != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'apellidos = \'' + apellidos + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.apellidos = apellidos
+        else:
+            print('Los apellidos no pueden ser null')
+            return False
+
+    def setNif(self, nif:str = None):
+        if nif != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'nif = \'' + nif + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.nif = nif
+        else:
+            print('El nif no puede ser null')
+            return False
+
+    def setDireccion(self, direccion:str = None):
+        if direccion != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'direccion = \'' + direccion + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.direccion = direccion
+        else:
+            print('La direccion no puede ser null')
+            return False
+
+    def setPoblacion(self, poblacion:str = None):
+        if poblacion != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'poblacion = \'' + poblacion + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.poblacion = poblacion
+        else:
+            print('La poblacion no pueden ser null')
+            return False
+
+    def setCodigoPostal(self, codigo_postal: str = None):
+        if codigo_postal != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'codigo_postal = \'' + codigo_postal + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.codigo_postal = codigo_postal
+        else:
+            print('Los apellidos no pueden ser null')
+            return False
+
+    def setProvincia(self, provincia: str = None):
+        if provincia != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'provincia = \'' + provincia + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.provincia = provincia
+        else:
+            print('La provincia no puede ser null')
+            return False
+
+    def setEstado(self, estado: str = None):
+        if estado != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'estado = \'' + estado + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.estado = estado
+        else:
+            print('El estado no puede ser null')
+            return False
+
+    def setTelefono1(self, telefono1: str = None):
+        if telefono1 != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'telefono1 = \'' + telefono1 + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.telefono1 = telefono1
+        else:
+            print('El telefono1 no puede ser null')
+            return False
+
+    def setTelefono2(self, telefono2: str = None):
+        if telefono2 != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'telefono2 = \'' + telefono2 + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.telefono2 = telefono2
+        else:
+            print('El telefono2 no puede ser null')
+            return False
+
+    def setCorreoElectronico(self, correo_electronico: str = None):
+        if correo_electronico != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'correo_electronico = \'' + correo_electronico + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.correo_electronico = correo_electronico
+        else:
+            print('El correo electronico no puede ser null')
+            return False
+
+    def setRelacion(self, relacion: str = None):
+        if relacion != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'relacion = \'' + relacion + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.relacion = relacion
+        else:
+            print('La relacion no puede ser null')
+            return False
+
+    def setSector(self, sector: str = None):
+        if sector != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'sector = \'' + sector + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.sector = sector
+        else:
+            print('El sector no puede ser null')
+            return False
+
+    def setCertificado(self, certificado: str = None):
+        if certificado != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'certificado = \'' + certificado + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.certificado = certificado
+        else:
+            print('El certificado no puede ser null')
+            return False
+
+    def setFechaDeAlta(self, fecha_de_alta: str = None):
+        if fecha_de_alta != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'fecha_de_alta = \'' + fecha_de_alta + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.fecha_de_alta = fecha_de_alta
+        else:
+            print('La fecha de alta no puede ser null')
+            return False
+
+    def setFechaDeBaja(self, fecha_de_baja: str = None):
+        if fecha_de_baja != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'fecha_de_baja = \'' + fecha_de_baja + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.fecha_de_baja = fecha_de_baja
+        else:
+            print('La fecha_de_baja no puede ser null')
+            return False
+
+    def setObservaciones(self, observaciones: str = None):
+        if observaciones != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario) + '\''
+            setter = 'observaciones = \'' + observaciones + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.observaciones = observaciones
+        else:
+            print('Las observaciones no pueden ser null')
+            return False
+
 
 if __name__ == '__main__':
     

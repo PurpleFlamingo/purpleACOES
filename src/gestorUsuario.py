@@ -9,9 +9,10 @@ import datetime
 form_1, base_1 = uic.loadUiType('UI/gestorUsuario.ui')
 
 class GestorUsuario(base_1, form_1):
-    def __init__(self, parent = None):
+    def __init__(self, iduser:int,  parent = None):
         super(base_1,self).__init__()
         self.setupUi(self)
+        self.idUsuario = iduser
         self.parent = parent
         self.child = None
         #Estos deben de ser datos comunes a socios y voluntarios

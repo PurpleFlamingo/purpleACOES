@@ -112,7 +112,7 @@ class Usuario:
         self.rol = None
         self.permiso = None
 
-    def setIdUsuario():
+    def setIdUsuario(self):
         print('El id de usuario no es modificable, es autoincremental')
         return False
 

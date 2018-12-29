@@ -27,8 +27,8 @@ class Subsistemas(base_1, form_1):
         self.close()
 
     def usuarios(self):
-        if self.child is None or self.child != GestorUsuario(self):#(self.idUsuario, self):
-            self.child = GestorUsuario(self)#(self.idUsuario, self)
+        if self.child is None or self.child != GestorUsuario(self.idUsuario, self):
+            self.child = GestorUsuario(self.idUsuario, self)
             self.child.show()
             self.hide()
         else:

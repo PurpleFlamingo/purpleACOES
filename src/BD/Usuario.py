@@ -1,7 +1,7 @@
 import sys
-from BD import BD
-from Rol import Rol
-from Permiso import Permiso
+from BD.BD import BD
+from BD.Rol import Rol
+from BD.Permiso import Permiso
 
 
 class Usuario:

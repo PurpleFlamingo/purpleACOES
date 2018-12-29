@@ -1,4 +1,4 @@
-from BD import BD
+from BD.BD import BD
 
 class Voluntario:
     tabla = 'voluntario'

@@ -1,5 +1,7 @@
 import sys
-from BD import BD
+from BD.BD import BD
+from BD.Joven import Joven
+from BD.Proyecto import Proyecto
 
 class PertenecerProyecto:
     tabla = 'pertencer_proyecto'

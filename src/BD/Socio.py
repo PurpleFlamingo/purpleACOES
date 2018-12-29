@@ -1,6 +1,6 @@
 import sys
-from BD import BD
-from Usuario import Usuario
+from BD.BD import BD
+from BD.Usuario import Usuario
 
 class Socio:
 

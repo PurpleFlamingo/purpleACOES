@@ -1,7 +1,7 @@
 import sys
-from BD import BD
-from Colegio import Colegio
-from Colonia import Colonia
+from BD.BD import BD
+from BD.Colegio import Colegio
+from BD.Colonia import Colonia
 
 class Joven:
     tabla = 'joven'

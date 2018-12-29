@@ -97,7 +97,6 @@ class Usuario:
 
     def getPermiso(self):
         return self.permiso
-
     def getPermisoId(self):
         return self.permiso.getPermiso()
 

@@ -1,5 +1,5 @@
 import sys
-from BD import BD
+from BD.BD import BD
 
 
 class Apadrinamiento:

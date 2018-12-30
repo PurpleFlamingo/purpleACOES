@@ -189,8 +189,10 @@ class BDOperaciones:
             datosOtros = [x for x in datosOtros if x != '']
             db.insertParcial(columnas, [id]+datosOtros,"voluntario")
 
-
-
+    def getLastId(self, tabla: str):
+        db = BD()
+        cols = self.nombreColumnas(tabla)
+        return db.selectEscalar('MAX(' + cols[0] + ')', tabla)[0]
 
     # Cambia la contraseña del usuario de ese ID
     def setPassUsuario(self, passw: str, ID: int):

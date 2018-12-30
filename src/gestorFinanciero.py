@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHeaderView
 from BD.BDOperaciones import BDOperaciones
 from calculadoraConversion import CalculadoraConversion
 from BD.Transaccion import Transaccion
+from datosTransaccion import DatosTransaccion
 
 
 form_1, base_1 = uic.loadUiType('UI/gestorFinanciero.ui')
@@ -50,9 +51,8 @@ class GestorFinanciero(base_1, form_1):
 
     #Carga la vista de anadir transaccion con una vista vacia para crear una transaccion nueva
     def newTransaccion(self):
-        #self.child = AnadirTransaccion(self)
-        #self.child.show()
-        pass
+        self.child = DatosTransaccion(self)
+        self.child.show()
 
     #Carga la calculadora de conversion
     def calculadora(self):
@@ -124,7 +124,6 @@ class GestorFinanciero(base_1, form_1):
         self.cTipo.clear()
         self.cTipo.addItems(tipo) 
         self.cDestino.clear()
-        print(destino)
         self.cDestino.addItems(destino)
         self.cMoneda.clear()
         self.cMoneda.addItems(moneda)

@@ -2,6 +2,9 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
 from BD.BDOperaciones import BDOperaciones
+from BD.Usuario import Usuario
+from BD.Socio import Socio
+from BD.Voluntario import Voluntario
 import recursosQT_rc
 
 form_1, base_1 = uic.loadUiType('UI/perfilUsuario.ui')
@@ -17,10 +20,16 @@ class PerfilUsuario(base_1, form_1):
 
         self.eRol.setText(self.rolUser)
         self.eRol.setEnabled(False)
-        
-        if self.rolUser=="Socio":
-        	self.lFechaNacimiento.hide()
-        	self.eFechaNacimiento.hide()
+
+        if self.rolUser == 'Socio' :
+            self.lFechaNacimiento.hide()
+       	    self.eFechaNacimiento.hide()
+            self.eFechaAlta.setEnabled(False)
+            self.eFechaSalida.setEnabled(False)
+            self.lPermiso.hide()
+            self.ePermiso.hide()
+            self.lRol.hide()
+            self.eRol.hide()
         else:
             self.lPoblacion.hide()
             self.ePoblacion.hide()
@@ -51,12 +60,13 @@ class PerfilUsuario(base_1, form_1):
 
     def cargarDatos(self):
         db= BDOperaciones()
-        usuario=db.getUsuario(self.idUser)
-        self.eUsuario.setText(usuario[1])
-        self.eClave.setText(usuario[2])
-        self.eRol.setText(usuario[3])
-        self.ePermiso.setText(usuario[4])
-        if usuario[3]=="Socio":
+        self.usuario = Usuario.getUsuario(self.idUser)
+        #usuario=db.getUsuario(self.idUser)
+        self.eUsuario.setText(self.usuario.getNombre())
+        self.eClave.setText(self.usuario.getClave())
+        self.eRol.setText(self.usuario.getRolId())
+        self.ePermiso.setText(self.usuario.getPermisoId())
+        if self.usuario.getRolId()=="Socio":
             socio=db.getSocio(self.idUser)
             self.eNombre.setText(socio[1])
             self.eApellidos.setText(socio[2])
@@ -99,8 +109,8 @@ class PerfilUsuario(base_1, form_1):
 
     def insertar(self):
         datosUsuario, datosOtros = self.leerDatos()
-
         db = BDOperaciones()
+
         db.insertarUsuario(datosUsuario, datosOtros)
         self.salir()
 

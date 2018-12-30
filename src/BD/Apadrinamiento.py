@@ -1,5 +1,8 @@
 import sys
 from BD.BD import BD
+from BD.Joven import Joven
+from BD.Voluntario import Voluntario
+from BD.Socio import Socio
 
 
 class Apadrinamiento:
@@ -9,9 +12,9 @@ class Apadrinamiento:
 
     def __init__(self, id_apadrinamiento: int = None, joven: int = None, socio: int = None, agente: int = None, fecha_de_inicio: str = None, fecha_de_baja: str = None):
             self.id_apadrinamiento = id_apadrinamiento
-            self.joven = getJoven(joven) if joven != None else None
-            self.socio = getSocio(socio) if socio != None else None
-            self.agente = getAgente(agente) if agente != None else None
+            self.joven = joven
+            self.socio = socio
+            self.agente = agente
             self.fecha_de_inicio = fecha_de_inicio
             self.fecha_de_baja = fecha_de_baja
 
@@ -84,11 +87,13 @@ class Apadrinamiento:
             return None
         else:
             id_apdrinamiento = id_apadrinamiento
-            joven = getJoven(ap[1]) if joven != None else None
-            socio = getSocio(ap[2]) if socio != None else None
-            agente = getAgente(ap[3]) if agente != None else None
+            joven = Joven.getJoven(ap[1]) if ap[1] != None else None
+            socio = Socio.getSocio(ap[2]) if ap[2] != None else None
+            agente = Voluntario.getVoluntario(ap[3]) if ap[3] != None else None
             fecha_de_inicio = ap[4]
             fecha_de_baja = ap[5]
+            newAp = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio, fecha_de_baja)
+            return newAp
 
     #serie de comandos que devuelven los valores de los campos de la instancia
     def getIdApadrinamiento(self):
@@ -292,9 +297,9 @@ class Apadrinamiento:
         if self.agente != None:
             cadena += 'Agente ' + str(self.agente.getUsuario()) + ' - '
         if self.fecha_de_inicio != None:
-            cadena += 'Fecha de inicio ' + self.fecha_de_inicio + ' - '
+            cadena += 'Fecha de inicio ' + self.fecha_de_inicio.strftime('%Y-%m-%d') + ' - '
         if self.fecha_de_baja != None:
-            cadena += 'Fecha de baja ' + self.fecha_de_baja + ' - '
+            cadena += 'Fecha de baja ' + self.fecha_de_baja.strftime('%Y-%m-%d') + ' - '
         else:
             cadena += 'Sin fecha de baja - '
         if cadena == '':

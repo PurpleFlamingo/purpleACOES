@@ -38,7 +38,7 @@ class Transaccion:
         #Compruebo que el valor es unico
         res = bd.selectEscalar('*', Transaccion.tabla, condicion)
         if not res:
-            valores = [id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario]
+            valores = [id_transaccion, gasto, fechaEmision.strftime('%Y-%m-%d'), cuantia, moneda, destino, formaPago, motivo, proyecto.getIdProyecto(), apadrinamiento.getIdApadrinamiento(), beneficiario]
 
             bd.insert(valores, Transaccion.tabla)
             newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)

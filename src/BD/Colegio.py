@@ -13,7 +13,7 @@ class Colegio:
             self.colonia = Colonia(colonia) if colonia != None else None
 
     @staticmethod
-    def newColegio(self, id_colegio: int, asociado_ACOES: bool = None, nombre_colegio: str = None, colonia: int):
+    def newColegio(self, id_colegio: int, asociado_ACOES: bool = None, nombre_colegio: str = None, colonia: int = None):
             if id_colegio == None or colonia == None:
                 print('Error: la identificación del colegio o de la colonia no pueden ser nulos')
                 return None
@@ -186,4 +186,4 @@ class Colegio:
         return cadena[:-3]
 
 if __name__ == '__main__':
-    
+    pass

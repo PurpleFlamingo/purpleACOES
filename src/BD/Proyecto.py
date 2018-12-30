@@ -57,13 +57,15 @@ class Proyecto:
             requisitos_participacion = ap[2]
             descripcion = ap[3]
             tipo = ap[4]
+            newProyecto = Proyecto(id_proyecto, nombre, requisitos_participacion, descripcion, tipo)
+            return newProyecto
 
     #serie de comandos que devuelven los valores de los campos de la instancia
     def getIdProyecto(self):
         return self.id_proyecto
 
     def getNombre(self):
-        return self.Nombre
+        return self.nombre
 
     def getRequisitosDeParticipacion(self):
         return self.requisitos_participacion

@@ -43,5 +43,6 @@ class DatosTransaccion(base_1, form_1):
         proyecto = Proyecto.getProyecto(int(self.eProyecto.text()))
         apadrinamiento = Apadrinamiento.getApadrinamiento(int(self.eApadrinamiento.text()))
         beneficiario = self.eBeneficiario.text() if self.eBeneficiario.text() != '' else None
-        print(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
-        #t = Transaccion.newTransaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
+        #print(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
+        t = Transaccion.newTransaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
+        self.atras()

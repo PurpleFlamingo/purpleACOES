@@ -73,7 +73,7 @@ class Usuario:
 
     #metodo que comprueba si la condicion pasada como parametro devuelve tuplas en la query o si esta devuele un nulo 
     #el resultado es verdadero si se devuelve una tupla (o una lista de tuplas) y falso si no se encuentran tuplas
-    def estaEnLaTabla(self, tabla: str, condicion: str)
+    def estaEnLaTabla(self, tabla: str, condicion: str):
         bd = BD()
         resultado = '*'
         ap = bd.selectEscalar(resultado,tabla,condicion)
@@ -227,4 +227,4 @@ class Usuario:
         return cadena[:-3]
 
 if __name__ == '__main__':
-    
+    pass

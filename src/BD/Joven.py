@@ -73,10 +73,10 @@ class Joven:
             return None
 
     @staticmethod
-    def getJoven(idJoven):
+    def getJoven(idJoven: int):
         bd = BD()
 
-        condicion = 'id_joven = \'' + idJoven + '\''
+        condicion = 'id_joven = \'' + str(idJoven) + '\''
         res = bd.selectEscalar('*', Joven.tabla, condicion)
         if not res:
             #El joven no existe

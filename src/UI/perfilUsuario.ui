@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>725</width>
-    <height>589</height>
+    <height>611</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>460</x>
-      <y>560</y>
+      <y>580</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="bGuardarYSalir">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>560</y>
+      <x>580</x>
+      <y>580</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -136,7 +136,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>480</y>
+      <y>500</y>
       <width>661</width>
       <height>71</height>
      </rect>
@@ -544,6 +544,19 @@
       <width>231</width>
       <height>21</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>480</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Comentarios</string>
     </property>
    </widget>
   </widget>

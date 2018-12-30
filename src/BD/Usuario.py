@@ -16,39 +16,40 @@ class Usuario:
             self.permiso = Permiso(permiso) if permiso != None else None
 
     @staticmethod
-    def newUsuario(self, nombre: str, clave: str, rol: str, permiso: str):
+    def newUsuario(nombre: str, clave: str, rol: str, permiso: str):
             if nombre == None or clave == None or rol == None or permiso == None:
                 print('Error: ningún dato de un usuario puede ser nulo')
                 return None
             bd = BD() 
             
             #compruebo que las claves foraneas existen en sus tablas de origen (rol, permiso)
-            condicion = ' rol_name = ' + str(rol)
-            ap = estaEnLaTabla(' rol ',condicion)
+            condicion = 'rol_name = \'' + rol  + '\''
+            ap = Usuario.estaEnLaTabla(' rol ',condicion)
             if not ap:
                 print('Rol no existente')
                 return None
-            condicion = ' permiso = ' + str(permiso)
-            ap = estaEnLaTabla(' permiso ',condicion)
+            condicion = 'permiso = \'' + permiso  + '\''
+            ap = Usuario.estaEnLaTabla(' permiso ',condicion)
             if not ap:
                 print('Permiso no existente')
                 return None
             
             #consulto si los valores estan en la tabla
-            condicion = ' nombre = ' + nombre
+            condicion = 'nombre = \'' + nombre + '\''
             ap = bd.select('*',Usuario.tabla,condicion)
 
             #inserto los valores en la tabla si no existen
             if not ap:
                 valores = ['null',nombre, clave, rol, permiso]
-                bd.insert(valores, Colegio.tabla)
+                bd.insert(valores, Usuario.tabla)
                 #inicializo las variables de la instancia
                 #obtengo el id del usuario (que es autoincremental)
                 resultado = ' MAX(id_usuario) '
                 user = bd.selectEscalar(resultado, Usuario.tabla,None)
-                newCol = Colegio(user, nombre, clave, rol, permiso)
-                print(newCol)
-                return newCol
+                #print('El usuario es: ', user[0])
+                newUser = Usuario(user[0], nombre, clave, rol, permiso)
+                print(newUser)
+                return newUser
             else:
                 print('Error: El usuario {} ya esta en uso',format(nombre))
                 return None
@@ -56,7 +57,7 @@ class Usuario:
     #dado un valor de la clave se lo busca en la tabla y se crea una instancia de la clase con esos valores y en caso de no existir se 
     # devuelve el valor nulo (None) 
     @staticmethod
-    def getSocio(id_usuario):
+    def getUsuario(id_usuario):
         bd = BD()
         condicion = 'id_usuario = ' + str(id_usuario)
         resultado = '*'
@@ -65,15 +66,15 @@ class Usuario:
             print('Usuario no existente')
             return None
         else:
-            id_usuario = id_usuario
-            nombre = ap[1]
-            clave = ap[2]
-            rol = Rol(ap[3]) if ap[3] != None else None
-            permiso = Permiso(ap[4]) if ap[4] != None else None
+            newUser = Usuario(id_usuario, ap[1], ap[2], ap[3], ap[4])
+            print(newUser)
+            return newUser
+
 
     #metodo que comprueba si la condicion pasada como parametro devuelve tuplas en la query o si esta devuele un nulo 
     #el resultado es verdadero si se devuelve una tupla (o una lista de tuplas) y falso si no se encuentran tuplas
-    def estaEnLaTabla(self, tabla: str, condicion: str):
+    @staticmethod
+    def estaEnLaTabla(tabla: str, condicion: str):
         bd = BD()
         resultado = '*'
         ap = bd.selectEscalar(resultado,tabla,condicion)
@@ -93,12 +94,12 @@ class Usuario:
         return self.rol
 
     def getRolId(self):
-        return self.rol.getRol()
+        return self.rol.getNombre()
 
     def getPermiso(self):
         return self.permiso
     def getPermisoId(self):
-        return self.permiso.getPermiso()
+        return self.permiso.getNombre()
 
     #se borra la instancia actual de apadrinamiento de la base de datos y la instancia se convierte en nula
     def delete(self):
@@ -119,7 +120,7 @@ class Usuario:
         #comprobación de que el valor no sea nulo
         if nombre != None:
             bd = BD()
-            condicion = 'nombre = ' + nombre
+            condicion = 'nombre = \'' + nombre + '\''
             resultado = '*'
             ap = bd.selectEscalar(resultado,Usuario.tabla,condicion)
             #compruebo que el valor no existe en la tabla para no incumplir la unicidad del atributo
@@ -139,7 +140,7 @@ class Usuario:
         #comprobación de que el valor no sea nulo
         if clave != None:
             bd = BD()
-            condicion = 'id_usuario = ' + str(self.id_usuario)
+            condicion = 'id_usuario = ' + str(self.id_usuario) 
             setter = 'clave = ' + clave
             bd.update(Usuario.tabla,setter,condicion)
             self.clave = clave
@@ -151,13 +152,13 @@ class Usuario:
         #comprobación de que el valor no sea nulo
         if rol != None:
             bd = BD()
-            condicion = 'rol_name = ' + rol
+            condicion = 'rol_name = \'' + rol  + '\''
             resultado = '*'
             ap = bd.selectEscalar(resultado,' rol ',condicion)
             #compruebo que el valor existe en su tabla, por ser en apadrinamiento una clave foranea
             if ap != None:
                 condicion = 'id_usuario = ' + str(self.id_usuario)
-                setter = 'rol = ' + rol
+                setter = 'rol = \'' + rol  + '\''
                 bd.update(Usuario.tabla,setter,condicion)
                 self.rol = Rol(rol) if rol != None else None
             else:
@@ -171,13 +172,13 @@ class Usuario:
         #comprobación de que el valor no sea nulo
         if permiso != None:
             bd = BD()
-            condicion = 'permiso = ' + permiso 
+            condicion = 'permiso = \'' + permiso  + '\''
             resultado = '*'
             ap = bd.selectEscalar(resultado,' permiso ',condicion)
             #compruebo que el valor existe en su tabla, por ser en apadrinamiento una clave foranea
             if ap != None:
                 condicion = 'id_usuario = ' + str(self.id_usuario)
-                setter = 'permiso = ' + permiso
+                setter = 'permiso = \'' + permiso  + '\''
                 bd.update(Usuario.tabla,setter,condicion)
                 self.permiso = Permiso(permiso) if permiso != None else None
             else:
@@ -188,7 +189,7 @@ class Usuario:
             return False
 
 
-    # método que permite crear una lista de colegios
+    # método que permite crear una lista de usuarios
     @staticmethod
     def listaUsuarios():
         bd = BD()
@@ -198,12 +199,12 @@ class Usuario:
         lista = []
         #cada tupla en la lista obtenida en la consulta se usa para crear una instancia de apadrinamiento y se agregan a la lista vacia
         for col in ap:
-            id_usario = col[0]
+            id_usuario = col[0]
             nombre = col[1]
             clave = col[2]
             rol = col[3]
             permiso = col[4]
-            user = Colegio(id_usuario, nombre, clave, rol, permiso)
+            user = Usuario(id_usuario, nombre, clave, rol, permiso)
             lista.append(user)
         return lista
 
@@ -218,13 +219,15 @@ class Usuario:
         if self.clave != None: 
             cadena += 'Clave ' + self.clave + ' - '
         if self.rol != None:
-            cadena += 'Rol ' + str(self.rol.getRol()) + ' - '
+            cadena += 'Rol ' + str(self.rol.getNombre()) + ' - '
         if self.permiso != None:
-            cadena += 'Permiso ' + str(self.permiso.getPermiso())
+            cadena += 'Permiso ' + str(self.permiso.getNombre()) + ' - '
         if cadena == '':
-            cadena = 'Proyecto vacío - ' 
+            cadena = 'Usuario sin inicializar - ' 
         
         return cadena[:-3]
 
 if __name__ == '__main__':
-    pass
+    user = Usuario()
+
+    print(user)

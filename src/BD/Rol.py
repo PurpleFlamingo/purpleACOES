@@ -63,7 +63,7 @@ class Rol:
 
     #Setters
 
-    def setNombre(self, newName: str):
+    def setNombre(self, newName: str = None):
         if newName != None:
             bd = BD()
             condicion = 'rol_name = \'' + newName + '\''
@@ -81,7 +81,7 @@ class Rol:
             #No se puede insertar nombre null
             return False
 
-    def setDescripcion(self, newDesc: str):
+    def setDescripcion(self, newDesc: str = None):
         if newDesc != None:
             bd = BD()
             condicion = 'rol_name = \'' + self.rol_name + '\''
@@ -92,7 +92,7 @@ class Rol:
         else:
             return False
 
-    def setModificacion(self, newModificacion: bool):
+    def setModificacion(self, newModificacion: bool = None):
         if newModificacion != None:
             bd = BD()
             condicion = 'rol_name = \'' + self.rol_name + '\''
@@ -113,11 +113,16 @@ class Rol:
         self.modificacion = None
 
     def __repr__(self):
-        toStr = ''
-        toStr += ('Nombre: ' + self.rol_name + ' - ')
-        toStr += ('Descripcion: ' + self.descripcion + ' - ')
-        toStr += ('Modificacion: ' + ('Si' if self.modificacion else 'No') + ' - ')
-        return toStr[:-3]
+        cadena = ''
+        if self.rol_name != None: 
+            cadena += ('Nombre: ' + self.rol_name + ' - ')
+        if self.descripcion != None:
+            cadena += ('Descripcion: ' + self.descripcion + ' - ')
+        if self.modificacion != None:
+            cadena += ('Modificacion: ' + ('Si' if self.modificacion else 'No') + ' - ')
+        if cadena == '':
+            cadena = 'Rol sin inicializar - ' 
+        return cadena[:-3]
 
 if __name__ == '__main__':
     t = Rol.getRol('Hola')

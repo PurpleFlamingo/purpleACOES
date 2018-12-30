@@ -63,7 +63,7 @@ class Permiso:
 
     #Setters
 
-    def setNombre(self, newName: str):
+    def setNombre(self, newName: str = None):
         if newName != None:
             bd = BD()
             condicion = 'permiso = \'' + newName + '\''
@@ -81,7 +81,7 @@ class Permiso:
             #No se puede insertar nombre null
             return False
 
-    def setAlcance(self, newAlcance: str):
+    def setAlcance(self, newAlcance: str = None):
         if newAlcance != None:
             bd = BD()
             condicion = 'permiso = \'' + self.permiso + '\''
@@ -92,7 +92,7 @@ class Permiso:
         else:
             return False
 
-    def setDescripcion(self, newDesc: str):
+    def setDescripcion(self, newDesc: str = None):
         if newDesc != None:
             bd = BD()
             condicion = 'permiso = \'' + self.permiso + '\''
@@ -112,11 +112,17 @@ class Permiso:
         self.descripcion = None
 
     def __repr__(self):
-        toStr = ''
-        toStr += ('Nombre: ' + self.permiso + ' - ')
-        toStr += ('Alcance: ' + self.alcance + ' - ')
-        toStr += ('Descripcion: ' + self.descripcion + ' - ')
-        return toStr[:-3]
+        cadena = ''
+        if self.permiso != None: 
+            cadena += ('Nombre: ' + self.permiso + ' - ')
+        if self.alcance != None:
+            cadena += ('Alcance: ' + self.alcance + ' - ')
+        if self.descripcion != None:
+            cadena += ('Descripcion: ' + self.descripcion + ' - ')
+        if cadena == '':
+            cadena = 'Permiso sin inicializar - ' 
+        return cadena[:-3]
+       
 
 if __name__ == '__main__':
     print(Permiso.getPermiso('asd'))

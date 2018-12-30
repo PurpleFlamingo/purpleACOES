@@ -21,3 +21,11 @@ Métodos:
     * delete: permite borrar una tupla de la base de datos y pone en nulo todos los valores de la instancia
 
     * repr: permite la representación de la instancia
+    
+    Los constructores son:
+    
+    init: que recibe como parametros datos de tipo primitivo (int, string, bool) y genera una instancia de la clase
+    
+    newNombreClase: que recibe como parametros datos de tipo primitivo (int, string, bool) y genera una instancia de la clase y también introduce los datos en la base de datos (si no se encuentran en ella ya)
+    
+    getNombreClase: que recibe el valor de la clave primaria como tipo de dato primitivo y crea una instancia de la clase tomando los valores de la base de datos.

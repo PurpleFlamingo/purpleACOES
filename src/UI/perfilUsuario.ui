@@ -536,7 +536,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="lComentario">
     <property name="geometry">
      <rect>
       <x>30</x>

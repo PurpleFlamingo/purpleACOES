@@ -12,8 +12,8 @@ class Usuario:
             self.id_usuario = id_usuario
             self.nombre = nombre
             self.clave = clave
-            self.rol = Rol(rol) if rol != None else None
-            self.permiso = Permiso(permiso) if permiso != None else None
+            self.rol = Rol.getRol(rol) if rol != None else None
+            self.permiso = Permiso.getPermiso(permiso) if permiso != None else None
 
     @staticmethod
     def newUsuario(nombre: str, clave: str, rol: str, permiso: str):
@@ -126,7 +126,7 @@ class Usuario:
             #compruebo que el valor no existe en la tabla para no incumplir la unicidad del atributo
             if ap == None or ap == []:
                 condicion = 'id_usuario = ' + str(self.id_usuario)
-                setter = 'nombre = ' + nombre
+                setter = 'nombre = \'' + nombre + '\''
                 bd.update(Usuario.tabla,setter,condicion)
                 self.nombre = nombre
             else:
@@ -141,7 +141,7 @@ class Usuario:
         if clave != None:
             bd = BD()
             condicion = 'id_usuario = ' + str(self.id_usuario) 
-            setter = 'clave = ' + clave
+            setter = 'clave = \'' + clave + '\''
             bd.update(Usuario.tabla,setter,condicion)
             self.clave = clave
         else:

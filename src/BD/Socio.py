@@ -9,9 +9,9 @@ class Socio:
     def __init__(self, usuario: int = None, nombre_pila: str = None, apellidos: str = None, nif: str = None
         , direccion: str = None, poblacion: str = None, codigo_postal: str = None, provincia: str = None, estado: str = None
         , telefono1: str = None, telefono2: str = None, correo_electronico: str = None, relacion: str = None
-        , sector: str = None, certificado: str = None, fecha_de_alta: str = None, fecha_de_baja: str = None, observaciones: str = None):
+        , sector: str = None, certificado: int = None, fecha_de_alta: str = None, fecha_de_baja: str = None, observaciones: str = None):
 
-        self.usuario = Usuario(usuario) if usuario != None else None
+        self.usuario = Usuario.getUsuario(usuario) if usuario != None else None
         self.nombre_pila = nombre_pila
         self.apellidos = apellidos 
         self.nif = nif 
@@ -34,7 +34,7 @@ class Socio:
     def newSocio(self, usuario: int, nombre_pila: str = None, apellidos: str = None, nif: str = None
         , direccion: str = None, codigo_postal: str = None, provincia: str = None, estado: str = None
         , telefono1: str = None, telefono2: str = None, correo_electronico: str = None, relacion: str = None
-        , sector: str = None, certificado: str = None, fecha_de_alta: str = None , fecha_de_baja: str = None, observaciones: str = None):
+        , sector: str = None, certificado: int = None, fecha_de_alta: str = None , fecha_de_baja: str = None, observaciones: str = None):
         if usuario == None or fecha_de_alta == None:
             print('Error: la identificación del socio o la fecha de alta no pueden ser nulos')
             return None
@@ -110,7 +110,7 @@ class Socio:
             print('Usuario no existente')
             return None
         else:
-            usuario = Usuario(usuario) if usuario != None else None
+            usuario = usuario
             nombre_pila = ap[1]
             apellidos = ap[2] 
             nif = ap[3] 
@@ -126,8 +126,20 @@ class Socio:
             sector = ap[13]
             certificado = ap[14]
             fecha_de_alta = ap[15]
+            if not fecha_de_alta:
+                fecha_de_alta = None
+            else:
+                fecha_de_alta = fecha_de_alta.strftime('%Y-%m-%d')
             fecha_de_baja = ap[16]
+            if not fecha_de_baja:
+                fecha_de_baja = None
+            else:
+                fecha_de_baja = fecha_de_baja.strftime('%Y-%m-%d')
             observaciones = ap[17]
+            newSocio = Socio(usuario, nombre_pila, apellidos, nif, direccion, poblacion, codigo_postal
+                        , provincia, estado, telefono1, telefono2, correo_electronico, relacion, certificado
+                        , sector, fecha_de_alta, fecha_de_baja, observaciones)
+            return (newSocio)
 
 
     #serie de comandos que devuelven los valores de los campos de la instancia
@@ -215,7 +227,7 @@ class Socio:
     def setNombrePila(self, nombre_pila:str = None):
         if nombre_pila != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'nombre_pila = \'' + nombre_pila + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.nombre_pila = nombre_pila
@@ -226,7 +238,7 @@ class Socio:
     def setApellidos(self, apellidos:str = None):
         if apellidos != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'apellidos = \'' + apellidos + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.apellidos = apellidos
@@ -241,7 +253,7 @@ class Socio:
             resultado = '*'
             ap = bd.selectEscalar(resultado, Socio.tabla, condicion)
             if ap == None or ap == []:
-                condicion = 'usuario = ' + str(self.usuario) + '\''
+                condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
                 setter = 'nif = \'' + nif + '\''
                 bd.update(Socio.tabla, setter, condicion)
                 self.nif = nif
@@ -255,7 +267,7 @@ class Socio:
     def setDireccion(self, direccion:str = None):
         if direccion != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'direccion = \'' + direccion + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.direccion = direccion
@@ -266,7 +278,7 @@ class Socio:
     def setPoblacion(self, poblacion:str = None):
         if poblacion != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'poblacion = \'' + poblacion + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.poblacion = poblacion
@@ -277,7 +289,7 @@ class Socio:
     def setCodigoPostal(self, codigo_postal: str = None):
         if codigo_postal != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'codigo_postal = \'' + codigo_postal + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.codigo_postal = codigo_postal
@@ -288,7 +300,7 @@ class Socio:
     def setProvincia(self, provincia: str = None):
         if provincia != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'provincia = \'' + provincia + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.provincia = provincia
@@ -299,7 +311,7 @@ class Socio:
     def setEstado(self, estado: str = None):
         if estado != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'estado = \'' + estado + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.estado = estado
@@ -310,7 +322,7 @@ class Socio:
     def setTelefono1(self, telefono1: str = None):
         if telefono1 != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'telefono1 = \'' + telefono1 + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.telefono1 = telefono1
@@ -320,7 +332,7 @@ class Socio:
 
     def setTelefono2(self, telefono2: str = None):
         bd = BD()
-        condicion = 'usuario = ' + str(self.usuario) + '\''
+        condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
         setter = 'telefono2 = \'' + telefono2 + '\''
         bd.update(Socio.tabla, setter, condicion)
         self.telefono2 = telefono2
@@ -332,7 +344,7 @@ class Socio:
             resultado = '*'
             ap = bd.selectEscalar(resultado, Socio.tabla, condicion)
             if ap == None or ap == []:
-                condicion = 'usuario = ' + str(self.usuario) + '\''
+                condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
                 setter = 'correo_electronico = \'' + correo_electronico + '\''
                 bd.update(Socio.tabla, setter, condicion)
                 self.correo_electronico = correo_electronico
@@ -345,29 +357,29 @@ class Socio:
 
     def setRelacion(self, relacion: str = None):
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'relacion = \'' + relacion + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.relacion = relacion
 
     def setSector(self, sector: str = None):
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'sector = \'' + sector + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.sector = sector
 
-    def setCertificado(self, certificado: str = None):
+    def setCertificado(self, certificado: int = None):
         bd = BD()
-        condicion = 'usuario = ' + str(self.usuario) + '\''
-        setter = 'certificado = \'' + certificado + '\''
+        condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
+        setter = 'certificado = ' + str(certificado)
         bd.update(Socio.tabla, setter, condicion)
         self.certificado = certificado
 
     def setFechaDeAlta(self, fecha_de_alta: str = None):
         if fecha_de_alta != None:
             bd = BD()
-            condicion = 'usuario = ' + str(self.usuario) + '\''
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
             setter = 'fecha_de_alta = \'' + fecha_de_alta + '\''
             bd.update(Socio.tabla, setter, condicion)
             self.fecha_de_alta = fecha_de_alta
@@ -377,18 +389,93 @@ class Socio:
 
     def setFechaDeBaja(self, fecha_de_baja: str = None):
         bd = BD()
-        condicion = 'usuario = ' + str(self.usuario) + '\''
+        condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
         setter = 'fecha_de_baja = \'' + fecha_de_baja + '\''
         bd.update(Socio.tabla, setter, condicion)
         self.fecha_de_baja = fecha_de_baja
 
     def setObservaciones(self, observaciones: str = None):
         bd = BD()
-        condicion = 'usuario = ' + str(self.usuario) + '\''
+        condicion = 'usuario = \'' + str(self.usuario) + '\''
         setter = 'observaciones = \'' + observaciones + '\''
         bd.update(Socio.tabla, setter, condicion)
         self.observaciones = observaciones
 
+    @staticmethod
+    def listaSocios():
+        bd = BD()
+        condicion = None
+        soc = bd.select('*',Socio.tabla,condicion)
+        #creo una lista vacia (que se usara para devolver el resultado)
+        lista = []
+        #cada tupla en la lista obtenida en la consulta se usa para crear una instancia de apadrinamiento y se agregan a la lista vacia
+        for ap in soc:
+            usuario = ap[0] 
+            nombre_pila = ap[1]
+            apellidos = ap[2] 
+            nif = ap[3] 
+            direccion = ap[4] 
+            poblacion = ap[5]
+            codigo_postal = ap[6] 
+            provincia = ap[7]
+            estado = ap[8] 
+            telefono1 = ap[9]
+            telefono2 =  ap[10]
+            correo_electronico = ap[11]
+            relacion = ap[12]
+            sector = ap[13]
+            certificado = ap[14]
+            fecha_de_alta = ap[15]
+            fecha_de_baja = ap[16]
+            observaciones = ap[17]
+            newSocio = Socio(usuario, nombre_pila, apellidos, nif, direccion, poblacion, codigo_postal
+                        , provincia, estado, telefono1, telefono2, correo_electronico, relacion, certificado
+                        , sector, fecha_de_alta, fecha_de_baja, observaciones)
+            lista.append(newSocio)
+        return lista
+
+    # método que retorna una representación de la instancia de la clase
+    def __repr__(self):
+        cadena = ''
+        if self.usuario != None:
+            cadena += 'Usuario ' + str(self.usuario.getIdUsuario()) + ' - '
+        if self.nombre_pila != None:
+            cadena += 'Nombre de pila ' + self.nombre_pila + ' - '
+        if self.apellidos != None:
+            cadena += 'Apellidos ' + self.apellidos + ' - '
+        if self.nif != None:
+            cadena += 'NIF ' + self.nif + ' - '
+        if self.direccion != None:
+            cadena += 'Direccion ' + self.direccion + ' - '
+        if self.poblacion != None:
+            cadena += 'Poblacion ' + self.poblacion + ' - '
+        if self.codigo_postal != None:
+            cadena += 'Codigo Postal ' + self.codigo_postal + ' - '
+        if self.provincia != None:
+            cadena += 'Provincia ' + self.provincia + ' - '
+        if self.estado != None:
+            cadena += 'Pais ' + self.estado + ' - '
+        if self.telefono1 != None:
+            cadena += 'Telefono 1 ' + self.telefono1 + ' - '
+        if self.telefono2 != None:
+            cadena += 'Telefono 2 ' + self.telefono2 + ' - '
+        if self.correo_electronico != None:
+            cadena += 'Correo Electronico ' + self.correo_electronico + ' - '
+        if self.relacion != None:
+            cadena += 'Relacion ' + self.relacion + ' - '
+        if self.certificado != None:
+            cadena += 'Certificado ' + ('Si' if self.certificado else 'No') + ' - '
+        if self.sector != None:
+            cadena += 'Sector ' + self.sector + ' - '
+        if self.fecha_de_alta != None:
+            cadena += 'Fecha de alta ' + self.fecha_de_alta + ' - '
+        if self.fecha_de_baja != None:
+            cadena += 'Fecha de baja ' + self.fecha_de_baja + ' - '
+        if self.observaciones != None:
+            cadena += 'Observaciones ' + self.observaciones + ' - '
+        if cadena == '':
+            cadena = 'Socio sin inicializar - '
+        return cadena[:-3]
 
 if __name__ == '__main__':
     pass

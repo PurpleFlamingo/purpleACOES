@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit
 from BD.BDOperaciones  import BDOperaciones
 from gestorUsuario import GestorUsuario
 from gestorFinanciero import GestorFinanciero
+from BD.Usuario import Usuario
+from perfilUsuario import PerfilUsuario
 #from gestorApadrinamiento import GestorApadrinamiento
 
 
@@ -17,10 +19,30 @@ class Subsistemas(base_1, form_1):
         self.idUsuario = iduser
         self.parent = parent
         self.child = None
+        #creo una instancia del usuario que comenzo la sesion para obtener su rol
+        usuario = Usuario.getUsuario(self.idUsuario)
+        self.rolUsuario = usuario.getRolId()
+        #print("El rol del usuario es: ",self.rolUsuario)
+
+        # si el usuario que inicio sesion es Socio se presenta su interfaz de subsistemas
+        if self.rolUsuario == 'Socio':
+            self.bFinanciero.setText('Consulta de pagos')
+            self.bApadrinamiento.setText('Jovenes apadrinados')
+            self.bUsuarios.setText('Perfil del usuario')
+            self.bUsuarios.clicked.connect(self.perfilSocio)
+            self.bPerfil.setVisible(False)
+        else:
+            self.bUsuarios.clicked.connect(self.usuarios)
+            self.bFinanciero.clicked.connect(self.financiero)
+            self.bApadrinamiento.clicked.connect(self.apadrinamiento)
+
         self.bAtras.clicked.connect(self.atras)
-        self.bUsuarios.clicked.connect(self.usuarios)
-        self.bFinanciero.clicked.connect(self.financiero)
-        self.bApadrinamiento.clicked.connect(self.apadrinamiento)
+
+    #Funciones para los usuario con permiso de socio
+    def perfilSocio(self):
+        self.child = PerfilUsuario(self, self.idUsuario, self.rolUsuario, self.rolUsuario)
+        self.child.show()
+
 
     def atras(self):
         self.parent.show()

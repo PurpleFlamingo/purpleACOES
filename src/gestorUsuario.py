@@ -3,6 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHeaderView
 from BD.BDOperaciones import BDOperaciones
 from perfilUsuario import PerfilUsuario
+from BD.Usuario import Usuario
 from warningNoUserSelected import WarningNoUserSelected
 import datetime
 
@@ -13,6 +14,10 @@ class GestorUsuario(base_1, form_1):
         super(base_1,self).__init__()
         self.setupUi(self)
         self.idUsuario = iduser
+        #creo una instancia del usuario que comenzo la sesion para obtener su rol
+        usuario = Usuario.getUsuario(self.idUsuario)
+        self.rolUsuario = usuario.getRolId()
+
         self.parent = parent
         self.child = None
         #Estos deben de ser datos comunes a socios y voluntarios
@@ -65,11 +70,19 @@ class GestorUsuario(base_1, form_1):
             self.child.show()
             print('No elemento seleccionado')
         else:
-            print(index[0])
+            #print(str(index[0]))
             user = index[0].row()
-            idSeleccionado = self.filtrada[user]['id_usuario']
-            rolSeleccionado = self.filtrada[user]['rol']
-            self.child = PerfilUsuario(self,id = idSeleccionado, rol = rolSeleccionado)
+            #print('User: ',user)
+            #print('Datos del usuario :',user,' = ',self.usuarios[user])
+            #print('Self.filtrada: ',self.filtrada)
+            if self.filtrada:
+                idSeleccionado = self.filtrada[user]['id_usuario']
+                rolSeleccionado = self.filtrada[user]['rol']
+            else:
+                idSeleccionado = self.usuarios[user]['id_usuario']
+                rolSeleccionado = self.usuarios[user]['rol']
+
+            self.child = PerfilUsuario(self,id = idSeleccionado, rol = rolSeleccionado, rolUsuarioSesion = self.rolUsuario)
             self.child.show()
 
     #Reinicia todos los campos usados en el filtrado

@@ -149,7 +149,7 @@ class Socio:
     def getUsuarioId(self):
         return self.usuario.getIdUsuario()
 
-    def getNIF(self):
+    def getNif(self):
         return self.nif
 
     def getNombreDePila(self):
@@ -432,6 +432,18 @@ class Socio:
                         , sector, fecha_de_alta, fecha_de_baja, observaciones)
             lista.append(newSocio)
         return lista
+
+
+    def equal(self, otro):
+        respuesta = self.getUsuarioId() == otro.getUsuarioId() and self.nombre_pila == otro.getNombreDePila()
+        respuesta = respuesta and self.apellidos == otro.getApellidos() and self.nif == otro.getNif() and self.direccion == otro.getDireccion()
+        respuesta = respuesta and self.poblacion == otro.getPoblacion() and self.codigo_postal == otro.getCodigoPostal()
+        respuesta = respuesta and self.provincia == otro.getCodigoPostal() and self.estado == otro.getEstado() and self.telefono1 == otro.getTelefono1()
+        respuesta = respuesta and self.telefono2 == otro.getTelefono2() and self.relacion == otro.getRelacion()
+        respuesta = respuesta and self.correo_electronico == otro.getCorreoElectronico() and self.sector == otro.getSector()
+        respuesta = respuesta and self.certificado == otro.getCertificado() and self.fecha_de_alta == otro.getFechaDeAlta()
+        respueste = respuesta and self.fecha_de_baja == otro.getFechaDeBaja() and self.observaciones == otro.getObservaciones()
+        return respuesta
 
     # método que retorna una representación de la instancia de la clase
     def __repr__(self):

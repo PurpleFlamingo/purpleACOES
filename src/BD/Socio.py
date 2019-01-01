@@ -149,7 +149,7 @@ class Socio:
     def getUsuarioId(self):
         return self.usuario.getIdUsuario()
 
-    def getNIF(self):
+    def getNif(self):
         return self.nif
 
     def getNombreDePila(self):

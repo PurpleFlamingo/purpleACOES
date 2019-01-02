@@ -13,7 +13,8 @@ class Colonia:
             self.descripcion = descripcion
 
     @staticmethod
-    def newColonia(self, id_colonia: int, nombre: str, numero_de_habitantes: int, descripcion: str = None):
+    def newColonia(id_colonia: int, nombre: str, numero_de_habitantes: int, descripcion: str = None):
+           
             if id_colonia == None or nombre == None or numero_de_habitantes == None:
                 print('Error: la identificación o el nombre del proyecto o el numero de habitantes no pueden ser nulos')
                 return None
@@ -28,7 +29,8 @@ class Colonia:
             #inserto los valores en la tabla si no existen
             if not ap:
                 valores = [id_colonia, nombre, numero_de_habitantes, descripcion]
-                bd.insert(valores, Proyecto.tabla)
+                print('Valores: ',valores)
+                bd.insert(valores, Colonia.tabla)
                 #inicializo las variables de la instancia
                 newCol = Colonia(id_colonia, nombre, numero_de_habitantes, descripcion)
                 print(newCol)
@@ -53,15 +55,24 @@ class Colonia:
             nombre = ap[1]
             numero_de_habitantes = ap[2]
             descripcion = ap[3]
+            newCol = Colonia(id_colonia, nombre, numero_de_habitantes, descripcion)
+            return (newCol)
+
+
+    #metodo que compara dos colonias
+    def equal(self, otra):
+        return self.id_colonia == otra.getIdColonia() and self.nombre == otra.getNombre() and self.numero_de_habitantes == otra.getNumeroDeHabitantes() and self.descripcion == otra.getDescripcion()
+
+
 
     #serie de comandos que devuelven los valores de los campos de la instancia
     def getIdColonia(self):
         return self.id_colonia
 
     def getNombre(self):
-        return self.Nombre
+        return self.nombre
 
-    def getNumeroDeHabitaciones(self):
+    def getNumeroDeHabitantes(self):
         return self.numero_de_habitantes
 
     def getDescripcion(self):
@@ -101,8 +112,8 @@ class Colonia:
         #comprobación de que el valor no sea nulo
         if nombre != None:
             bd = BD()
-            condicion = 'id_colonia = ' + str(id_colonia)
-            setter = 'nombre = ' + str(nombre)
+            condicion = 'id_colonia = ' + str(self.id_colonia) 
+            setter = 'nombre = \'' + nombre + '\''
             bd.update(Colonia.tabla,setter,condicion)
             self.nombre = nombre       
         else:
@@ -113,7 +124,7 @@ class Colonia:
         #comprobación de que el valor no sea nulo
         if numero_de_habitantes != None:
             bd = BD()
-            condicion = 'id_colonia = ' + str(id_colonia)
+            condicion = 'id_colonia = ' + str(self.id_colonia)
             setter = 'numero_de_habitantes = ' + str(numero_de_habitantes)
             bd.update(Colonia.tabla,setter,condicion)
             self.numero_de_habitantes = numero_de_habitantes       
@@ -123,10 +134,11 @@ class Colonia:
 
     def setDescripcion(self, descripcion: str = None):
         bd = BD()
-        condicion = 'id_colonia = ' + str(id_colonia)
-        setter = 'descripcion = ' + str(descripcion)
+        condicion = 'id_colonia = ' + str(self.id_colonia)
+        setter = 'descripcion = \'' + descripcion + '\''
         bd.update(Colonia.tabla,setter,condicion)
         self.descripcion = descripcion
+
 
 
     # método que permite crear una lista de colonias
@@ -134,7 +146,7 @@ class Colonia:
     def listaColonias():
         bd = BD()
         condicion = None
-        ap = bd.select('*',Proyecto.tabla,condicion)
+        ap = bd.select('*',Colonia.tabla,condicion)
         #creo una lista vacia (que se usara para devolver el resultado)
         lista = []
         #cada tupla en la lista obtenida en la consulta se usa para crear una instancia de apadrinamiento y se agregan a la lista vacia
@@ -160,7 +172,7 @@ class Colonia:
         if self.descripcion != None:
             cadena += 'Descripción ' + self.descripcion + ' - '
         if cadena == '':
-            cadena = 'Proyecto vacío - ' 
+            cadena = 'Colonia sin inicializar - ' 
         
         return cadena[:-3]
 

@@ -16,6 +16,8 @@ class DatosTransaccion(base_1, form_1):
       
         self.cTipo.addItems(['Ingreso', 'Gasto'])
         self.cMoneda.addItems(['Euros', 'Lempiras'])
+        self.cApadrinamiento.addItems([''] + [str(ap.getIdApadrinamiento()) for ap in Apadrinamiento.listaApadrinamientos()])
+        self.cProyecto.addItems([''] + [str(pro.getIdProyecto()) for pro in Proyecto.listaProyectos()])
         self.bAtras.clicked.connect(self.atras)
         self.bConfirmar.clicked.connect(self.confirmar)
 
@@ -40,8 +42,8 @@ class DatosTransaccion(base_1, form_1):
         destino = self.eDestino.text() if self.eDestino.text() != '' else None
         formaPago = self.eFormaPago.text() if self.eFormaPago.text() != '' else None
         motivo = self.eMotivo.text() if self.eMotivo.text() != '' else None
-        proyecto = Proyecto.getProyecto(int(self.eProyecto.text()))
-        apadrinamiento = Apadrinamiento.getApadrinamiento(int(self.eApadrinamiento.text()))
+        proyecto = Proyecto.getProyecto(int(self.cProyecto.currentText()))
+        apadrinamiento = Apadrinamiento.getApadrinamiento(int(self.cApadrinamiento.currentText()))
         beneficiario = self.eBeneficiario.text() if self.eBeneficiario.text() != '' else None
         #print(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
         t = Transaccion.newTransaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)

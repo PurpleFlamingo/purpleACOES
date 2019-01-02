@@ -86,8 +86,7 @@ class Socio:
 
         #inserto los valores en la tabla si no existen
         if not ap:
-            valores = [usuario, nombre_pila, apellidos, nif, direccion, poblacion, codigo_postal, provincia, estado, telefono1, telefono2
-            , correo_electronico, relacion, certificado, sector, fecha_de_alta, fecha_de_baja, observaciones]
+            valores = [usuario, nombre_pila if nombre_pila != None else 'null', apellidos if apellidos != None else 'null', nif if nif != None else 'null', direccion if direccion != None else 'null', poblacion if poblacion != None else 'null', codigo_postal if codigo_postal != None else 'null', provincia if provincia != None else 'null', estado if estado != None else 'null', telefono1 if telefono1 != None else 'null', telefono2 if telefono2  != None else 'null', correo_electronico if correo_electronico != None else 'null', relacion if relacion != None else 'null', certificado if certificado != None else 'null', sector if sector != None else 'null', fecha_de_alta, fecha_de_baja if fecha_de_baja != None else 'null', observaciones if observaciones != None else 'null']
             bd.insert(valores, Socio.tabla)
             #inicializo las variables de la instancia
             newS = Socio(usuario, nombre_pila, apellidos, nif, direccion, poblacion, codigo_postal, provincia, estado, telefono1, telefono2

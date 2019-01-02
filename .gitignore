@@ -2,3 +2,4 @@ venvQT
 __pycache__
 *.autosave
 .vscode
+test.py

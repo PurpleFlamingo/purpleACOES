@@ -415,11 +415,11 @@ class Joven:
         if self.urlFoto != None: 
             toStr += 'Foto: ' + self.urlFoto + ' - '
         if self.fechaNacimiento != None: 
-            toStr += 'Fecha nacimiento: ' + self.fechaNacimiento + ' - '
-            toStr += 'Fecha alta: ' + self.fechaAlta + ' - '
+            toStr += 'Fecha nacimiento: ' + self.fechaNacimiento.strftime('%Y-%m-%d') + ' - '
+            toStr += 'Fecha alta: ' + self.fechaAlta.strftime('%Y-%m-%d') + ' - '
         if self.fechaAlta != None: 
-            toStr += 'Fecha alta: ' + self.fechaAlta + ' - '
-        toStr += 'Fecha alta ACOES: ' + self.fechaAltaACOES + ' - '
+            toStr += 'Fecha alta: ' + self.fechaAlta.strftime('%Y-%m-%d') + ' - '
+        toStr += 'Fecha alta ACOES: ' + self.fechaAltaACOES.strftime('%Y-%m-%d') + ' - '
         if self.fechaSalidaACOES != None: 
             toStr += 'Fecha salida ACOES: ' + self.fechaSalidaACOES + ' - '
         if self.grado != None: 
@@ -428,9 +428,9 @@ class Joven:
             toStr += 'Historial: ' + self.historial + ' - '
         if self.observaciones != None: 
             toStr += 'Observaciones: ' + self.observaciones + ' - '
-        toStr += 'Colonia nacimiento: ' + self.coloniaNacimiento + ' - '
-        toStr += 'Colonia residencia: ' + self.coloniaResidencia + ' - '
-        toStr += 'Colegio: ' + self.Colegio + ' - '
+        toStr += 'Colonia nacimiento: ' + str(self.coloniaNacimiento) + ' - '
+        toStr += 'Colonia residencia: ' + str(self.coloniaResidencia) + ' - '
+        toStr += 'Colegio: ' + str(self.colegio) + ' - '
         return toStr[:-3]
 
 if __name__ == '__main__':

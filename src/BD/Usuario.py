@@ -48,7 +48,7 @@ class Usuario:
                 user = bd.selectEscalar(resultado, Usuario.tabla,None)
                 #print('El usuario es: ', user[0])
                 newUser = Usuario(user[0], nombre, clave, rol, permiso)
-                print(newUser)
+                #print(newUser)
                 return newUser
             else:
                 print('Error: El usuario {} ya esta en uso',format(nombre))

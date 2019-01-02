@@ -3,6 +3,7 @@ from BD.BD import BD
 from BD.Joven import Joven
 from BD.Voluntario import Voluntario
 from BD.Socio import Socio
+from datetime import datetime
 
 
 class Apadrinamiento:
@@ -19,7 +20,7 @@ class Apadrinamiento:
             self.fecha_de_baja = fecha_de_baja
 
     @staticmethod
-    def newApadrinamiento(self, id_apadrinamiento: int, joven: int, socio: int, agente: int, fecha_de_inicio: str, fecha_de_baja: str = None):
+    def newApadrinamiento(id_apadrinamiento: int, joven: int, socio: int, agente: int, fecha_de_inicio, fecha_de_baja = None):
             if id_apadrinamiento == None or joven == None or socio == None or agente == None or fecha_de_inicio == None:
                 print('Error: los datos del apadrinamiento (excepto la fecha de baja) no pueden ser nulos')
                 return None
@@ -28,23 +29,23 @@ class Apadrinamiento:
 
             #compruebo que la combinacion de joven y socio no se encuentra en la tabla (por ser la clave primaria)
             condicion = 'joven = ' + str(joven) + ' and socio = ' + str(socio)
-            ap = estaEnLaTabla(Apadrinamiento.tabla,condicion)
+            ap = Apadrinamiento.estaEnLaTabla(Apadrinamiento.tabla,condicion)
             if ap:
                 print('Apadrinamiento ya existente')
                 return None
             #compruebo que las claves foraneas existen en sus tablas de origen (joven, socio, agente)
             condicion = ' id_joven = ' + str(joven)
-            ap = estaEnLaTabla(' joven ',condicion)
+            ap = Apadrinamiento.estaEnLaTabla(' joven ',condicion)
             if not ap:
                 print('Joven no existente')
                 return None
             condicion = ' usuario = ' + str(socio)
-            ap = estaEnLaTabla(' socio ',condicion)
+            ap = Apadrinamiento.estaEnLaTabla(' socio ',condicion)
             if not ap:
                 print('Socio no existente')
                 return None
             condicion = ' usuario = ' + str(agente)
-            ap = estaEnLaTabla(' voluntario ',condicion)
+            ap = Apadrinamiento.estaEnLaTabla(' voluntario ',condicion)
             if not ap:
                 print('Agente no existente')
                 return None
@@ -59,7 +60,10 @@ class Apadrinamiento:
                 valores = [id_apadrinamiento, joven, socio, agente, fecha_de_inicio, fecha_de_baja]
                 bd.insert(valores, Apadrinamiento.tabla)
                 #inicializo las variables de la instancia
-                newAp = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio, fecha_de_baja)
+                fecha_de_inicio = datetime.strptime(fecha_de_inicio, '%Y-%m-%d')
+                fecha_de_baja = datetime.strptime(fecha_de_baja, '%Y-%m-%d')
+
+                newAp = Apadrinamiento(id_apadrinamiento, Joven.getJoven(joven), Socio.getSocio(socio), Voluntario.getVoluntario(agente), fecha_de_inicio, fecha_de_baja)
                 print(newAp)
                 return newAp
             else:
@@ -68,7 +72,8 @@ class Apadrinamiento:
 
     #metodo que comprueba si la condicion pasada como parametro devuelve tuplas en la query o si esta devuele un nulo 
     #el resultado es verdadero si se devuelve una tupla (o una lista de tuplas) y falso si no se encuentran tuplas
-    def estaEnLaTabla(self, tabla: str, condicion: str):
+    @staticmethod
+    def estaEnLaTabla(tabla: str, condicion: str):
         bd = BD()
         resultado = '*'
         ap = bd.selectEscalar(resultado,tabla,condicion)
@@ -232,7 +237,7 @@ class Apadrinamiento:
             return False
            
 
-    def setFechaDeInicio(self, fecha_de_inicio: str = None):
+    def setFechaDeInicio(self, fecha_de_inicio = None):
         #comprobación de que el valor no sea nulo
         if fecha_de_inicio != None:
             bd = BD()
@@ -244,7 +249,7 @@ class Apadrinamiento:
             print ('fecha de inicio no puede ser null')
             return False
 
-    def setFechaDeBaja(self, fecha_de_baja: str = None):
+    def setFechaDeBaja(self, fecha_de_baja = None):
         bd = BD()
         condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
         setter = 'fecha_de_baja = ' + str(fecha_de_baja)
@@ -279,9 +284,9 @@ class Apadrinamiento:
             fecha_de_inicio = apad[4]
             fecha_de_baja = apad[5]
             if fecha_de_baja == None:
-                apadrina = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio.strftime('%Y-%m-%d'), None)
+                apadrina = Apadrinamiento(id_apadrinamiento, Joven.getJoven(joven), Socio.getSocio(socio), Voluntario.getVoluntario(agente), fecha_de_inicio, None)
             else:
-                apadrina = Apadrinamiento(id_apadrinamiento, joven, socio, agente, fecha_de_inicio.strftime('%Y-%m-%d'), fecha_de_baja.strftime('%Y-%m-%d'))
+                apadrina = Apadrinamiento(id_apadrinamiento, Joven.getJoven(joven), Socio.getSocio(socio), Voluntario.getVoluntario(agente), fecha_de_inicio, fecha_de_baja)
             lista.append(apadrina)
         return lista
         
@@ -291,7 +296,7 @@ class Apadrinamiento:
         if self.id_apadrinamiento != None: 
             cadena += 'Apadrinamiento '+ str(self.id_apadrinamiento) + ' - '
         if self.joven != None: 
-            cadena += 'Joven ' + str(self.joven.getIdJoven()) + ' - '
+            cadena += 'Joven ' + str(self.joven) + ' - '
         if self.socio != None: 
             cadena += 'Socio ' + str(self.socio.getUsuario()) + ' - '
         if self.agente != None:

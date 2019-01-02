@@ -207,9 +207,9 @@ class Transaccion:
         if self.motivo != None:
             toStr+=('Motivo: ' + self.motivo + ' - ')
         if self.proyecto != None:
-            toStr+=('Proyecto: ' + self.proyecto + ' - ')
+            toStr+=('Proyecto: ' + self.proyecto.getNombre() + ' - ')
         if self.apadrinamiento != None:
-            toStr+=('Apadrinamiento: ' + self.apadrinamiento + ' - ')
+            toStr+=('Apadrinamiento: ' + self.apadrinamiento.getIdApadrinamiento() + ' - ')
         if self.beneficiario != None:
             toStr+=('Beneficiario: ' + self.beneficiario + ' - ')
         return toStr[:-3]

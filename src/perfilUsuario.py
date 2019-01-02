@@ -8,6 +8,7 @@ from BD.Voluntario import Voluntario
 from warningDatosSinRellenar import WarningDatosSinRellenar
 from warningSalirSinGuardar import WarningSalirSinGuardar
 import recursosQT_rc
+from cambiarContraseña import CambiarContrasenia
 
 form_1, base_1 = uic.loadUiType('UI/perfilUsuario.ui')
 
@@ -60,6 +61,12 @@ class PerfilUsuario(base_1, form_1):
             self.bGuardarYSalir.clicked.connect(self.actualizar)
         else:
             self.bGuardarYSalir.clicked.connect(self.insertar)
+
+        self.bCambiarClave.clicked.connect(self.cambiarClave)
+
+    def cambiarClave(self):
+        self.child = CambiarContrasenia(self.idUser, self)
+        self.child.show()
 
     def salirSinGuardar(self):
         self.child = WarningSalirSinGuardar(self)

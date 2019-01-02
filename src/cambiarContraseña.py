@@ -8,10 +8,11 @@ form_1, base_1 = uic.loadUiType('UI/cambiarContraseña.ui')
 
 
 class CambiarContrasenia(base_1, form_1):
-    def __init__(self, iduser: int):
+    def __init__(self, iduser: int, parent = None):
         self.idUsuario = iduser
         super(base_1, self).__init__()
         self.setupUi(self)
+        self.parent = parent
         self.bAtras.clicked.connect(self.atras)
         self.bEnviar.clicked.connect(self.enviardatos)
         self.eCAntigua.setEchoMode(QLineEdit.Password)

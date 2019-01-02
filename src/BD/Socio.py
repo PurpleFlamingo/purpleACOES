@@ -31,10 +31,10 @@ class Socio:
         self.observaciones = observaciones
 
     @staticmethod
-    def newSocio(self, usuario: int, nombre_pila: str = None, apellidos: str = None, nif: str = None
-        , direccion: str = None, codigo_postal: str = None, provincia: str = None, estado: str = None
-        , telefono1: str = None, telefono2: str = None, correo_electronico: str = None, relacion: str = None
-        , sector: str = None, certificado: int = None, fecha_de_alta: str = None , fecha_de_baja: str = None, observaciones: str = None):
+    def newSocio(usuario: int = None, nombre_pila: str = None, apellidos: str = None, nif: str = None, direccion: str = None
+        , poblacion: str = None, codigo_postal: str = None, provincia: str = None, estado: str = None, telefono1: str = None
+        , telefono2: str = None, correo_electronico: str = None, relacion: str = None, sector: str = None, certificado: int = None
+        , fecha_de_alta: str = None, fecha_de_baja: str = None, observaciones: str = None):
         if usuario == None or fecha_de_alta == None:
             print('Error: la identificación del socio o la fecha de alta no pueden ser nulos')
             return None
@@ -74,7 +74,7 @@ class Socio:
         bd = BD() 
             
         #Compruebo la existencia de la clave foranea en su tabla de origen
-        condicion = 'usuario = ' + str(usuario)
+        condicion = 'id_usuario = ' + str(usuario)
         resultado = '*'
         ap = bd.selectEscalar(resultado,' usuario ',condicion)
         if not ap:
@@ -297,7 +297,7 @@ class Socio:
             bd.update(Socio.tabla, setter, condicion)
             self.codigo_postal = codigo_postal
         else:
-            print('El codigo postal no pueden ser null')
+            print('Los apellidos no pueden ser null')
             return False
 
     def setProvincia(self, provincia: str = None):
@@ -323,11 +323,15 @@ class Socio:
             return False
 
     def setTelefono1(self, telefono1: str = None):
-        bd = BD()
-        condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
-        setter = 'telefono1 = \'' + telefono1 + '\''
-        bd.update(Socio.tabla, setter, condicion)
-        self.telefono1 = telefono1
+        if telefono1 != None:
+            bd = BD()
+            condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
+            setter = 'telefono1 = \'' + telefono1 + '\''
+            bd.update(Socio.tabla, setter, condicion)
+            self.telefono1 = telefono1
+        else:
+            print('El telefono1 no puede ser null')
+            return False
 
     def setTelefono2(self, telefono2: str = None):
         bd = BD()
@@ -424,8 +428,8 @@ class Socio:
             relacion = ap[12]
             sector = ap[13]
             certificado = ap[14]
-            fecha_de_alta = ap[15]
-            fecha_de_baja = ap[16]
+            fecha_de_alta = ap[15].strftime('%Y-%m-%d')
+            fecha_de_baja = ap[16].strftime('%Y-%m-%d') if ap[16] != None else None
             observaciones = ap[17]
             newSocio = Socio(usuario, nombre_pila, apellidos, nif, direccion, poblacion, codigo_postal
                         , provincia, estado, telefono1, telefono2, correo_electronico, relacion, certificado
@@ -433,56 +437,44 @@ class Socio:
             lista.append(newSocio)
         return lista
 
-
-    def equal(self, otro):
-        respuesta = self.getUsuarioId() == otro.getUsuarioId() and self.nombre_pila == otro.getNombreDePila()
-        respuesta = respuesta and self.apellidos == otro.getApellidos() and self.nif == otro.getNif() and self.direccion == otro.getDireccion()
-        respuesta = respuesta and self.poblacion == otro.getPoblacion() and self.codigo_postal == otro.getCodigoPostal()
-        respuesta = respuesta and self.provincia == otro.getCodigoPostal() and self.estado == otro.getEstado() and self.telefono1 == otro.getTelefono1()
-        respuesta = respuesta and self.telefono2 == otro.getTelefono2() and self.relacion == otro.getRelacion()
-        respuesta = respuesta and self.correo_electronico == otro.getCorreoElectronico() and self.sector == otro.getSector()
-        respuesta = respuesta and self.certificado == otro.getCertificado() and self.fecha_de_alta == otro.getFechaDeAlta()
-        respueste = respuesta and self.fecha_de_baja == otro.getFechaDeBaja() and self.observaciones == otro.getObservaciones()
-        return respuesta
-
     # método que retorna una representación de la instancia de la clase
     def __repr__(self):
         cadena = ''
-        if self.usuario != None:
+        if self.usuario != None and self.usuario != 'null':
             cadena += 'Usuario ' + str(self.usuario.getIdUsuario()) + ' - '
-        if self.nombre_pila != None:
+        if self.nombre_pila != None and self.nombre_pila != 'null':
             cadena += 'Nombre de pila ' + self.nombre_pila + ' - '
-        if self.apellidos != None:
+        if self.apellidos != None and self.apellidos != 'null':
             cadena += 'Apellidos ' + self.apellidos + ' - '
-        if self.nif != None:
+        if self.nif != None and self.nif != 'null':
             cadena += 'NIF ' + self.nif + ' - '
-        if self.direccion != None:
+        if self.direccion != None and self.direccion != 'null':
             cadena += 'Direccion ' + self.direccion + ' - '
-        if self.poblacion != None:
+        if self.poblacion != None and self.poblacion != 'null':
             cadena += 'Poblacion ' + self.poblacion + ' - '
-        if self.codigo_postal != None:
+        if self.codigo_postal != None and self.codigo_postal != 'null':
             cadena += 'Codigo Postal ' + self.codigo_postal + ' - '
-        if self.provincia != None:
+        if self.provincia != None and self.provincia != 'null':
             cadena += 'Provincia ' + self.provincia + ' - '
-        if self.estado != None:
+        if self.estado != None and self.estado != 'null':
             cadena += 'Pais ' + self.estado + ' - '
-        if self.telefono1 != None:
+        if self.telefono1 != None and self.telefono1 != 'null':
             cadena += 'Telefono 1 ' + self.telefono1 + ' - '
-        if self.telefono2 != None:
+        if self.telefono2 != None and self.telefono2 != 'null':
             cadena += 'Telefono 2 ' + self.telefono2 + ' - '
-        if self.correo_electronico != None:
+        if self.correo_electronico != None and self.correo_electronico != 'null':
             cadena += 'Correo Electronico ' + self.correo_electronico + ' - '
-        if self.relacion != None:
+        if self.relacion != None and self.relacion != 'null':
             cadena += 'Relacion ' + self.relacion + ' - '
-        if self.certificado != None:
+        if self.certificado != None and self.certificado != 'null':
             cadena += 'Certificado ' + ('Si' if self.certificado else 'No') + ' - '
-        if self.sector != None:
+        if self.sector != None and self.sector != 'null':
             cadena += 'Sector ' + self.sector + ' - '
-        if self.fecha_de_alta != None:
+        if self.fecha_de_alta != None and self.fecha_de_alta != 'null':
             cadena += 'Fecha de alta ' + self.fecha_de_alta + ' - '
-        if self.fecha_de_baja != None:
+        if self.fecha_de_baja != None and self.fecha_de_baja != 'null':
             cadena += 'Fecha de baja ' + self.fecha_de_baja + ' - '
-        if self.observaciones != None:
+        if self.observaciones != None and self.observaciones != 'null':
             cadena += 'Observaciones ' + self.observaciones + ' - '
         if cadena == '':
             cadena = 'Socio sin inicializar - '

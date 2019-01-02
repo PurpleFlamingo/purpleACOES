@@ -15,12 +15,6 @@ class Proyecto:
             if id_proyecto == None or nombre == None:
                 print('Error: la identificación o el nombre del proyecto no pueden ser nulos')
                 return None
-            if requisitos_participacion == None:
-                requisitos_participacion = 'null'
-            if descripcion == None:
-                descripcion = 'null'
-            if tipo == None:
-                tipo = 'null'
 
             bd = BD() 
             #consulto si los valores estan en la tabla
@@ -29,7 +23,7 @@ class Proyecto:
 
             #inserto los valores en la tabla si no existen
             if not ap:
-                valores = [id_proyecto, nombre, requisitos_participacion, descripcion, tipo]
+                valores = [id_proyecto, nombre, requisitos_participacion if requisitos_participacion != None else 'null', descripcion if descripcion != None else 'null', tipo if tipo != None else 'null']
                 bd.insert(valores, Proyecto.tabla)
                 #inicializo las variables de la instancia
                 newPr = Proyecto(id_proyecto, nombre, requisitos_participacion, descripcion, tipo)

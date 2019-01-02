@@ -13,15 +13,12 @@ class PertenecerProyecto:
         self.fechaBaja = fechaBaja
     
     @staticmethod
-    def newPertenecerProyecto(joven, proyecto, fechaAlta, fechaBaja = None):
-        if fechaBaja == None:
-            fechaBaja = 'null'
-        
+    def newPertenecerProyecto(joven, proyecto, fechaAlta, fechaBaja = None):     
         bd = BD()
         condicion = 'joven = ' + str(joven.getIdjoven()) + ' and proyecto = ' + str(proyecto.getIdProyecto())
         res = bd.selectEscalar('*', PertenecerProyecto.tabla, condicion)
         if not res:
-            valores = [joven.getIdjoven(), proyecto.getIdProyecto(), fechaAlta, fechaBaja]
+            valores = [joven.getIdjoven(), proyecto.getIdProyecto(), fechaAlta, fechaBaja if fechaBaja != None else 'null']
             newPert = PertenecerProyecto(joven, proyecto, fechaAlta, fechaBaja)
             return newPert
         else:

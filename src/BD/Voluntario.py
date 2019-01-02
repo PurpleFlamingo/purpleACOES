@@ -19,19 +19,11 @@ class Voluntario:
     @staticmethod
     def newVoluntario(usuario, nombre, apellidos, nif, fechaNacimiento, fechaAlta, correoElectronico, telefono, direccion, codigoPostal, provincia, estado):
         bd = BD()
-        if nif == None:
-            nif = 'null'
-        if fechaNacimiento == None:
-            fechaNacimiento = 'null'
-        if correoElectronico == None:
-            correoElectronico = 'null'
-        if telefono == None:
-            telefono = 'null'
         
         condicion = 'usuario = ' + str(usuario)
         res = bd.selectEscalar('*', Voluntario.tabla, condicion)
         if not res:
-            valores = [usuario, nombre, apellidos, nif, fechaNacimiento, fechaAlta, correoElectronico, telefono, direccion, codigoPostal, provincia, estado]
+            valores = [usuario, nombre, apellidos, nif if nif != None else 'null', fechaNacimiento if fechaNacimiento != None else 'null', fechaAlta, correoElectronico if correoElectronico != None else 'null', telefono if telefono != None else 'null', direccion, codigoPostal, provincia, estado]
             
             bd.insert(valores, Voluntario.tabla)
             newVol = Voluntario(usuario, nombre, apellidos, nif, fechaNacimiento, fechaAlta, correoElectronico, telefono, direccion, codigoPostal, provincia, estado)

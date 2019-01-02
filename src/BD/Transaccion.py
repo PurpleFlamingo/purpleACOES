@@ -21,24 +21,12 @@ class Transaccion:
     @staticmethod
     def newTransaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino = None, formaPago = None, motivo = None, proyecto = None, apadrinamiento = None, beneficiario = None):
         bd = BD()
-        if destino == None:
-            destino = 'null'
-        if formaPago == None:
-            formaPago = 'null'
-        if motivo == None:
-            motivo = 'null'
-        if proyecto == None:
-            proyecto = 'null'
-        if apadrinamiento == None:
-            apadrinamiento = 'null'
-        if beneficiario == None:
-            beneficiario = 'null'
 
         condicion = 'id_transaccion = ' + str(id_transaccion)
         #Compruebo que el valor es unico
         res = bd.selectEscalar('*', Transaccion.tabla, condicion)
         if not res:
-            valores = [id_transaccion, gasto, fechaEmision.strftime('%Y-%m-%d'), cuantia, moneda, destino, formaPago, motivo, proyecto.getIdProyecto(), apadrinamiento.getIdApadrinamiento(), beneficiario]
+            valores = [id_transaccion, gasto, fechaEmision.strftime('%Y-%m-%d'), cuantia, moneda, destino if destino != None else 'null', formaPago if formaPago != None else 'null', motivo if motivo != None else 'null', proyecto.getIdProyecto() if proyecto.getIdProyecto() != None else 'null', apadrinamiento.getIdApadrinamiento() if apadrinamiento.getIdApadrinamiento() != None else 'null', beneficiario if beneficiario != None else 'null']
 
             bd.insert(valores, Transaccion.tabla)
             newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)

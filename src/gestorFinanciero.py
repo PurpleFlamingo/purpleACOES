@@ -5,6 +5,7 @@ from BD.BDOperaciones import BDOperaciones
 from calculadoraConversion import CalculadoraConversion
 from BD.Transaccion import Transaccion
 from datosTransaccion import DatosTransaccion
+from creacionInforme import CreacionInforme
 
 
 form_1, base_1 = uic.loadUiType('UI/gestorFinanciero.ui')
@@ -71,7 +72,8 @@ class GestorFinanciero(base_1, form_1):
         self.cSimboloFecha.setCurrentIndex(0)
 
     def generarInforme(self):
-        pass
+        self.child = CreacionInforme(self)
+        self.child.show()
 
 
     #Actualiza la informacion de usuarios de la base de datos y los muestra todos en la tabla

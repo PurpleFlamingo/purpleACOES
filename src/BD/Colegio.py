@@ -1,5 +1,6 @@
 import sys
 from BD.BD import BD
+from BD.Colonia import Colonia
 
 
 class Colegio:
@@ -10,10 +11,10 @@ class Colegio:
             self.id_colegio = id_colegio
             self.asociado_ACOES = asociado_ACOES
             self.nombre_colegio = nombre_colegio
-            self.colonia = Colonia(colonia) if colonia != None else None
+            self.colonia = Colonia.getColonia(colonia) if colonia != None else None
 
     @staticmethod
-    def newColegio(self, id_colegio: int, asociado_ACOES: bool = None, nombre_colegio: str = None, colonia: int = None):
+    def newColegio(id_colegio: int, asociado_ACOES: bool = None, nombre_colegio: str = None, colonia: int = None):
             if id_colegio == None or colonia == None:
                 print('Error: la identificación del colegio o de la colonia no pueden ser nulos')
                 return None
@@ -63,8 +64,12 @@ class Colegio:
             id_colegio = id_colegio
             asociado_ACOES = ap[1]
             nombre_colegio = ap[2]
-            colonia = Colonia(ap[3]) if ap[3] != None else None
+            colonia = ap[3]
+            newCol = Colegio(id_colegio, asociado_ACOES, nombre_colegio, colonia)
+            return newCol
 
+    def equal(self, otro):
+        return self.id_colegio == otro.getIdColegio() and self.asociado_ACOES == otro.getAsociadoDeACOES() and self.nombre_colegio == otro.getNombreDeColegio and self.getColoniaId() == otro.getColoniaId()
 
     #serie de comandos que devuelven los valores de los campos de la instancia
     def getIdColegio(self):
@@ -80,7 +85,7 @@ class Colegio:
         return self.colonia
 
     def getColoniaId(self):
-        return self.colonia.getIdColonia
+        return self.colonia.getIdColonia()
 
     #se borra la instancia actual de apadrinamiento de la base de datos y la instancia se convierte en nula
     def delete(self):
@@ -114,7 +119,7 @@ class Colegio:
 
     def setAsociadoDeACOES(self, asociado_ACOES: bool = None):
         bd = BD()
-        condicion = 'id_colegio = ' + str(id_colegio)
+        condicion = 'id_colegio = ' + str(self.id_colegio)
         if not asociado_ACOES:
             setter = 'asociado_ACOES = null'
         else:
@@ -124,24 +129,24 @@ class Colegio:
 
     def setNombreDeColegio(self, nombre_colegio: str = None):
         bd = BD()
-        condicion = 'id_colonia = ' + str(id_colonia)
+        condicion = 'id_colegio = ' + str(self.id_colegio)
         if not nombre_colegio:
             setter = 'nombre_colegio = null'
         else:
-            setter = 'nombre_colegio = ' + str(nombre_colegio)
+            setter = 'nombre_colegio = \'' + nombre_colegio + '\''
         bd.update(Colegio.tabla,setter,condicion)
         self.nombre_colegio = nombre_colegio       
 
-    def setColonia(self, colonia: str = None):
+    def setColonia(self, colonia: int = None):
         if colonia:
             bd = BD()
             condicion = 'id_colonia = ' + str(colonia)
             ap = bd.selectEscalar('*',' colonia ',condicion)
             if ap:
-                condicion = 'id_colegio = ' + str(id_colegio)
+                condicion = 'id_colegio = ' + str(self.id_colegio)
                 setter = 'colonia = ' + str(colonia)
                 bd.update(Colegio.tabla,setter,condicion)
-                self.colonia = getColonia(colonia)
+                self.colonia = Colonia.getColonia(colonia)
             else:
                 print('Colonia no existente')
                 return false
@@ -155,7 +160,7 @@ class Colegio:
     def listaColegios():
         bd = BD()
         condicion = None
-        ap = bd.select('*',Proyecto.tabla,condicion)
+        ap = bd.select('*',Colegio.tabla,condicion)
         #creo una lista vacia (que se usara para devolver el resultado)
         lista = []
         #cada tupla en la lista obtenida en la consulta se usa para crear una instancia de apadrinamiento y se agregan a la lista vacia
@@ -181,7 +186,7 @@ class Colegio:
         if self.colonia != None:
             cadena += 'Colonia ' + str(self.colonia.getIdColonia()) + ' - '
         if cadena == '':
-            cadena = 'Proyecto vacío - ' 
+            cadena = 'Colegio sin inicializar - ' 
         
         return cadena[:-3]
 

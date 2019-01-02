@@ -1,5 +1,7 @@
 import sys
 from BD.BD import BD
+from BD.Apadrinamiento import Apadrinamiento
+
 
 
 class Envios:
@@ -12,22 +14,14 @@ class Envios:
             self.enviado_por_socio = enviado_por_socio
             self.recibido = recibido
             self.respuestaA = Envios(respuestaA) if respuestaA != None else None
-            self.apadrinamiento = Apadrinamiento(apadrinamiento) if apadrinamiento != None else Noneº
+            self.apadrinamiento = Apadrinamiento(apadrinamiento) if apadrinamiento != None else None
 
     @staticmethod
-    def newEnvios(self, id_envios: int, descripcion: str = None, enviado_por_socio: bool = None, recibido: bool = None, respuestaA: int = None, apadrinamiento: int):
+    def newEnvios(id_envios: int = None, descripcion: str = None, enviado_por_socio: int = None, recibido: int = None, respuestaA: int = None, apadrinamiento: int = None):
             if id_envios == None or apadrinamiento == None:
                 print('Error: la identificación del envio o del apadrinamientos no pueden ser nulos')
                 return None
-            if descripcion == None:
-                descripcion = 'null'
-            if enviado_por_socio == None:
-                enviado_por_socio = 'null'
-            if recibido == None:
-                recibido = 'null'
-            if respuestaA == None:
-                respuestaA = 'null'
-
+            
             bd = BD() 
             
             #compruebo que las claves foraneas existen en sus tablas de origen (respuestaA, apadrinamiento)
@@ -38,7 +32,7 @@ class Envios:
                     print('Envio previo no existente')
                     return None
             condicion = ' id_apadrinamiento = ' + str(apadrinamiento)
-            ap = estaEnLaTabla(' apadrinamiento ',str(apadrinamiento))
+            ap = Envios.estaEnLaTabla(' apadrinamiento ',str(apadrinamiento))
             if not ap:
                 print('Apadrinamiento no existente')
                 return None
@@ -49,7 +43,9 @@ class Envios:
 
             #inserto los valores en la tabla si no existen
             if not ap:
-                valores = [id_envios, descripcion, enviado_por_socio, recibido, respuestaA, apadrinamiento]
+                valores = [id_envios, descripcion if descripcion != None else 'null', 
+                enviado_por_socio if enviado_por_socio != None else 'null', recibido if recibido != None else 'null', 
+                respuestaA if respuestaA != None else 'null', apadrinamiento]
                 bd.insert(valores, Envios.tabla)
                 #inicializo las variables de la instancia
                 newE = Envios(id_envios, descripcion, enviado_por_socio, recibido, respuestaA, apadrinamiento)
@@ -75,13 +71,16 @@ class Envios:
             descripcion = ap[1]
             enviado_por_socio = ap[2]
             recibido = ap[3]
-            respuestaA = Envios(ap[4]) if ap[4] != None else None
-            apadrinamiento = Apadrinamiento(ap[5]) if ap[5] != None else None
+            respuestaA = ap[4] 
+            apadrinamiento = ap[5]
+            newEnvio = Envios(id_envios, descripcion, enviado_por_socio, recibido, respuestaA, apadrinamiento)
+            return newEnvio
 
 
     #metodo que comprueba si la condicion pasada como parametro devuelve tuplas en la query o si esta devuele un nulo 
     #el resultado es verdadero si se devuelve una tupla (o una lista de tuplas) y falso si no se encuentran tuplas
-    def estaEnLaTabla(self, tabla: str, condicion: str)
+    @staticmethod
+    def estaEnLaTabla(tabla: str, condicion: str):
         bd = BD()
         resultado = '*'
         ap = bd.selectEscalar(resultado,tabla,condicion)
@@ -101,10 +100,10 @@ class Envios:
         return self.recibido
 
     def getRespuestaA(self):
-        return self.respuestaA
+        return self.respuestaA 
 
-    def getRepuestaAId(self):
-        return self.respuestaA.getIdEnvios()
+    def getRespuestaAId(self):
+        return self.respuestaA.getIdEnvios() if self.respuestaA != None else None
 
     def getApadrinamiento(self):
         return self.apadrinamiento
@@ -147,18 +146,18 @@ class Envios:
     def setDescripcion(self, descripcion: str = None):
         bd = BD()
         condicion = 'id_envios = ' + str(self.id_envios)
-        setter = 'descripcion = ' + str(descripcion)
+        setter = 'descripcion = \'' + str(descripcion) + '\''
         bd.update(Envios.tabla,setter,condicion)
         self.descripcion = descripcion
 
-    def setEnviadoPorSocio(self, enviado_por_socio: bool = None):
+    def setEnviadoPorSocio(self, enviado_por_socio: int = None):
         bd = BD()
         condicion = 'id_envios = ' + str(self.id_envios)
-        setter = 'enviado_por_socio = ' + str(enviado_por_socio)
+        setter = 'eviado_por_socio = ' + str(enviado_por_socio)
         bd.update(Envios.tabla,setter,condicion)
         self.enviado_por_socio = enviado_por_socio
 
-    def setRecibido(self, recibido: str = None):
+    def setRecibido(self, recibido: int = None):
         bd = BD()
         condicion = 'id_envios = ' + str(self.id_envios)
         setter = 'recibido = ' + str(recibido)
@@ -169,17 +168,17 @@ class Envios:
         bd = BD()
         #compruebo la existencia del envio al que se le responde en la tabla 
         condicion = ' id_envios = ' + str(respuestaA)
-        ap = estaEnLaTabla(Envios.tabla,str(respuestaA))
+        ap = Envios.estaEnLaTabla(Envios.tabla,str(respuestaA))
         if not ap:
             print('Envio previo no existente')
             return False
-        condicion = 'id_envios = ' + str(id_envios)
+        condicion = 'id_envios = ' + str(self.id_envios)
         if not respuestaA:
             setter = 'respuestaA = null'
         else:
-            setter = 'respuestaA = ' + str(asociado_ACOES)
+            setter = 'respuestaA = ' + str(respuestaA)
         bd.update(Envios.tabla,setter,condicion)
-        self.respuestaA = getEnvios(respuestaA)
+        self.respuestaA = Envios.getEnvios(respuestaA)
 
     def setApadrinamiento(self, apadrinamiento: int = None):
         if apadrinamiento:
@@ -188,10 +187,10 @@ class Envios:
             condicion = 'id_apadrinamiento = ' + str(apadrinamiento)
             ap = bd.selectEscalar('*',' apadrinamiento ',condicion)
             if ap:
-                condicion = 'id_envios = ' + str(id_envios)
+                condicion = 'id_envios = ' + str(self.id_envios)
                 setter = 'apadrinamiento = ' + str(apadrinamiento)
                 bd.update(Envios.tabla,setter,condicion)
-                self.apadrinamiento = getApadrinamiento(apadrinamiento)
+                self.apadrinamiento = Apadrinamiento.getApadrinamiento(apadrinamiento)
             else:
                 print('Apadrinamiento no existente')
                 return False
@@ -214,7 +213,7 @@ class Envios:
             descripcion = col[1]
             enviado_por_socio = col[2]
             recibido = col[3]
-            repuestaA = col[4]
+            respuestaA = col[4]
             apadrinamiento = col[5]
             enviado = Envios(id_envios, descripcion, enviado_por_socio, recibido, respuestaA, apadrinamiento)
             lista.append(enviado)
@@ -242,4 +241,5 @@ class Envios:
         return cadena[:-3]
 
 if __name__ == '__main__':
+    pass
     

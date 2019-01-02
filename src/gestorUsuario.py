@@ -40,7 +40,6 @@ class GestorUsuario(base_1, form_1):
         self.bAnadirUsuario.clicked.connect(self.newUsuario)
         self.bEditarUsuario.clicked.connect(self.editarUsuario)
         self.bActualizar.clicked.connect(self.recargar)
-        self.bBuscar.clicked.connect(self.busqueda)
 
         self.cProvincia.currentIndexChanged.connect(self.busqueda)
         self.cEstado.currentIndexChanged.connect(self.busqueda)

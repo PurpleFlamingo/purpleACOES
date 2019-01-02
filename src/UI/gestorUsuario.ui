@@ -253,19 +253,6 @@
      <string>Permiso</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="bBuscar">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>91</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Buscar</string>
-    </property>
-   </widget>
    <widget class="QComboBox" name="cProvincia">
     <property name="geometry">
      <rect>

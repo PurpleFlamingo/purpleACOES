@@ -67,7 +67,7 @@ class Usuario:
             return None
         else:
             newUser = Usuario(id_usuario, ap[1], ap[2], ap[3], ap[4])
-            print(newUser)
+            #print(newUser)
             return newUser
 
 

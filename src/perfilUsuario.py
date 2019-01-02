@@ -67,7 +67,7 @@ class PerfilUsuario(base_1, form_1):
 
 
     def cambioDeClave(self):
-        self.child = CambiarContrasenia(self, self.idUser)
+        self.child = CambiarContrasenia(self.idUser)
         self.child.show()
 
     def salirSinGuardar(self):

@@ -92,26 +92,6 @@
      <string>Guardar y Salir</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="eRequisitos">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>150</y>
-      <width>521</width>
-      <height>121</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="eDescripcion">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>320</y>
-      <width>521</width>
-      <height>121</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="eTipo">
     <property name="geometry">
      <rect>
@@ -129,6 +109,26 @@
       <y>30</y>
       <width>401</width>
       <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="eRequisitos">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>150</y>
+      <width>521</width>
+      <height>131</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="eDescripcion">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>320</y>
+      <width>521</width>
+      <height>131</height>
      </rect>
     </property>
    </widget>

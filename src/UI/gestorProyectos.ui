@@ -19,7 +19,7 @@
      <rect>
       <x>30</x>
       <y>30</y>
-      <width>291</width>
+      <width>361</width>
       <height>22</height>
      </rect>
     </property>
@@ -179,6 +179,19 @@
       <width>591</width>
       <height>91</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bActualizar">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>20</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Actualizar Vista</string>
     </property>
    </widget>
   </widget>

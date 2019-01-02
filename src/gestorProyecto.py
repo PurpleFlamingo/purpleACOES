@@ -18,7 +18,8 @@ class GestorProyecto(base_1, form_1):
         self.child = None
 
         self.proyectos = []
-        self.filtrada = []
+        self.filtrada =  []
+        self.actual = None
 
         self.eDescripcion.setEnabled(False)
         self.eRequisitos.setEnabled(False)
@@ -31,6 +32,7 @@ class GestorProyecto(base_1, form_1):
         self.bEditar.clicked.connect(self.editarProyecto)
         self.bBusqueda.clicked.connect(self.busqueda)
         self.cProyecto.currentIndexChanged.connect(self.mostrarDatos)
+        self.bActualizar.clicked.connect(self.recargar)
 
 
 
@@ -42,29 +44,23 @@ class GestorProyecto(base_1, form_1):
 
     def mostrarDatos(self):
     	nombre = self.cProyecto.currentText()
-    	for proyecto in filtrada:
+    	for proyecto in self.filtrada:
     		if(proyecto.getNombre()==nombre):
-    			self.eRequisitos=proyecto.getRequisitosDeParticipacion()
-    			self.eDescripcion=proyecto.getDescripcion()
+    			self.actual=proyecto
+    			self.eRequisitos.setPlainText(proyecto.getRequisitosDeParticipacion())
+    			self.eDescripcion.setPlainText(proyecto.getDescripcion())
 
     #Carga la vista de datos de proyecto con una vista vacia para crear un proyecto nuevo
     def nuevoProyecto(self):
-        self.child = DatosProyecto(self)
+        ultimo=self.proyectos[len(self.proyectos)-1].getIdProyecto()
+        self.child = DatosProyecto(self, lastId = ultimo)
         self.child.show()
 
     #Carga la vista de datos de proyecto con los datos del proyecto seleccionado
     #Si no hay proyecto seleccionado lanza un warning
     def editarProyecto(self):
-        index = self.cProyecto.selectedIndexes()
-        if not index:
-            self.child = WarningNoUserSelected(self)
-            #self.child.setModal(True)
-            self.child.show()
-            print('No elemento seleccionado')
-        else:
-            print(index[0])
-            self.child = DatosProyecto(self)
-            self.child.show()
+        self.child = DatosProyecto(self, proyecto =  self.actual)
+        self.child.show()
         
 
     #Actualiza la informacion de proyecto de la base de datos y actualiza los comboBox
@@ -87,7 +83,12 @@ class GestorProyecto(base_1, form_1):
         self.cProyecto.addItems(nombres)
         self.cTipo.clear()
         self.cTipo.addItems(tipos)
-       
+
+        #Hace visibles los datos del primer proyecto almacenado en la lista
+        proyecto=listpro[0]
+        self.actual=proyecto
+        self.eRequisitos.insertPlainText(proyecto.getRequisitosDeParticipacion())
+        self.eDescripcion.setPlainText(proyecto.getDescripcion())
 
     #Filtra el contenido del comboBox de seleccion de proyecto y lo actualiza 
     def busqueda(self):
@@ -101,7 +102,7 @@ class GestorProyecto(base_1, form_1):
 
         for proyecto in self.proyectos:
             if (nombre== '' or proyecto.getNombre()==nombre) and (tipo== '' or proyecto.getTipo()==tipo):
-                filtrada.append(proyecto)
+                self.filtrada.append(proyecto)
                 nombres.append(proyecto.getNombre())
 
         self.cProyecto.clear()

@@ -91,8 +91,8 @@ class Proyecto:
             ap = bd.selectEscalar(resultado,Proyecto.tabla,condicion)
             #compruebo que el valor no existe en la tabla para no incumplir la unicidad del atributo
             if ap == None or ap == []:
-                condicion = 'id_proyecto = ' + str(self.id_proyecto)
-                setter = 'id_proyecto = ' + str(id_proyecto)
+                condicion = 'id_proyecto = ' + str(self.id_proyecto) 
+                setter = 'id_proyecto = ' + str(id_proyecto) 
                 bd.update(Proyecto.tabla,setter,condicion)
                 self.id_proyecto = id_proyecto
             else:
@@ -107,7 +107,7 @@ class Proyecto:
         if nombre != None:
             bd = BD()
             condicion = 'id_proyecto = ' + str(self.id_proyecto)
-            setter = 'nombre = ' + str(nombre)
+            setter = 'nombre = \'' + str(nombre) +'\''
             bd.update(Proyecto.tabla,setter,condicion)
             self.nombre = nombre       
         else:
@@ -117,21 +117,21 @@ class Proyecto:
     def setRequisitosDeParticipacion(self, requisitos_participacion: str = None):
         bd = BD()
         condicion = 'id_proyecto = ' + str(self.id_proyecto)
-        setter = 'requisitos_participacion = ' + str(requisitos_participacion)
+        setter = 'requisitos_participacion = \'' + str(requisitos_participacion)+'\''
         bd.update(Proyecto.tabla,setter,condicion)
         self.requisitos_participacion = requisitos_participacion
 
     def setDescripcion(self, descripcion: str = None):
         bd = BD()
         condicion = 'id_proyecto = ' + str(self.id_proyecto)
-        setter = 'descripcion = ' + str(descripcion)
+        setter = 'descripcion = \'' + str(descripcion) +'\''
         bd.update(Proyecto.tabla,setter,condicion)
         self.descripcion = descripcion
 
     def setTipo(self, tipo: str = None):
         bd = BD()
         condicion = 'id_proyecto = ' + str(self.id_proyecto)
-        setter = 'tipo = ' + str(tipo)
+        setter = 'tipo = \'' + str(tipo) +'\''
         bd.update(Proyecto.tabla,setter,condicion)
         self.tipo = tipo
 

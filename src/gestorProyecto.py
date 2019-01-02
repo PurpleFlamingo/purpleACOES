@@ -87,7 +87,7 @@ class GestorProyecto(base_1, form_1):
         #Hace visibles los datos del primer proyecto almacenado en la lista
         proyecto=listpro[0]
         self.actual=proyecto
-        self.eRequisitos.insertPlainText(proyecto.getRequisitosDeParticipacion())
+        self.eRequisitos.setPlainText(proyecto.getRequisitosDeParticipacion())
         self.eDescripcion.setPlainText(proyecto.getDescripcion())
 
     #Filtra el contenido del comboBox de seleccion de proyecto y lo actualiza 

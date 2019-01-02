@@ -7,8 +7,8 @@ from BD.Socio import Socio
 from BD.Voluntario import Voluntario
 from warningDatosSinRellenar import WarningDatosSinRellenar
 from warningSalirSinGuardar import WarningSalirSinGuardar
-import recursosQT_rc
 from cambiarContraseña import CambiarContrasenia
+import recursosQT_rc
 
 form_1, base_1 = uic.loadUiType('UI/perfilUsuario.ui')
 
@@ -62,10 +62,12 @@ class PerfilUsuario(base_1, form_1):
         else:
             self.bGuardarYSalir.clicked.connect(self.insertar)
 
-        self.bCambiarClave.clicked.connect(self.cambiarClave)
+        #cambiar contraseña
+        self.bCambiarClave.clicked.connect(self.cambioDeClave)
 
-    def cambiarClave(self):
-        self.child = CambiarContrasenia(self.idUser, self)
+
+    def cambioDeClave(self):
+        self.child = CambiarContrasenia(self.idUser)
         self.child.show()
 
     def salirSinGuardar(self):
@@ -116,6 +118,10 @@ class PerfilUsuario(base_1, form_1):
             self.eCodigoPostal.setText(v[9])
             self.eProvincia.setText(v[10])
             self.eEstado.setText(v[11])
+        
+        
+
+
 
     def actualizar(self):
         datosUsuario, datosOtros = self.leerDatos()

@@ -15,6 +15,11 @@ class WarningDatosSinRellenar(base_1, form_1):
             print("El usuario ingresado ya existe")
             self.lWarning.setText("Usuario ya existente")
 
+        if self.mensaje == 'Clave':
+            print("Las claves son distintas")
+            self.lWarning.setText("Las claves introducidas son distintas")
+
+
         self.bAtras.clicked.connect(self.salir)
 
     def salir(self):

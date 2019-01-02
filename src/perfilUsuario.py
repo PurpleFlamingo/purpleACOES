@@ -59,11 +59,16 @@ class PerfilUsuario(base_1, form_1):
             self.rolUser = self.eRol.text()
             #print(self.eRol.text())
             self.bGuardarYSalir.clicked.connect(self.actualizar)
+            #cambiar contraseña
+            self.eClave.hide()
+            self.eClave2.hide()
+            self.lClave_2.hide()            
+            self.bCambiarClave.clicked.connect(self.cambioDeClave)
         else:
             self.bGuardarYSalir.clicked.connect(self.insertar)
+            self.bCambiarClave.hide()
 
-        #cambiar contraseña
-        self.bCambiarClave.clicked.connect(self.cambioDeClave)
+        
 
 
     def cambioDeClave(self):
@@ -199,6 +204,12 @@ class PerfilUsuario(base_1, form_1):
         self.salir()
 
     def insertar(self):
+        if self.eClave.text() != self.eClave2.text():
+            print('Error: Las claves no son iguales')
+            self.child = WarningDatosSinRellenar(self, 'Clave')
+            self.child.show()
+            return False
+
         datosUsuario, datosOtros = self.leerDatos()
         db = BDOperaciones()
 
@@ -206,7 +217,10 @@ class PerfilUsuario(base_1, form_1):
         self.salir()
 
     def leerDatos(self):
-        datosUsuario = [self.eUsuario.text(),self.eRol.text(),self.ePermiso.text()]
+        if self.idUser != None:
+            datosUsuario = [self.eUsuario.text(),self.eRol.text(),self.ePermiso.text()]
+        else:
+            datosUsuario = [self.eUsuario.text(),self.eClave.text(),self.eRol.text(),self.ePermiso.text()]
         #for data in datosUsuario:
         #    data = data if (data != None) else ''
 

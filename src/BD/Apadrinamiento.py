@@ -24,8 +24,6 @@ class Apadrinamiento:
             if id_apadrinamiento == None or joven == None or socio == None or agente == None or fecha_de_inicio == None:
                 print('Error: los datos del apadrinamiento (excepto la fecha de baja) no pueden ser nulos')
                 return None
-            if fecha_de_baja == None:
-                fecha_de_baja = 'null'
 
             #compruebo que la combinacion de joven y socio no se encuentra en la tabla (por ser la clave primaria)
             condicion = 'joven = ' + str(joven) + ' and socio = ' + str(socio)
@@ -57,11 +55,12 @@ class Apadrinamiento:
 
             #inserto los valores en la tabla si no existen
             if not ap:
-                valores = [id_apadrinamiento, joven, socio, agente, fecha_de_inicio, fecha_de_baja]
+                valores = [id_apadrinamiento, joven, socio, agente, fecha_de_inicio, fecha_de_baja if fecha_de_baja != None else 'null']
                 bd.insert(valores, Apadrinamiento.tabla)
                 #inicializo las variables de la instancia
                 fecha_de_inicio = datetime.strptime(fecha_de_inicio, '%Y-%m-%d')
-                fecha_de_baja = datetime.strptime(fecha_de_baja, '%Y-%m-%d')
+                if fecha_de_baja != None:
+                    fecha_de_baja = datetime.strptime(fecha_de_baja, '%Y-%m-%d')
 
                 newAp = Apadrinamiento(id_apadrinamiento, Joven.getJoven(joven), Socio.getSocio(socio), Voluntario.getVoluntario(agente), fecha_de_inicio, fecha_de_baja)
                 print(newAp)
@@ -296,19 +295,19 @@ class Apadrinamiento:
         if self.id_apadrinamiento != None: 
             cadena += 'Apadrinamiento '+ str(self.id_apadrinamiento) + ' - '
         if self.joven != None: 
-            cadena += 'Joven ' + str(self.joven) + ' - '
+            cadena += 'Joven ' + str(self.joven.getIdJoven()) + ' - '
         if self.socio != None: 
-            cadena += 'Socio ' + str(self.socio.getUsuario()) + ' - '
+            cadena += 'Socio ' + str(self.socio.getUsuarioId()) + ' - '
         if self.agente != None:
             cadena += 'Agente ' + str(self.agente.getUsuario()) + ' - '
         if self.fecha_de_inicio != None:
             cadena += 'Fecha de inicio ' + self.fecha_de_inicio.strftime('%Y-%m-%d') + ' - '
         if self.fecha_de_baja != None:
             cadena += 'Fecha de baja ' + self.fecha_de_baja.strftime('%Y-%m-%d') + ' - '
-        else:
+        elif cadena != '':
             cadena += 'Sin fecha de baja - '
         if cadena == '':
-            cadena = 'Apadrinamiento vacío - ' 
+            cadena = 'Apadrinamiento sin inicializar - ' 
 
         return cadena[:-3]
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>725</width>
-    <height>611</height>
+    <height>656</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>460</x>
-      <y>580</y>
+      <y>620</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -31,7 +31,7 @@
     <property name="geometry">
      <rect>
       <x>580</x>
-      <y>580</y>
+      <y>620</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -136,7 +136,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>500</y>
+      <y>540</y>
       <width>661</width>
       <height>71</height>
      </rect>
@@ -540,7 +540,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>480</y>
+      <y>520</y>
       <width>121</width>
       <height>16</height>
      </rect>
@@ -552,9 +552,9 @@
    <widget class="QPushButton" name="bCambiarClave">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>120</x>
       <y>450</y>
-      <width>231</width>
+      <width>181</width>
       <height>23</height>
      </rect>
     </property>
@@ -562,6 +562,90 @@
      <string>Cambiar Contraseña</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="eClave">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>450</y>
+      <width>231</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eClave2">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>480</y>
+      <width>231</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lClave_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>470</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Repetir 
+contraseña</string>
+    </property>
+   </widget>
+   <zorder>bSalirSinGuardar</zorder>
+   <zorder>bGuardarYSalir</zorder>
+   <zorder>lNombre</zorder>
+   <zorder>lApellidos</zorder>
+   <zorder>lNif</zorder>
+   <zorder>lDireccion</zorder>
+   <zorder>eNombre</zorder>
+   <zorder>eApellidos</zorder>
+   <zorder>eNif</zorder>
+   <zorder>eDireccion</zorder>
+   <zorder>eComentarios</zorder>
+   <zorder>label</zorder>
+   <zorder>lPoblacion</zorder>
+   <zorder>ePoblacion</zorder>
+   <zorder>eCodigoPostal</zorder>
+   <zorder>lCodigoPostal</zorder>
+   <zorder>lEstado</zorder>
+   <zorder>lTelefono1</zorder>
+   <zorder>lTelefono2</zorder>
+   <zorder>lCorreo</zorder>
+   <zorder>lFechaAlta</zorder>
+   <zorder>lSector</zorder>
+   <zorder>lCertificado</zorder>
+   <zorder>lFechaSalida</zorder>
+   <zorder>lRelacion</zorder>
+   <zorder>eEstado</zorder>
+   <zorder>eCertificado</zorder>
+   <zorder>eTelefono1</zorder>
+   <zorder>eCorreoElectronico</zorder>
+   <zorder>eSector</zorder>
+   <zorder>eRelacion</zorder>
+   <zorder>eTelefono2</zorder>
+   <zorder>eFechaAlta</zorder>
+   <zorder>eFechaSalida</zorder>
+   <zorder>lProvincia</zorder>
+   <zorder>eProvincia</zorder>
+   <zorder>lUsuario</zorder>
+   <zorder>lRol</zorder>
+   <zorder>lFechaNacimiento</zorder>
+   <zorder>lClave</zorder>
+   <zorder>lPermiso</zorder>
+   <zorder>eUsuario</zorder>
+   <zorder>eFechaNacimiento</zorder>
+   <zorder>eRol</zorder>
+   <zorder>ePermiso</zorder>
+   <zorder>lComentario</zorder>
+   <zorder>eClave</zorder>
+   <zorder>eClave2</zorder>
+   <zorder>lClave_2</zorder>
+   <zorder>bCambiarClave</zorder>
   </widget>
  </widget>
  <resources>

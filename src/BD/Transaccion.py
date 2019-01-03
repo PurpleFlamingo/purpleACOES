@@ -14,8 +14,8 @@ class Transaccion:
         self.destino = destino
         self.formaPago = formaPago
         self.motivo = motivo
-        self.proyecto = proyecto
-        self.apadrinamiento = apadrinamiento
+        self.proyecto = Proyecto.getProyecto(proyecto) if proyecto != None else None
+        self.apadrinamiento = Apadrinamiento.getApadrinamiento(apadrinamiento) if apadrinamiento != None else None
         self.beneficiario = beneficiario
 
     @staticmethod
@@ -26,7 +26,7 @@ class Transaccion:
         #Compruebo que el valor es unico
         res = bd.selectEscalar('*', Transaccion.tabla, condicion)
         if not res:
-            valores = [id_transaccion, gasto, fechaEmision.strftime('%Y-%m-%d'), cuantia, moneda, destino if destino != None else 'null', formaPago if formaPago != None else 'null', motivo if motivo != None else 'null', proyecto.getIdProyecto() if proyecto.getIdProyecto() != None else 'null', apadrinamiento.getIdApadrinamiento() if apadrinamiento.getIdApadrinamiento() != None else 'null', beneficiario if beneficiario != None else 'null']
+            valores = [id_transaccion, gasto, fechaEmision, cuantia, moneda, destino if destino != None else 'null', formaPago if formaPago != None else 'null', motivo if motivo != None else 'null', proyecto if proyecto != None else 'null', apadrinamiento if apadrinamiento != None else 'null', beneficiario if beneficiario != None else 'null']
 
             bd.insert(valores, Transaccion.tabla)
             newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
@@ -46,34 +46,39 @@ class Transaccion:
         else:
             id_transaccion = trans[0]
             gasto = True if (trans[1] == 1) else False
-            fechaEmision = trans[2]
+            fechaEmision = trans[2].strftime('%Y-%m-%d')
             cuantia = trans[3]
             moneda = trans[4]
             destino = trans[5]
             formaPago = trans[6]
             motivo = trans[7]
-            proyecto = Proyecto(trans[8]) if trans[8]!=None else None
-            apadrinamiento = Apadrinamiento(trans[9]) if trans[9]!=None else None
+            proyecto = trans[8]
+            apadrinamiento = trans[9]
             beneficiario = trans[10]
             newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
             return newTrans
 
     @staticmethod
-    def listaTransacciones():
+    def listaTransacciones(apadrinamiento:int = None, gasto: int = None):
         bd = BD()
-        trans = bd.select('*', Transaccion.tabla)
+        if apadrinamiento == None or gasto == None:
+            condicion = None
+        else:
+            condicion = ' apadrinamiento = ' + str(apadrinamiento) + ' and gasto = ' + str(gasto)
+
+        trans = bd.select('*', Transaccion.tabla, condicion)
         listTransacciones = []
         for transaccion in trans:
             id_transaccion = transaccion[0]
             gasto = True if (transaccion[1] == 1) else False
-            fechaEmision = transaccion[2]
+            fechaEmision = transaccion[2].strftime('%Y-%m-%d')
             cuantia = transaccion[3]
             moneda = transaccion[4]
             destino = transaccion[5]
             formaPago = transaccion[6]
             motivo = transaccion[7]
-            proyecto = Proyecto.getProyecto(transaccion[8]) if transaccion[8]!=None else None
-            apadrinamiento = Apadrinamiento.getApadrinamiento(transaccion[9]) if transaccion[9]!=None else None
+            proyecto = transaccion[8]
+            apadrinamiento = transaccion[9]
             beneficiario = transaccion[10]
             newTrans = Transaccion(id_transaccion, gasto, fechaEmision, cuantia, moneda, destino, formaPago, motivo, proyecto, apadrinamiento, beneficiario)
             listTransacciones.append(newTrans)
@@ -183,7 +188,7 @@ class Transaccion:
         if self.gasto != None:
             toStr+=('Tipo: ' + ('Gasto' if self.gasto else 'Ingreso') + ' - ')
         if self.fechaEmision != None:
-            toStr+=('Fecha de emision: ' + self.fechaEmision.strftime('%Y-%m-%d') + ' - ')
+            toStr+=('Fecha de emision: ' + self.fechaEmision + ' - ')
         if self.cuantia != None:
             toStr+=('Cuantia: ' + str(self.cuantia) + ' - ')
         if self.moneda != None:
@@ -197,7 +202,7 @@ class Transaccion:
         if self.proyecto != None:
             toStr+=('Proyecto: ' + self.proyecto.getNombre() + ' - ')
         if self.apadrinamiento != None:
-            toStr+=('Apadrinamiento: ' + self.apadrinamiento.getIdApadrinamiento() + ' - ')
+            toStr+=('Apadrinamiento: ' + str(self.apadrinamiento.getIdApadrinamiento()) + ' - ')
         if self.beneficiario != None:
             toStr+=('Beneficiario: ' + self.beneficiario + ' - ')
         return toStr[:-3]

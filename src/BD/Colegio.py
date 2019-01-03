@@ -18,11 +18,6 @@ class Colegio:
             if id_colegio == None or colonia == None:
                 print('Error: la identificación del colegio o de la colonia no pueden ser nulos')
                 return None
-            if asociado_ACOES == None:
-                asociado_ACOES = 'null'
-            if nombre_colegio == None:
-                nombre_colegio = 'null'
-
             bd = BD() 
             
             #Compruebo la existencia de la clave foranea en su tabla de origen
@@ -39,7 +34,8 @@ class Colegio:
 
             #inserto los valores en la tabla si no existen
             if not ap:
-                valores = [id_colegio, asociado_ACOES, nombre_colegio, colonia]
+                valores = [id_colegio, asociado_ACOES if asociado_ACOES != None else 'null', 
+                    nombre_colegio if nombre_colegio != None else 'null', colonia]
                 bd.insert(valores, Colegio.tabla)
                 #inicializo las variables de la instancia
                 newCol = Colegio(id_colegio, asociado_ACOES, nombre_colegio, colonia)

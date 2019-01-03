@@ -18,8 +18,6 @@ class Colonia:
             if id_colonia == None or nombre == None or numero_de_habitantes == None:
                 print('Error: la identificación o el nombre del proyecto o el numero de habitantes no pueden ser nulos')
                 return None
-            if descripcion == None:
-                descripcion = 'null'
 
             bd = BD() 
             #consulto si los valores estan en la tabla
@@ -28,12 +26,12 @@ class Colonia:
 
             #inserto los valores en la tabla si no existen
             if not ap:
-                valores = [id_colonia, nombre, numero_de_habitantes, descripcion]
-                print('Valores: ',valores)
+                valores = [id_colonia, nombre, numero_de_habitantes, descripcion if descripcion != None else 'null']
+                #print('Valores: ',valores)
                 bd.insert(valores, Colonia.tabla)
                 #inicializo las variables de la instancia
                 newCol = Colonia(id_colonia, nombre, numero_de_habitantes, descripcion)
-                print(newCol)
+                #print(newCol)
                 return newCol
             else:
                 print('Error: La id {} ya esta en uso',format(id_colonia))

@@ -5,12 +5,16 @@ from PyQt5.QtWidgets import QApplication, QWidget
 form_1, base_1 = uic.loadUiType('UI/warningNoUserSelected.ui')
 
 class WarningNoUserSelected(base_1, form_1):
-    def __init__(self, parent = None):
+    def __init__(self, parent = None, mensaje: str = None):
         super(base_1,self).__init__()
         self.setupUi(self)
         self.parent = parent
+        self.mensaje = mensaje
 
-        self.bAtras.clicked.connect(self.hide)
+        if self.mensaje == 'Pago':
+            self.lWarning.setText('Seleccione un pago para realizar la consulta')
+
+        self.bAtras.clicked.connect(self.close)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

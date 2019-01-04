@@ -5,6 +5,8 @@ from BD.Transaccion import Transaccion
 from BD.Socio import Socio
 from BD.Joven import Joven
 from BD.Apadrinamiento import Apadrinamiento
+from warningNoUserSelected import WarningNoUserSelected
+from detallePagos import DetallePagos
 
 form_1, base_1 = uic.loadUiType('UI/consultaPagos.ui')
 
@@ -21,7 +23,9 @@ class ConsultaPagos(base_1, form_1):
         #muestro los datos del socio apadrinador
         self.socioApadrinador = Socio.getSocio(idSocio)
         self.eSocioId.setText(str(self.socioApadrinador.getUsuarioId()))
+        self.eSocioId.setEnabled(False)
         self.eSocioNombre.setText(self.socioApadrinador.getNombreDePila())
+        self.eSocioNombre.setEnabled(False)
 
         #busco los apadrinamientos del socio
         self.listaDeApadrinamientos = Apadrinamiento.listaApadrinamientos(self.socioApadrinador.getUsuarioId())
@@ -31,11 +35,16 @@ class ConsultaPagos(base_1, form_1):
         for ap in self.listaDeApadrinamientos:
             #print(ap)
             self.listaDePagos += Transaccion.listaTransacciones(ap.getIdApadrinamiento(), 0)
-        
-        print('Lista de pagos del socio ', (self.socioApadrinador.getUsuarioId()))
-        for p in self.listaDePagos:
-            print(p)
 
+
+        #print('Lista de pagos del socio ', (self.socioApadrinador.getUsuarioId()))
+        #for p in self.listaDePagos:
+            #print(p)
+
+        #Acomodamiento de la tabla
+        self.tPagos.verticalHeader().hide()
+        self.tPagos.setRowCount(len(self.listaDePagos))
+        self.tPagos.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
 
         #Mostramos los datos de todas los pagos
         for i, pago in enumerate(self.listaDePagos):
@@ -50,8 +59,27 @@ class ConsultaPagos(base_1, form_1):
             self.tPagos.setItem(i, 3, QTableWidgetItem(cadena))
             #Columna Apadrinamiento
             apadrinamiento = pago.getApadrinamiento().getIdApadrinamiento()
-            print('Apadrinamiento : ', apadrinamiento)
             self.tPagos.setItem(i, 4, QTableWidgetItem(str(apadrinamiento)))
+
+        #Consulta
+        self.bConsulta.clicked.connect(self.consultaDePagos)
+
+    
+    def consultaDePagos(self):
+        index = self.tPagos.selectedIndexes()
+        indexPago = index[0].row()
+        print(index)
+        if not index:
+            self.child = WarningNoUserSelected(self, 'Pago')
+            self.child.show()
+            print('No elemento seleccionado')
+        else:
+            self.child = DetallePagos(self, self.listaDePagos[indexPago], self.socioApadrinador)
+            self.hide()
+            self.child.show()
+            print('Pago seleccionado: ')
+            print(self.listaDePagos[indexPago])
+
 
     #salir de la interfaz y regresar a la anterior
     def salir(self):

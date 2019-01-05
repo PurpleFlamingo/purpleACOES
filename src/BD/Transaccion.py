@@ -189,7 +189,7 @@ class Transaccion:
         if self.gasto != None:
             toStr+=('Tipo: ' + ('Gasto' if self.gasto else 'Ingreso') + ' - ')
         if self.fechaEmision != None:
-            toStr+=('Fecha de emision: ' + self.fechaEmision + ' - ')
+            toStr+=('Fecha de emision: ' + self.fechaEmision.strftime('%Y-%m-%d') + ' - ')
         if self.cuantia != None:
             toStr+=('Cuantia: ' + str(self.cuantia) + ' - ')
         if self.moneda != None:

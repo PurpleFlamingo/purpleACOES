@@ -137,7 +137,7 @@
      <string>Atras</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="bColsulta">
+   <widget class="QPushButton" name="bConsulta">
     <property name="geometry">
      <rect>
       <x>510</x>

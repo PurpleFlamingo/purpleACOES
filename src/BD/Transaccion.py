@@ -1,6 +1,7 @@
 from BD.BD import BD
 from BD.Proyecto import Proyecto
 from BD.Apadrinamiento import Apadrinamiento
+from datetime import datetime
 
 
 class Transaccion:
@@ -46,7 +47,7 @@ class Transaccion:
         else:
             id_transaccion = trans[0]
             gasto = True if (trans[1] == 1) else False
-            fechaEmision = trans[2].strftime('%Y-%m-%d')
+            fechaEmision = datetime.strptime(trans[2], '%Y-%m-%d')
             cuantia = trans[3]
             moneda = trans[4]
             destino = trans[5]
@@ -71,7 +72,7 @@ class Transaccion:
         for transaccion in trans:
             id_transaccion = transaccion[0]
             gasto = True if (transaccion[1] == 1) else False
-            fechaEmision = transaccion[2].strftime('%Y-%m-%d')
+            fechaEmision = transaccion[2]
             cuantia = transaccion[3]
             moneda = transaccion[4]
             destino = transaccion[5]
@@ -188,7 +189,7 @@ class Transaccion:
         if self.gasto != None:
             toStr+=('Tipo: ' + ('Gasto' if self.gasto else 'Ingreso') + ' - ')
         if self.fechaEmision != None:
-            toStr+=('Fecha de emision: ' + self.fechaEmision + ' - ')
+            toStr+=('Fecha de emision: ' + self.fechaEmision.strftime('%Y-%m-%d') + ' - ')
         if self.cuantia != None:
             toStr+=('Cuantia: ' + str(self.cuantia) + ' - ')
         if self.moneda != None:

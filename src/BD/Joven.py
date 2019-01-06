@@ -412,13 +412,13 @@ class Joven:
         if self.urlFoto != None: 
             toStr += 'Foto: ' + self.urlFoto + ' - '
         if self.fechaNacimiento != None: 
-            toStr += 'Fecha nacimiento: ' + self.fechaNacimiento + ' - '
+            toStr += 'Fecha nacimiento: ' + str(self.fechaNacimiento) + ' - '
         if self.fechaAlta != None: 
-            toStr += 'Fecha alta: ' + self.fechaAlta + ' - '
+            toStr += 'Fecha alta: ' + str(self.fechaAlta) + ' - '
         if self.fechaAltaACOES != None:
-            toStr += 'Fecha alta ACOES: ' + self.fechaAltaACOES + ' - '
+            toStr += 'Fecha alta ACOES: ' + str(self.fechaAltaACOES) + ' - '
         if self.fechaSalidaACOES != None: 
-            toStr += 'Fecha salida ACOES: ' + self.fechaSalidaACOES + ' - '
+            toStr += 'Fecha salida ACOES: ' + str(self.fechaSalidaACOES) + ' - '
         if self.grado != None: 
             toStr += 'Grado: ' + self.grado + ' - '
         if self.historial != None: 

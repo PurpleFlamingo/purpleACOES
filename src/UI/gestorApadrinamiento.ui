@@ -20,7 +20,7 @@
    <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="tBecados">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -172,16 +172,6 @@
      <string>Actualizar</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="cJovenNew">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>440</y>
-      <width>281</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="bAnadirBecado">
     <property name="geometry">
      <rect>
@@ -303,7 +293,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_2">
+   <widget class="QComboBox" name="cCNacimiento">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -326,7 +316,7 @@
      <string>Colegio</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="cEstado_2">
+   <widget class="QComboBox" name="cCResidencia">
     <property name="geometry">
      <rect>
       <x>640</x>
@@ -336,7 +326,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_3">
+   <widget class="QComboBox" name="cColegio">
     <property name="geometry">
      <rect>
       <x>640</x>

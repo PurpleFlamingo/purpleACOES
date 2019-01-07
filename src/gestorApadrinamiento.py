@@ -72,7 +72,7 @@ class GestorApadrinamiento(base_1, form_1):
                 idSeleccionado = self.filtrada[kid].getIdJoven()
             else:
                 idSeleccionado = self.jovenes[kid].getIdJoven()
-            self.child = PerfilBecado(idSeleccionado)
+            self.child = PerfilBecado(idSeleccionado, 'modificar')
             self.child.show()
 
     def refresh(self):

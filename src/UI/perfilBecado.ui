@@ -124,7 +124,7 @@
      <rect>
       <x>170</x>
       <y>120</y>
-      <width>591</width>
+      <width>201</width>
       <height>21</height>
      </rect>
     </property>
@@ -383,6 +383,29 @@
     </property>
     <property name="text">
      <string>Salir sin Guardar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lEstado">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>120</y>
+      <width>141</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Estado</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eEstado">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>120</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
     </property>
    </widget>
   </widget>

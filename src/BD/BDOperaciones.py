@@ -199,6 +199,10 @@ class BDOperaciones:
         db = BD()
         db.update('usuario', 'clave=\'' + passw + '\'', 'id_usuario=' + str(ID))
 
+    def maxId(self, id: str, tabla: str):
+        db = BD()
+        resultado = db.selectEscalar('max(' + id + ')', tabla)[0]
+        return resultado
 
 
 if __name__ == '__main__':

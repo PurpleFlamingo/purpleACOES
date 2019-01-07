@@ -3,10 +3,13 @@ from BD.BD import BD
 from BD.Colegio import Colegio
 from BD.Colonia import Colonia
 
+
 class Joven:
     tabla = 'joven'
-    def __init__(self, idJoven = None, nombre = None, apellidos = None, nombrePadre = None, nombreMadre = None, estado = None, 
-    urlFoto = None, fechaNacimiento = None, fechaAlta = None, fechaAltaACOES = None, fechaSalidaACOES = None, grado = None, 
+
+    def __init__(self, idJoven=None, nombre=None, apellidos=None, nombrePadre=None, nombreMadre=None, estado=None,
+                 urlFoto=None, fechaNacimiento=None, fechaAlta=None, fechaAltaACOES=None, fechaSalidaACOES=None,
+                 grado=None,
                  historial=None, observaciones=None, coloniaNacimiento=None, coloniaResidencia=None, colegio=None):
         self.idJoven = idJoven
         self.nombre = nombre
@@ -27,7 +30,9 @@ class Joven:
         self.colegio = colegio
 
     @staticmethod
-    def newJoven(idJoven, nombre, apellidos, nombrePadre = None, nombreMadre = None, estado = None, urlFoto = None, fechaNacimiento = None, fechaAlta = None, fechaAltaACOES = None, fechaSalidaACOES = None, grado = None, historial = None, observaciones = None, coloniaNacimiento = None, coloniaResidencia = None, colegio = None):
+    def newJoven(idJoven, nombre, apellidos, nombrePadre=None, nombreMadre=None, estado=None, urlFoto=None,
+                 fechaNacimiento=None, fechaAlta=None, fechaAltaACOES=None, fechaSalidaACOES=None, grado=None,
+                 historial=None, observaciones=None, coloniaNacimiento=None, coloniaResidencia=None, colegio=None):
         bd = BD()
         if idJoven == None:
             print('idJoven no puede ser null')
@@ -50,17 +55,23 @@ class Joven:
         if colegio == None:
             print('el colegio no puede ser null')
             return None
-        
+
         condicion = 'id_joven = ' + str(idJoven)
         res = bd.selectEscalar('*', Joven.tabla, condicion)
-        if not res:        
-            valores = [idJoven, nombre, apellidos, nombrePadre if nombrePadre != None else 'null', nombreMadre if nombreMadre != None else 'null', 
-                estado if estado != None else 'null', urlFoto if urlFoto != None else 'null', fechaNacimiento if fechaNacimiento != None else 'null', 
-                fechaAltaACOES, fechaAlta if fechaAlta != None else 'null', fechaSalidaACOES if fechaSalidaACOES != None else 'null',
-                grado if grado != None else 'null', historial if historial != None else 'null', observaciones if observaciones != None else 'null', 
-                coloniaNacimiento, coloniaResidencia, colegio]
+        if not res:
+            valores = [idJoven, nombre, apellidos, nombrePadre if nombrePadre != None else 'null',
+                       nombreMadre if nombreMadre != None else 'null',
+                       estado if estado != None else 'null', urlFoto if urlFoto != None else 'null',
+                       fechaNacimiento if fechaNacimiento != None else 'null',
+                       fechaAltaACOES, fechaAlta if fechaAlta != None else 'null',
+                       fechaSalidaACOES if fechaSalidaACOES != None else 'null',
+                       grado if grado != None else 'null', historial if historial != None else 'null',
+                       observaciones if observaciones != None else 'null',
+                       coloniaNacimiento, coloniaResidencia, colegio]
             bd.insert(valores, Joven.tabla)
-            newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento, fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones, coloniaNacimiento, coloniaResidencia, colegio)
+            newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento,
+                             fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones,
+                             coloniaNacimiento, coloniaResidencia, colegio)
             return newJoven
         else:
             print('Error: El id de joven {} ya esta en uso'.format(idJoven))
@@ -73,7 +84,7 @@ class Joven:
         condicion = 'id_joven = \'' + str(idJoven) + '\''
         res = bd.selectEscalar('*', Joven.tabla, condicion)
         if not res:
-            #El joven no existe
+            # El joven no existe
             return None
         else:
             idJoven = res[0]
@@ -93,9 +104,11 @@ class Joven:
             coloniaNacimiento = Colonia(res[14])
             coloniaResidencia = Colonia(res[15])
             colegio = Colegio(res[16])
-            newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento, fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones, coloniaNacimiento, coloniaResidencia, colegio)
+            newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento,
+                             fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones,
+                             coloniaNacimiento, coloniaResidencia, colegio)
             return newJoven
-            
+
     @staticmethod
     def listaJovenes():
         bd = BD()
@@ -119,11 +132,13 @@ class Joven:
             coloniaNacimiento = Colonia(joven[14])
             coloniaResidencia = Colonia(joven[15])
             colegio = Colegio(joven[16])
-            newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento, fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones, coloniaNacimiento, coloniaResidencia, colegio)
+            newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento,
+                             fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones,
+                             coloniaNacimiento, coloniaResidencia, colegio)
             listJovenes.append(newJoven)
         return listJovenes
 
-    #Getters
+    # Getters
     def getIdJoven(self):
         return self.idJoven
 
@@ -175,30 +190,30 @@ class Joven:
     def getColegio(self):
         return self.colegio
 
-    #Setters
+    # Setters
 
     def setIdJoven(self, newID):
         if newID != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + idJoven + '\''
             res = bd.selectEscalar('*', Joven.tabla, condicion)
             if not res:
                 condicion = 'id_joven = \'' + self.idJoven + '\''
                 setter = 'id_joven = ' + newID
                 bd.update(Joven.tabla, setter, condicion)
                 self.idJoven = newID
-                return True 
+                return True
             else:
-                #ID ya existe
+                # ID ya existe
                 return False
         else:
-            #No se puede insertar id null
+            # No se puede insertar id null
             return False
 
     def setNombre(self, newNombre):
         if newNombre != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'nombre = \'' + newNombre + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.nombre = newNombre
@@ -209,7 +224,7 @@ class Joven:
     def setApellido(self, newApellidos):
         if newApellidos != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'apellidos = \'' + newApellidos + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.apellidos = newApellidos
@@ -220,7 +235,7 @@ class Joven:
     def setNombrePadre(self, newNombrePadre):
         if newNombrePadre != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'nombre_del_padre = \'' + newNombrePadre + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.nombrePadre = newNombrePadre
@@ -231,7 +246,7 @@ class Joven:
     def setNombreMadre(self, newNombreMadre):
         if newNombreMadre != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'nombre_de_la_madre = \'' + newNombreMadre + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.nombreMadre = newNombreMadre
@@ -242,7 +257,7 @@ class Joven:
     def setEstado(self, newEstado):
         if newEstado != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'estado = \'' + newEstado + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.estado = newEstado
@@ -253,7 +268,7 @@ class Joven:
     def setFoto(self, newURL):
         if newURL != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'url_foto = \'' + newURL + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.urlFoto = newURL
@@ -264,7 +279,7 @@ class Joven:
     def setFechaNacimiento(self, newFechaNacimiento):
         if newFechaNacimiento != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'fecha_nacimiento = \'' + newFechaNacimiento + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.fechaNacimiento = newFechaNacimiento
@@ -275,7 +290,7 @@ class Joven:
     def setFechaAlta(self, newFechaAlta):
         if newFechaAlta != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'fecha_de_alta = \'' + newFechaAlta + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.fechaAlta = newFechaAlta
@@ -286,7 +301,7 @@ class Joven:
     def setFechaAltaACOES(self, newFechaAltaACOES):
         if newFechaAltaACOES != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'fecha_de_alta_acoes = \'' + newFechaAltaACOES + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.fechaAltaACOES = newFechaAltaACOES
@@ -297,7 +312,7 @@ class Joven:
     def setFechaSalidaACOES(self, newFechaSalidaACOES):
         if newFechaSalidaACOES != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'fecha_de_salida_acoes = \'' + newFechaSalidaACOES + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.fechaSalidaACOES = newFechaSalidaACOES
@@ -308,7 +323,7 @@ class Joven:
     def setGrado(self, newGrado):
         if newGrado != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'grado = \'' + newGrado + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.grado = newGrado
@@ -319,7 +334,7 @@ class Joven:
     def setHistorial(self, newHistorial):
         if newHistorial != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'historial = \'' + newHistorial + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.historial = newHistorial
@@ -330,7 +345,7 @@ class Joven:
     def setObservaciones(self, newObservaciones):
         if newObservaciones != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
             setter = 'observaciones = \'' + newObservaciones + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.observaciones = newObservaciones
@@ -341,8 +356,9 @@ class Joven:
     def setColoniaNacimiento(self, newColoniaNacimiento):
         if newColoniaNacimiento != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
-            setter = 'colonia_nacimiento = \'' + newColoniaNacimiento.getIdColonia() + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
+            setter = 'colonia_nacimiento = \'' + str(newColoniaNacimiento.getIdColonia()) + '\''
+            print('durum2')
             bd.update(Joven.tabla, setter, condicion)
             self.coloniaNacimiento = newColoniaNacimiento
             return True
@@ -352,8 +368,8 @@ class Joven:
     def setColoniaResidencia(self, newColoniaResidencia):
         if newColoniaResidencia != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
-            setter = 'colonia_residencia = \'' + newColoniaResidencia.getIdColonia() + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
+            setter = 'colonia_residencia = \'' + str(newColoniaResidencia.getIdColonia()) + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.coloniaResidencia = newColoniaResidencia
             return True
@@ -363,18 +379,17 @@ class Joven:
     def setColegio(self, newColegio):
         if newColegio != None:
             bd = BD()
-            condicion  = 'id_joven = \'' + idJoven + '\''
-            setter = 'colegio = \'' + newColegio.getIdColegio() + '\''
+            condicion = 'id_joven = \'' + str(self.idJoven) + '\''
+            setter = 'colegio = \'' + str(newColegio.getIdColegio()) + '\''
             bd.update(Joven.tabla, setter, condicion)
             self.colegio = newColegio
             return True
         else:
             return False
 
-
     def delete(self):
         bd = BD()
-        condicion = 'id_joven = \'' + idJoven + '\''
+        condicion = 'id_joven = \'' + str(self.idJoven) + '\''
         bd.delete(Joven.tabla, condicion)
         self.idJoven = None
         self.nombre = None
@@ -394,7 +409,6 @@ class Joven:
         self.coloniaResidencia = None
         self.colegio = None
 
-
     def __repr__(self):
         toStr = ''
         if self.idJoven != None:
@@ -403,27 +417,27 @@ class Joven:
             toStr += 'Nombre: ' + self.nombre + ' - '
         if self.apellidos != None:
             toStr += 'Apellidos: ' + self.apellidos + ' - '
-        if self.nombrePadre != None: 
+        if self.nombrePadre != None:
             toStr += 'Nombre padre: ' + self.nombrePadre + ' - '
-        if self.nombreMadre != None: 
+        if self.nombreMadre != None:
             toStr += 'Nombre madre: ' + self.nombreMadre + ' - '
-        if self.estado != None: 
+        if self.estado != None:
             toStr += 'estado: ' + self.estado + ' - '
-        if self.urlFoto != None: 
+        if self.urlFoto != None:
             toStr += 'Foto: ' + self.urlFoto + ' - '
-        if self.fechaNacimiento != None: 
+        if self.fechaNacimiento != None:
             toStr += 'Fecha nacimiento: ' + str(self.fechaNacimiento) + ' - '
-        if self.fechaAlta != None: 
+        if self.fechaAlta != None:
             toStr += 'Fecha alta: ' + str(self.fechaAlta) + ' - '
         if self.fechaAltaACOES != None:
             toStr += 'Fecha alta ACOES: ' + str(self.fechaAltaACOES) + ' - '
-        if self.fechaSalidaACOES != None: 
+        if self.fechaSalidaACOES != None:
             toStr += 'Fecha salida ACOES: ' + str(self.fechaSalidaACOES) + ' - '
-        if self.grado != None: 
+        if self.grado != None:
             toStr += 'Grado: ' + self.grado + ' - '
-        if self.historial != None: 
+        if self.historial != None:
             toStr += 'Historial: ' + self.historial + ' - '
-        if self.observaciones != None: 
+        if self.observaciones != None:
             toStr += 'Observaciones: ' + self.observaciones + ' - '
         if self.coloniaNacimiento != None:
             toStr += 'Colonia nacimiento: ' + str(self.coloniaNacimiento) + ' - '
@@ -434,6 +448,7 @@ class Joven:
         if toStr == '':
             toStr = 'Joven sin inicializar - '
         return toStr[:-3]
+
 
 if __name__ == '__main__':
     print('e')

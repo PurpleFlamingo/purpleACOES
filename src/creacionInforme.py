@@ -56,7 +56,7 @@ class CreacionInforme(base_1, form_1):
         db = BDOperaciones()
         header = db.nombreColumnas(Transaccion.tabla)
         try:
-            with open('{}.csv'.format(os.path.join(folderName, datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S'))), 'w') as file:
+            with open('{}.csv'.format(os.path.join(folderName, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))), 'w') as file:
                 for i, col in enumerate(header):
                     if i < len(header)-1:
                         file.write(col + ',')

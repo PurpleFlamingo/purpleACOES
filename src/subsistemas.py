@@ -8,6 +8,7 @@ from gestorFinanciero import GestorFinanciero
 from BD.Usuario import Usuario
 from perfilUsuario import PerfilUsuario
 from consultaPagos import ConsultaPagos
+from gestorApadrinamiento import GestorApadrinamiento
 
 
 form_1, base_1 = uic.loadUiType('UI/subsistemas.ui')
@@ -72,14 +73,13 @@ class Subsistemas(base_1, form_1):
             self.hide()
 
     def apadrinamiento(self):
-        #if self.child is None or self.child != GestorApadrinamiento(self, self.idUsuario):
-        #    self.child = GestorApadrinamiento(self, self.idUsuario)
-        #    self.child.show()
-        #    self.hide()
-        #else:
-        #    self.hide()
-        #    self.child.show()
-        print('Hola, el boton funciona :D')
+        if self.child is None or self.child != GestorApadrinamiento(self.idUsuario, self):
+            self.child = GestorApadrinamiento(self.idUsuario, self)
+            self.child.show()
+            self.hide()
+        else:
+            self.hide()
+            self.child.show()
 
 
 if __name__ == '__main__':

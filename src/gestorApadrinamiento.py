@@ -5,6 +5,7 @@ from BD.Joven import Joven
 from BD.Usuario import Usuario
 from perfilBecado import PerfilBecado
 from warningNoUserSelected import WarningNoUserSelected
+from gestorProyecto import GestorProyecto
 
 form_1, base_1 = uic.loadUiType('UI/gestorApadrinamiento.ui')
 
@@ -19,7 +20,7 @@ class GestorApadrinamiento(base_1, form_1):
         self.parent = parent
         self.child = None
         # datos comunes a socios y voluntarios
-        self.datosComunes = ['nombre', 'apellidos', 'estado', 'coloniaNacimiento', 'coloniaResidencia', 'colegio']
+        self.datosComunes = ['nombre', 'apellidos', 'estado', 'fechaNacimiento', 'grado', 'coloniaNacimiento', 'coloniaResidencia', 'colegio']
         # lista de nombres de las columnas
         # deben referirse a los datos de las dos listas de arriba concatenadas y ordenadas
         self.cabeceras = ['Nombre', 'Apellidos', 'Estado', 'Fecha Nacimiento', 'Grado', 'Colonia de Nacimiento', 'Colonia de Residencia', 'Colegio']
@@ -33,6 +34,7 @@ class GestorApadrinamiento(base_1, form_1):
         self.bAnadirBecado.clicked.connect(self.newBecado)
         self.bEditarBecado.clicked.connect(self.editBecado)
         self.bActualizar.clicked.connect(self.refresh)
+        self.bProyectos.clicked.connect(self.proyectos)
 
         self.cEstado.currentIndexChanged.connect(self.busqueda)
         self.cCNacimiento.currentIndexChanged.connect(self.busqueda)
@@ -41,12 +43,17 @@ class GestorApadrinamiento(base_1, form_1):
         self.eNombre.textChanged.connect(self.busqueda)
         self.eApellidos.textChanged.connect(self.busqueda)
 
+    def proyectos(self):
+        self.child = GestorProyecto(self)
+        self.child.show()
+        self.hide()
+
     def atras(self):
         self.parent.show()
         self.close()
 
     def newBecado(self):
-        self.child = PerfilBecado(self) # hacer perfil de un becado
+        self.child = PerfilBecado()
         self.child.show()
 
     def editBecado(self):
@@ -58,11 +65,10 @@ class GestorApadrinamiento(base_1, form_1):
         else:
             kid = index[0].row()
             if self.filtrada:
-                idSeleccionado = self.filtrada[kid]['id_joven']
+                idSeleccionado = self.filtrada[kid].getIdJoven()
             else:
-                idSeleccionado = self.usuarios[kid]['id_joven']
-
-            self.child = PerfilBecado(self, id = idSeleccionado, rolUsuarioSesion = self.rolUsuario)
+                idSeleccionado = self.jovenes[kid].getIdJoven()
+            self.child = PerfilBecado(idSeleccionado)
             self.child.show()
 
     def refresh(self):
@@ -79,23 +85,43 @@ class GestorApadrinamiento(base_1, form_1):
         cresidencia = ['']
         colegio = ['']
         # iteramos por todos los usuarios y datos de cada usuario, y guardamos los elementos
+        # self.datosComunes = ['nombre', 'apellidos', 'estado', 'fechaNacimiento', 'grado', 'coloniaNacimiento', 'coloniaResidencia', 'colegio']
         for i, kid in enumerate(jovenes):
             for j, key in enumerate(self.datosComunes):
-                if key == 'estado':
-                    if kid[key] not in estados:
-                        estados.append(kid[key])
+                if key == 'nombre':
+                    if kid.getNombre() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getNombre())))
+                elif key == 'apellidos':
+                    if kid.getApellido() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getApellido())))
+                elif key == 'estado':
+                    if kid.getEstado() != None:
+                        if kid.getEstado() not in estados:
+                            estados.append(kid.getEstado())
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getEstado())))
+                elif key == 'fechaNacimiento':
+                    if kid.getFechaNacimiento() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getFechaNacimiento())))
+                elif key == 'grado':
+                    if kid.getGrado() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getGrado())))
+                    else:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(''))
                 elif key == 'coloniaNacimiento':
-                    if kid[key] not in cnacimiento:
-                        cnacimiento.append(kid[key])
+                    if kid.getColoniaNacimiento() != None:
+                        if str(kid.getColoniaNacimiento().getIdColonia()) not in cnacimiento:
+                            cnacimiento.append(str(kid.getColoniaNacimiento().getIdColonia()))
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getColoniaNacimiento().getIdColonia())))
                 elif key == 'coloniaResidencia':
-                    if kid[key] not in cresidencia:
-                        cresidencia.append(kid[key])
+                    if kid.getColoniaResidencia() != None:
+                        if str(kid.getColoniaResidencia().getIdColonia()) not in cresidencia:
+                            cresidencia.append(str(kid.getColoniaResidencia().getIdColonia()))
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getColoniaResidencia().getIdColonia())))
                 elif key == 'colegio':
-                    if kid[key] not in colegio:
-                        colegio.append(kid[key])
-                print(jovenes[0])
-                self.tBecados.setItem(i, j, QTableWidgetItem(kid[key]))
-
+                    if kid.getColegio() != None:
+                        if str(kid.getColegio().getIdColegio()) not in colegio:
+                            colegio.append(str(kid.getColegio().getIdColegio()))
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getColegio().getIdColegio())))
         # cargar lista de opciones en cada comboBox
         self.cEstado.clear()
         self.cEstado.addItems(estados)
@@ -116,23 +142,45 @@ class GestorApadrinamiento(base_1, form_1):
         cnacimiento = self.cCNacimiento.currentText()
         cresidencia = self.cCResidencia.currentText()
         colegio = self.cColegio.currentText()
-
         # filtramos todos los resultados por todos los campos
         result = self.jovenes
-
-        result = [kid for kid in result if nombre == '' or nombre.lower() in kid['nombre'].lower()]
-        result = [kid for kid in result if apellidos == '' or apellidos.lower() in kid['apellidos'].lower()]
-        result = [kid for kid in result if estado == '' or estado.lower() in kid['estado'].lower()]
-        result = [kid for kid in result if cnacimiento == '' or cnacimiento.lower() in kid['coloniaNacimiento'].lower()]
-        result = [kid for kid in result if cresidencia == '' or cresidencia.lower() in kid['coloniaResidencia'].lower()]
-        result = [kid for kid in result if colegio == '' or colegio.lower() in kid['colegio'].lower()]
-
+        result = [kid for kid in result if nombre == '' or nombre.lower() in str(kid.getNombre().lower())]
+        result = [kid for kid in result if apellidos == '' or apellidos.lower() in str(kid.getApellido().lower())]
+        result = [kid for kid in result if estado == '' or estado in str(kid.getEstado())]
+        result = [kid for kid in result if cnacimiento == '' or cnacimiento in str(kid.getColoniaNacimiento().getIdColonia())]
+        result = [kid for kid in result if cresidencia == '' or cresidencia in str(kid.getColoniaResidencia().getIdColonia())]
+        result = [kid for kid in result if colegio == '' or colegio in str(kid.getColegio().getIdColegio())]
         self.filtrada = result
         # actualizamos la vista por los contenidos filtrados
         self.tBecados.setRowCount(len(result))
         for i, kid in enumerate(result):
             for j, key in enumerate(self.datosComunes):
-                self.tBecados.setItem(i, j, QTableWidgetItem(kid[key]))
+                if key == 'nombre':
+                    if kid.getNombre() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getNombre())))
+                elif key == 'apellidos':
+                    if kid.getApellido() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getApellido())))
+                elif key == 'estado':
+                    if kid.getEstado() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getEstado())))
+                elif key == 'fechaNacimiento':
+                    if kid.getFechaNacimiento() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getFechaNacimiento())))
+                elif key == 'grado':
+                    if kid.getGrado() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getGrado())))
+                    else:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(''))
+                elif key == 'coloniaNacimiento':
+                    if kid.getColoniaNacimiento() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getColoniaNacimiento().getIdColonia())))
+                elif key == 'coloniaResidencia':
+                    if kid.getColoniaResidencia() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getColoniaResidencia().getIdColonia())))
+                elif key == 'colegio':
+                    if kid.getColegio() != None:
+                        self.tBecados.setItem(i, j, QTableWidgetItem(str(kid.getColegio().getIdColegio())))
 
 
 if __name__ == '__main__':

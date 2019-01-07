@@ -8,18 +8,14 @@ from warningSalirSinGuardar import WarningSalirSinGuardar
 form_1, base_1 = uic.loadUiType('UI/perfilBecado.ui')
 
 class PerfilBecado(base_1, form_1):
-    def __init__(self, id_joven = None,  parent = None, rol = None):
+    def __init__(self, id = None):
         super(base_1, self).__init__()
         self.setupUi(self)
-        self.parent = parent
-        self.rolUser = rol
-        self.idjoven = id_joven
+        self.idjoven = id
         self.bSalirSinGuardar.clicked.connect(self.salirSinGuardar)
-
+        self.bGuardarYSalir.clicked.connect(self.guardarYSalir)
         if self.idjoven != None:
             self.cargarDatos()
-            self.bGuardarYSalir.clicked.connect(self.guardarYSalir)
-
         self.joven = None
 
     def salirSinGuardar(self):
@@ -27,7 +23,6 @@ class PerfilBecado(base_1, form_1):
         self.child.show()
 
     def salir(self):
-        self.parent.show()
         self.close()
 
     def cargarDatos(self):
@@ -36,17 +31,17 @@ class PerfilBecado(base_1, form_1):
         self.eApellidos.setText(self.joven.getApellido())
         self.eNombrePadre.setText(self.joven.getNombrePadre() if (self.joven.getNombrePadre() != None) else '')
         self.eNombreMadre.setText(self.joven.getNombreMadre() if (self.joven.getNombreMadre() != None) else '')
-        self.eUrlFoto.setText(self.joven.getFoto() if (self.joven.getFoto() != None) else '')
-        self.eFechaNacimiento(self.joven.getFechaNacimiento() if (self.joven.getFechaNacimiento() != None) else '')
-        self.eFechaAltaAcoes(self.joven.getFechaAltaACOES())
-        self.eFechaAlta(self.joven.getFechaAlta() if (self.joven.getFechaAlta() != None) else '')
-        self.eFechaSalidaAcoes(self.joven.getFechaSalidaACOES() if (self.joven.getFechaSalidaACOES() != None) else '')
-        self.eGrado(self.joven.getGrado() if (self.joven.getGrado() != None) else '')
-        self.eColoniaNacimiento(self.joven.getColoniaNacimiento())
-        self.eColoniaResidencia(self.joven.getColoniaResidencia())
-        self.eColegio(self.joven.getColegio())
-        self.eHistorial(self.joven.getHistorial() if (self.joven.getHistorial() != None) else '')
-        self.eObservaciones(self.joven.getObservaciones() if (self.joven.getObservaciones() != None) else '')
+        self.eUrlFoto.setText(str(self.joven.getFoto()) if (self.joven.getFoto() != None) else '')
+        self.eFechaNacimiento.setText(str(self.joven.getFechaNacimiento()) if (self.joven.getFechaNacimiento() != None) else '')
+        self.eFechaAltaAcoes.setText(str(self.joven.getFechaAltaACOES()))
+        self.eFechaAlta.setText(str(self.joven.getFechaAlta()) if (self.joven.getFechaAlta() != None) else '')
+        self.eFechaSalidaAcoes.setText(str(self.joven.getFechaSalidaACOES()) if (self.joven.getFechaSalidaACOES() != None) else '')
+        self.eGrado.setText(str(self.joven.getGrado()) if (self.joven.getGrado() != None) else '')
+        self.eColoniaNacimiento.setText(str(self.joven.getColoniaNacimiento().getIdColonia()))
+        self.eColoniaResidencia.setText(str(self.joven.getColoniaResidencia().getIdColonia()))
+        self.eColegio.setText(str(self.joven.getColegio().getIdColegio()))
+        self.eHistorial.setText(self.joven.getHistorial() if (self.joven.getHistorial() != None) else '')
+        self.eObservaciones.setText(self.joven.getObservaciones() if (self.joven.getObservaciones() != None) else '')
 
     def guardarYSalir(self):
         if self.eNombre.text() == '' or self.eApellidos.text() == '' or self.eFechaAltaAcoes.text() == '' or self.eColoniaNacimiento.text() == '' or self.eColoniaResidencia.text() == '' or self.e.Colegio.text() == '':

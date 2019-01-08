@@ -23,6 +23,10 @@ class GestorApadrinamiento(base_1, form_1):
         self.coleg = Colegio()
         self.parent = parent
         self.child = None
+        self.user = Usuario()
+        if self.user.getUsuario(self.idUsuario).getRolId() == 'Agente Local':
+            self.bAnadirBecado.hide()
+            self.bEditarBecado.hide()
         # datos comunes a socios y voluntarios
         self.datosComunes = ['nombre', 'apellidos', 'estado', 'fechaNacimiento', 'grado', 'coloniaNacimiento', 'coloniaResidencia', 'colegio']
         # lista de nombres de las columnas
@@ -154,7 +158,6 @@ class GestorApadrinamiento(base_1, form_1):
         self.cColegio.addItems(colegio)
 
         self.jovenes = jovenes
-        print(jovenes)
 
     def busqueda(self):
         # lectura de los campos de filtrado

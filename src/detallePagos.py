@@ -28,7 +28,7 @@ class DetallePagos(base_1, form_1):
             nombreSocio = self.socio.getNombreDePila()
             descripcion = self.pago.getMotivo()
             importe = str(self.pago.getCuantia()) + ' ' + self.pago.getMoneda()
-            fechaAbono = self.pago.getFechaEmision()
+            fechaAbono = self.pago.getFechaEmision().strftime('%Y-%m-%d')
             modoPago = self.pago.getFormaPago()
             joven = self.pago.getApadrinamiento().getJoven()
             nombreJoven = joven.getNombre() + ' ' + joven.getApellido()

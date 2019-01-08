@@ -53,7 +53,7 @@ class ConsultaPagos(base_1, form_1):
             #Columna Descripcion
             self.tPagos.setItem(i, 1, QTableWidgetItem(pago.getMotivo()))
             #Columna Fecha
-            self.tPagos.setItem(i, 2, QTableWidgetItem(pago.getFechaEmision()))
+            self.tPagos.setItem(i, 2, QTableWidgetItem(pago.getFechaEmision().strftime('%Y-%m-%d')))
             #Columna Importe
             cadena = str(pago.getCuantia()) + ' ' + pago.getMoneda()
             self.tPagos.setItem(i, 3, QTableWidgetItem(cadena))
@@ -67,13 +67,13 @@ class ConsultaPagos(base_1, form_1):
     
     def consultaDePagos(self):
         index = self.tPagos.selectedIndexes()
-        indexPago = index[0].row()
-        print(index)
+        #print(index)
         if not index:
             self.child = WarningNoUserSelected(self, 'Pago')
             self.child.show()
             print('No elemento seleccionado')
         else:
+            indexPago = index[0].row()
             self.child = DetallePagos(self, self.listaDePagos[indexPago], self.socioApadrinador)
             self.hide()
             self.child.show()

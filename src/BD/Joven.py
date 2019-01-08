@@ -101,9 +101,9 @@ class Joven:
             grado = res[11]
             historial = res[12]
             observaciones = res[13]
-            coloniaNacimiento = Colonia(res[14])
-            coloniaResidencia = Colonia(res[15])
-            colegio = Colegio(res[16])
+            coloniaNacimiento = Colonia.getColonia(res[14])
+            coloniaResidencia = Colonia.getColonia(res[15])
+            colegio = Colegio.getColegio(res[16])
             newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento,
                              fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones,
                              coloniaNacimiento, coloniaResidencia, colegio)

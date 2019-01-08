@@ -15,8 +15,6 @@ class PerfilBecado(base_1, form_1):
     def __init__(self, id=None, modo = 'aniadir'):
         super(base_1, self).__init__()
         self.setupUi(self)
-        self.col = Colonia()
-        self.coleg = Colegio()
         self.idjoven = id
         self.joven = Joven.getJoven(self.idjoven)
         self.datos = []
@@ -47,12 +45,12 @@ class PerfilBecado(base_1, form_1):
         self.eFechaAlta.setText(str(self.joven.getFechaAlta()) if (self.joven.getFechaAlta() != None) else '')
         self.eFechaSalidaAcoes.setText(str(self.joven.getFechaSalidaACOES()) if (self.joven.getFechaSalidaACOES() != None) else '')
         self.eGrado.setText(str(self.joven.getGrado()) if (self.joven.getGrado() != None) else '')
-        c1 = self.col.getColonia(self.joven.getColoniaNacimiento().getIdColonia())
-        self.eColoniaNacimiento.setText(c1.getNombre() if (c1 != None) else '')
-        c2 = self.col.getColonia(self.joven.getColoniaResidencia().getIdColonia())
-        self.eColoniaResidencia.setText(c2.getNombre() if (c2 != None) else '')
-        c3 = self.coleg.getColegio(self.joven.getColegio().getIdColegio())
-        self.eColegio.setText(c3.getNombreDeColegio() if (c3 != None) else '')
+        c1 = self.joven.getColoniaNacimiento().getNombre()
+        self.eColoniaNacimiento.setText(c1 if (c1 != None) else '')
+        c2 = self.joven.getColoniaResidencia().getNombre()
+        self.eColoniaResidencia.setText(c2 if (c2 != None) else '')
+        c3 = self.joven.getColegio().getNombreDeColegio()
+        self.eColegio.setText(c3 if (c3 != None) else '')
         self.eHistorial.setText(self.joven.getHistorial() if (self.joven.getHistorial() != None) else '')
         self.eObservaciones.setText(self.joven.getObservaciones() if (self.joven.getObservaciones() != None) else '')
         if self.modo != 'aniadir':
@@ -102,26 +100,21 @@ class PerfilBecado(base_1, form_1):
                     self.joven.setGrado(self.eGrado.text())
                 if self.datos[10] != self.eColoniaNacimiento.text():
                     bd = BDOperaciones()
-                    idantigua = self.col.getColonia(self.joven.getColoniaNacimiento().getIdColonia())
-                    coloniaantigua = self.col.getColonia(idantigua)
-                    habitantesantiguo = coloniaantigua.getNumeroDeHabitantes()
-                    coloniaantigua.setNumeroDeHabitantes(habitantesantiguo - 1)
+                    habitantesantiguo = self.joven.getColoniaNacimiento().getNumeroDeHabitantes()
+                    self.joven.getColoniaNacimiento().setNumeroDeHabitantes(habitantesantiguo - 1)
                     id = bd.maxId('id_colonia', 'colonia')
                     id += 1
-                    self.col.newColonia(id, self.eColoniaNacimiento.text(), 0)
-                    nuevacolonia = self.col.getColonia(id)
-                    self.joven.setColoniaNacimiento(nuevacolonia)
+                    self.joven.setColoniaNacimiento(Colonia.newColonia(id, self.eColoniaNacimiento.text(), 0))
                 if self.datos[11] != self.eColoniaResidencia.text():
-                    bd = BDOperaciones()
-                    idantigua = self.col.getColonia(self.joven.getColoniaResidencia().getIdColonia())
-                    coloniaantigua = self.col.getColonia(idantigua)
-                    habitantesantiguo = coloniaantigua.getNumeroDeHabitantes()
-                    coloniaantigua.setNumeroDeHabitantes(habitantesantiguo - 1)
+                    habitantesantiguo = self.joven.getColoniaNacimiento().getNumeroDeHabitantes()
+                    self.joven.getColoniaResidencia().setNumeroDeHabitantes(habitantesantiguo - 1)
                     id = bd.maxId('id_colonia', 'colonia')
                     id += 1
-                    nuevacolonia = self.col.newColonia(id, self.eColoniaNacimiento.text(), 1)
-                    self.joven.setColoniaResidencia(nuevacolonia)
-                self.joven.setColegio(self.eColegio.text())
+                    self.joven.setColoniaResidencia(Colonia.newColonia(id, self.eColoniaNacimiento.text(), 1))
+                if self.datos[12] != self.eColegio.text():
+                    id = bd.maxId('id_colegio', 'colegio')
+                    id += 1
+                    self.joven.setColegio(Colegio.newColegio(id, False, self.eColegio.text(), 1))
                 if self.datos[13] != self.eHistorial.toPlainText():
                     self.joven.setHistorial(self.eHistorial.toPlainText())
                 if self.datos[14] != self.eObservaciones.toPlainText():
@@ -149,33 +142,24 @@ class PerfilBecado(base_1, form_1):
                 bd = BDOperaciones()
                 id = bd.maxId('id_colonia', 'colonia')
                 id += 1
-                self.col.newColonia(id, self.eColoniaNacimiento.text(), 1)
-                nuevacolonia = self.col.getColonia(id)
-                nc1 = nuevacolonia
+                nc1 = Colonia.newColonia(id, self.eColoniaNacimiento.text(), 1)
 
                 if self.eColoniaNacimiento.text() != self.eColoniaResidencia.text():
                     id = bd.maxId('id_colonia', 'colonia')
                     id += 1
-                    nuevacolonia = self.col.newColonia(id, self.eColoniaResidencia.text(), 1)
-                    nc2 = nuevacolonia
+                    nc2 = Colonia.newColonia(id, self.eColoniaResidencia.text(), 1)
                 else:
                     nc2 = nc1
 
                 id = bd.maxId('id_colegio', 'colegio')
                 id += 1
-                print('pita')
-                nuevocolegio = self.coleg.newColegio(id, nombre_colegio=self.eColegio.text(), colonia=1)
-                nc3 = nuevocolegio
-                print('durum')
+                nc3 = self.Colegio.newColegio(id, False, self.eColegio.text(), 1)
                 h1 = self.eHistorial.toPlainText()
-                print('kebab')
                 o1 = self.eObservaciones.toPlainText()
-                print('he petado')
+                
                 id = bd.maxId('id_usuario', 'usuario')
                 id += 1
-                print('he petado')
                 self.joven = Joven.newJoven(idJoven = id, nombre = n1, apellidos = a1, nombrePadre = n2, nombreMadre = n3, estado = e1, urlFoto = u1, fechaNacimiento=f1, fechaAlta=f2, fechaAltaACOES=f3, fechaSalidaACOES=f4, grado=g1, historial=h1, observaciones=o1, coloniaNacimiento=nc1, coloniaResidencia=nc2, colegio=nc3)
-                print('he petado')
                 '''
                 Falta comprobar si el colegio y colonia que se estan creando ya estan en la base de datos.
                 Falta comprobar si funciona la creacion de joven.

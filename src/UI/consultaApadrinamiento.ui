@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>wConsultaApadrinamiento</class>
+ <widget class="QMainWindow" name="wConsultaApadrinamiento">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>754</width>
+    <height>346</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Gestor ACOES: Consulta de apadrinamientos</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="lSocio">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>20</y>
+      <width>41</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Socio: </string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eSocio">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>20</y>
+      <width>581</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tApadrinamientos">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>711</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <row>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </row>
+    <column>
+     <property name="text">
+      <string>Joven</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Asociado a</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Fecha de Inicio</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Fecha de Fin</string>
+     </property>
+    </column>
+    <item row="0" column="0">
+     <property name="text">
+      <string>Constantino Fernandez de la Cruz</string>
+     </property>
+    </item>
+    <item row="0" column="1">
+     <property name="text">
+      <string>Piter Griffin</string>
+     </property>
+    </item>
+    <item row="0" column="2">
+     <property name="text">
+      <string>2012-12-21</string>
+     </property>
+    </item>
+    <item row="0" column="3">
+     <property name="text">
+      <string>2019-02-29</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="bAtras">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>71</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt; Atras</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bEditarApadrinamiento">
+    <property name="geometry">
+     <rect>
+      <x>565</x>
+      <y>300</y>
+      <width>171</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Editar Apadrinamiento</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

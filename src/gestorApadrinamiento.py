@@ -19,8 +19,6 @@ class GestorApadrinamiento(base_1, form_1):
         # instancia del usuario de la sesion para obtener su rol
         usuario = Usuario.getUsuario(self.idUsuario)
         self.rolUsuario = usuario.getRolId()
-        self.col = Colonia()
-        self.coleg = Colegio()
         self.parent = parent
         self.child = None
         self.user = Usuario()
@@ -126,28 +124,25 @@ class GestorApadrinamiento(base_1, form_1):
                     self.tBecados.setItem(i, 4, QTableWidgetItem(grado))
                 else:
                     self.tBecados.setItem(i, 4, QTableWidgetItem(''))
-                colonianacimiento = kid.getColoniaNacimiento().getIdColonia()
-                if colonianacimiento != None:
-                    colon = self.col.getColonia(colonianacimiento).getNombre()
+                if kid.getColoniaNacimiento() != None:
+                    colon = kid.getColoniaNacimiento().getNombre()
                     if colon not in cnacimiento:
                         cnacimiento.append(colon)
                     self.tBecados.setItem(i, 5, QTableWidgetItem(colon))
                 else:
                     self.tBecados.setItem(i, 5, QTableWidgetItem(''))
-                coloniaresidencia = kid.getColoniaResidencia().getIdColonia()
-                if coloniaresidencia != None:
-                    colon2 = self.col.getColonia(coloniaresidencia).getNombre()
+                if kid.getColoniaResidencia() != None:
+                    colon2 = kid.getColoniaResidencia().getNombre()
                     if colon2 not in cresidencia:
                         cresidencia.append(colon2)
                     self.tBecados.setItem(i, 6, QTableWidgetItem(colon2))
                 else:
                     self.tBecados.setItem(i, 6, QTableWidgetItem(''))
-                colegio1 = kid.getColegio().getIdColegio()
-                if colegio1 != None:
-                    colegio2 = self.coleg.getColegio(colegio1).getNombreDeColegio()
-                    if colegio2 not in colegio:
-                        colegio.append(colegio2)
-                    self.tBecados.setItem(i, 7, QTableWidgetItem(colegio2))
+                if kid.getColegio() != None:
+                    colegio1 = kid.getColegio().getNombreDeColegio()
+                    if colegio1 not in colegio:
+                        colegio.append(colegio1)
+                    self.tBecados.setItem(i, 7, QTableWidgetItem(colegio1))
                 else:
                     self.tBecados.setItem(i, 7, QTableWidgetItem(''))
         # cargar lista de opciones en cada comboBox
@@ -171,9 +166,9 @@ class GestorApadrinamiento(base_1, form_1):
         result = [kid for kid in result if nombre == '' or nombre.lower() in str(kid.getNombre().lower())]
         result = [kid for kid in result if apellidos == '' or apellidos.lower() in str(kid.getApellido().lower())]
         result = [kid for kid in result if estado == '' or estado in str(kid.getEstado())]
-        result = [kid for kid in result if cnacimiento == '' or cnacimiento in Colonia.getColonia(kid.getColoniaNacimiento().getIdColonia()).getNombre()]
-        result = [kid for kid in result if cresidencia == '' or cresidencia in self.col.getColonia(kid.getColoniaResidencia().getIdColonia()).getNombre()]
-        result = [kid for kid in result if colegio == '' or colegio in self.coleg.getColegio(kid.getColegio().getIdColegio()).getNombreDeColegio()]
+        result = [kid for kid in result if cnacimiento == '' or cnacimiento in kid.getColoniaNacimiento.getNombre()]
+        result = [kid for kid in result if cresidencia == '' or cresidencia in kid.getColoniaResidencia().getNombre()]
+        result = [kid for kid in result if colegio == '' or colegio in kid.getColegio().getNombreDeColegio()]
         self.filtrada = result
         # actualizamos la vista por los contenidos filtrados
         self.tBecados.setRowCount(len(result))
@@ -203,22 +198,19 @@ class GestorApadrinamiento(base_1, form_1):
                 self.tBecados.setItem(i, 4, QTableWidgetItem(grado))
             else:
                 self.tBecados.setItem(i, 4, QTableWidgetItem(''))
-            colonianacimiento = kid.getColoniaNacimiento().getIdColonia()
-            if colonianacimiento != None:
-                colon = self.col.getColonia(colonianacimiento).getNombre()
+            if kid.getColoniaNacimiento() != None:
+                colon = kid.getColoniaNacimiento().getNombre()
                 self.tBecados.setItem(i, 5, QTableWidgetItem(colon))
             else:
                 self.tBecados.setItem(i, 5, QTableWidgetItem(''))
-            coloniaresidencia = kid.getColoniaResidencia().getIdColonia()
-            if coloniaresidencia != None:
-                colon2 = self.col.getColonia(coloniaresidencia).getNombre()
+            if kid.getColoniaResidencia() != None:
+                colon2 = kid.getColoniaResidencia().getNombre()
                 self.tBecados.setItem(i, 6, QTableWidgetItem(colon2))
             else:
                 self.tBecados.setItem(i, 6, QTableWidgetItem(''))
-            colegio1 = kid.getColegio().getIdColegio()
-            if colegio1 != None:
-                colegio2 = self.coleg.getColegio(colegio1).getNombreDeColegio()
-                self.tBecados.setItem(i, 7, QTableWidgetItem(colegio2))
+            if kid.getColegio() != None:
+                colegio1 = kid.getColegio().getNombreDeColegio()
+                self.tBecados.setItem(i, 7, QTableWidgetItem(colegio1))
             else:
                 self.tBecados.setItem(i, 7, QTableWidgetItem(''))
 

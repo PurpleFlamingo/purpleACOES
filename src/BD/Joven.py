@@ -71,7 +71,7 @@ class Joven:
             bd.insert(valores, Joven.tabla)
             newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento,
                              fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones,
-                             coloniaNacimiento, coloniaResidencia, colegio)
+                             Colonia.getColonia(coloniaNacimiento), Colonia.getColonia(coloniaResidencia), Colegio.getColegio(colegio))
             return newJoven
         else:
             print('Error: El id de joven {} ya esta en uso'.format(idJoven))

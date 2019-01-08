@@ -80,13 +80,12 @@ class GestorApadrinamiento(base_1, form_1):
             self.child.show()
 
     def refresh(self):
-        db = Joven()
         self.cEstado.clear()
         self.cCNacimiento.clear()
         self.cCResidencia.clear()
         self.cColegio.clear()
         self.tBecados.clear()
-        jovenes = db.listaJovenes()
+        jovenes = Joven.listaJovenes()
         # cargamos metadatos de la tabla
         self.tBecados.verticalHeader().hide()
         self.tBecados.setColumnCount(len(self.cabeceras))
@@ -172,7 +171,7 @@ class GestorApadrinamiento(base_1, form_1):
         result = [kid for kid in result if nombre == '' or nombre.lower() in str(kid.getNombre().lower())]
         result = [kid for kid in result if apellidos == '' or apellidos.lower() in str(kid.getApellido().lower())]
         result = [kid for kid in result if estado == '' or estado in str(kid.getEstado())]
-        result = [kid for kid in result if cnacimiento == '' or cnacimiento in self.col.getColonia(kid.getColoniaNacimiento().getIdColonia()).getNombre()]
+        result = [kid for kid in result if cnacimiento == '' or cnacimiento in Colonia.getColonia(kid.getColoniaNacimiento().getIdColonia()).getNombre()]
         result = [kid for kid in result if cresidencia == '' or cresidencia in self.col.getColonia(kid.getColoniaResidencia().getIdColonia()).getNombre()]
         result = [kid for kid in result if colegio == '' or colegio in self.coleg.getColegio(kid.getColegio().getIdColegio()).getNombreDeColegio()]
         self.filtrada = result

@@ -129,9 +129,9 @@ class Joven:
             grado = joven[11]
             historial = joven[12]
             observaciones = joven[13]
-            coloniaNacimiento = Colonia(joven[14])
-            coloniaResidencia = Colonia(joven[15])
-            colegio = Colegio(joven[16])
+            coloniaNacimiento = Colonia.getColonia(joven[14])
+            coloniaResidencia = Colonia.getColonia(joven[15])
+            colegio = Colegio.getColegio(joven[16])
             newJoven = Joven(idJoven, nombre, apellidos, nombrePadre, nombreMadre, estado, urlFoto, fechaNacimiento,
                              fechaAlta, fechaAltaACOES, fechaSalidaACOES, grado, historial, observaciones,
                              coloniaNacimiento, coloniaResidencia, colegio)

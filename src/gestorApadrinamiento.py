@@ -166,7 +166,7 @@ class GestorApadrinamiento(base_1, form_1):
         result = [kid for kid in result if nombre == '' or nombre.lower() in str(kid.getNombre().lower())]
         result = [kid for kid in result if apellidos == '' or apellidos.lower() in str(kid.getApellido().lower())]
         result = [kid for kid in result if estado == '' or estado in str(kid.getEstado())]
-        result = [kid for kid in result if cnacimiento == '' or cnacimiento in kid.getColoniaNacimiento.getNombre()]
+        result = [kid for kid in result if cnacimiento == '' or cnacimiento in kid.getColoniaNacimiento().getNombre()]
         result = [kid for kid in result if cresidencia == '' or cresidencia in kid.getColoniaResidencia().getNombre()]
         result = [kid for kid in result if colegio == '' or colegio in kid.getColegio().getNombreDeColegio()]
         self.filtrada = result

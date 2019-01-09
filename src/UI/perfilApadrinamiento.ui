@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>wPerfilApadrinamiento</class>
+ <widget class="QMainWindow" name="wPerfilApadrinamiento">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>802</width>
+    <height>743</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Gestor ACOES: Perfil Apadrinamiento</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTableWidget" name="tBecados">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>70</y>
+      <width>681</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tSocios">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>360</y>
+      <width>681</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lFechaInicio">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>590</y>
+      <width>101</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fecha de Inicio</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lFechaBaja">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>590</y>
+      <width>91</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fecha de Baja</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eFechaInicio">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>590</y>
+      <width>191</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eFechaBaja">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>590</y>
+      <width>191</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bSalirSinGuardar">
+    <property name="geometry">
+     <rect>
+      <x>415</x>
+      <y>700</y>
+      <width>131</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Salir sin Guardar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bGuardarYSalir">
+    <property name="geometry">
+     <rect>
+      <x>635</x>
+      <y>700</y>
+      <width>131</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Guardar y Salir</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lSocio">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>310</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Socios:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lBecado">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>20</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Becados:</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

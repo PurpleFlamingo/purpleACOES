@@ -118,6 +118,32 @@
      <string>Editar Apadrinamiento</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="bNuevoApadrinamiento">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>300</y>
+      <width>171</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Nuevo Apadrinamiento</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bActualizar">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>300</y>
+      <width>86</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Actualizar</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

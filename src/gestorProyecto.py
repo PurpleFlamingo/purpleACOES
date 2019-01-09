@@ -58,8 +58,12 @@ class GestorProyecto(base_1, form_1):
 
     #Carga la vista de datos de proyecto con los datos del proyecto seleccionado
     def editarProyecto(self):
-        self.child = DatosProyecto(self, proyecto = self.actual, lastId =self.lastId)
+        if self.actual != None :
+            self.child = DatosProyecto(self, proyecto = self.actual)
+        else :
+            self.child = WarningNoUserSelected(self)
         self.child.show()
+
         
 
     #Actualiza la informacion de proyecto de la base de datos y actualiza los comboBox
@@ -84,6 +88,7 @@ class GestorProyecto(base_1, form_1):
         self.cProyecto.addItems(nombres)
         self.cTipo.clear()
         self.cTipo.addItems(tipos)
+        self.eNombre.setText(None)
 
         #Hace visibles los datos del primer proyecto almacenado en la lista
         if len(self.filtrada) > 0 :

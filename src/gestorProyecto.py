@@ -20,6 +20,7 @@ class GestorProyecto(base_1, form_1):
         self.proyectos = []
         self.filtrada =  []
         self.actual = None
+        self.lastId = 1
 
         self.eDescripcion.setEnabled(False)
         self.eRequisitos.setEnabled(False)
@@ -52,14 +53,12 @@ class GestorProyecto(base_1, form_1):
 
     #Carga la vista de datos de proyecto con una vista vacia para crear un proyecto nuevo
     def nuevoProyecto(self):
-        ultimo=self.proyectos[len(self.proyectos)-1].getIdProyecto()
-        self.child = DatosProyecto(self, lastId = ultimo)
+        self.child = DatosProyecto(self, lastId = self.lastId)
         self.child.show()
 
     #Carga la vista de datos de proyecto con los datos del proyecto seleccionado
-    #Si no hay proyecto seleccionado lanza un warning
     def editarProyecto(self):
-        self.child = DatosProyecto(self, proyecto =  self.actual)
+        self.child = DatosProyecto(self, proyecto = self.actual, lastId =self.lastId)
         self.child.show()
         
 
@@ -70,6 +69,8 @@ class GestorProyecto(base_1, form_1):
         listpro=Proyecto.listaProyectos()
         self.proyectos=listpro
         self.filtrada=listpro
+        if len(self.proyectos) > 0 :
+            self.lastId=self.proyectos[len(self.proyectos)-1].getIdProyecto()
         nombres=[]
         tipos=['']
 
@@ -85,10 +86,15 @@ class GestorProyecto(base_1, form_1):
         self.cTipo.addItems(tipos)
 
         #Hace visibles los datos del primer proyecto almacenado en la lista
-        proyecto=listpro[0]
-        self.actual=proyecto
-        self.eRequisitos.setPlainText(proyecto.getRequisitosDeParticipacion())
-        self.eDescripcion.setPlainText(proyecto.getDescripcion())
+        if len(self.filtrada) > 0 :
+            proyecto=self.filtrada[0]
+            self.actual=proyecto
+            self.eRequisitos.setPlainText(proyecto.getRequisitosDeParticipacion())
+            self.eDescripcion.setPlainText(proyecto.getDescripcion())
+        else:
+            self.actual=None
+            self.eRequisitos.setPlainText(None)
+            self.eDescripcion.setPlainText(None)
 
     #Filtra el contenido del comboBox de seleccion de proyecto y lo actualiza 
     def busqueda(self):
@@ -107,6 +113,17 @@ class GestorProyecto(base_1, form_1):
 
         self.cProyecto.clear()
         self.cProyecto.addItems(nombres)
+
+        #Hace visibles los datos del primer proyecto almacenado en la lista
+        if len(self.filtrada) > 0 :
+            proyecto=self.filtrada[0]
+            self.actual=proyecto
+            self.eRequisitos.setPlainText(proyecto.getRequisitosDeParticipacion())
+            self.eDescripcion.setPlainText(proyecto.getDescripcion())
+        else:
+            self.actual=None
+            self.eRequisitos.setPlainText("")
+            self.eDescripcion.setPlainText("")
         
        
 

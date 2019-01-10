@@ -155,11 +155,11 @@ class GestorFinanciero(base_1, form_1):
 
         result = self.transacciones
 
-        result = [trans for trans in result if id == '' or trans.getIdTransaccion() == int(id)]
-        result = [trans for trans in result if tipo == '' or (trans.getGasto == tipoBool) ]
+        result = [trans for trans in result if id == '' or str(id) in str(trans.getIdTransaccion())]
+        result = [trans for trans in result if tipo == '' or (trans.getGasto() == tipoBool) ]
         result = [trans for trans in result if cuantia == '' or self.checkSimbolo(trans.getCuantia(), simboloCuantia, int(cuantia))]
-        result = [trans for trans in result if moneda == '' or trans.getMoneda() == moneda]
-        result = [trans for trans in result if destino == '' or trans.getDestino() == destino]
+        result = [trans for trans in result if moneda == '' or trans.getMoneda() in moneda]
+        result = [trans for trans in result if destino == '' or trans.getDestino() in destino]
         result = [trans for trans in result if fecha == '' or self.checkSimbolo(trans.getFechaEmision().strftime('%Y-%m-%d'), simboloFecha, fecha)]
         
         self.filtrada = result

@@ -24,8 +24,6 @@ class PerfilBecado(base_1, form_1):
         if self.idjoven != None:
             self.cargarDatos()
 
-        self.joven = Joven.getJoven(self.idjoven)
-
     def salirSinGuardar(self):
         self.child = WarningSalirSinGuardar(self)
         self.child.show()

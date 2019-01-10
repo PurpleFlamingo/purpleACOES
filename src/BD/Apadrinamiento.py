@@ -249,11 +249,12 @@ class Apadrinamiento:
             return False
 
     def setFechaDeBaja(self, fecha_de_baja = None):
-        bd = BD()
-        condicion = 'joven = ' + str(self.joven) + ' and socio = ' + str(self.socio)
-        setter = 'fecha_de_baja = ' + str(fecha_de_baja)
-        bd.update(Apadrinamiento.tabla,setter,condicion)
-        self.fecha_de_baja = fecha_de_baja
+        if fecha_de_baja != None:
+            bd = BD()
+            condicion = 'joven = \'' + str(self.joven) + '\''+ ' and socio = \'' + str(self.socio) + '\''
+            setter = 'fecha_de_baja = \'' + str(fecha_de_baja) + '\''
+            bd.update(Apadrinamiento.tabla,setter,condicion)
+            self.fecha_de_baja = fecha_de_baja
 
     # método que permite crear una lista de proyectos y que permite filtrarlos por tipo
     @staticmethod

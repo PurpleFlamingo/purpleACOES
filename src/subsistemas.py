@@ -9,6 +9,7 @@ from BD.Usuario import Usuario
 from perfilUsuario import PerfilUsuario
 from consultaPagos import ConsultaPagos
 from gestorApadrinamiento import GestorApadrinamiento
+from consultaApadrinamiento import ConsultaApadrinamiento
 
 
 form_1, base_1 = uic.loadUiType('UI/subsistemas.ui')
@@ -33,6 +34,8 @@ class Subsistemas(base_1, form_1):
             self.bFinanciero.move(80, 100)
             self.bFinanciero.clicked.connect(self.consultaDePagos)
             self.bApadrinamiento.move(80, 220)
+            print('durum')
+            self.bApadrinamiento.clicked.connect(self.consultaDeApadrinamientos)
         else:
             self.bUsuarios.clicked.connect(self.usuarios)
             self.bFinanciero.clicked.connect(self.financiero)
@@ -40,6 +43,13 @@ class Subsistemas(base_1, form_1):
 
         self.bAtras.clicked.connect(self.atras)
         self.bPerfil.clicked.connect(self.perfil)
+
+    def consultaDeApadrinamientos(self):
+        print('durum')
+        self.child = ConsultaApadrinamiento(self.idUsuario, self)
+        print('durum')
+        self.child.show()
+        self.hide()
 
     def perfil(self):
         self.child = PerfilUsuario(self, self.idUsuario, self.rolUsuario, self.rolUsuario)

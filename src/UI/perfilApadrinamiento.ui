@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>70</y>
-      <width>681</width>
-      <height>192</height>
+      <y>151</y>
+      <width>581</width>
+      <height>111</height>
      </rect>
     </property>
    </widget>
@@ -28,9 +28,9 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>360</y>
-      <width>681</width>
-      <height>192</height>
+      <y>430</y>
+      <width>581</width>
+      <height>111</height>
      </rect>
     </property>
    </widget>
@@ -38,7 +38,7 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>590</y>
+      <y>600</y>
       <width>101</width>
       <height>19</height>
      </rect>
@@ -51,7 +51,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>590</y>
+      <y>600</y>
       <width>91</width>
       <height>19</height>
      </rect>
@@ -64,7 +64,7 @@
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>590</y>
+      <y>600</y>
       <width>191</width>
       <height>21</height>
      </rect>
@@ -74,7 +74,7 @@
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>590</y>
+      <y>600</y>
       <width>191</width>
       <height>21</height>
      </rect>
@@ -106,6 +106,55 @@
      <string>Guardar y Salir</string>
     </property>
    </widget>
+   <widget class="QLabel" name="lSocios">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>380</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Socios:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lBecados">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>100</y>
+      <width>131</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Lista de Becados:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lBecado">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>45</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Becado:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="eBecado">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>45</y>
+      <width>511</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QLabel" name="lSocio">
     <property name="geometry">
      <rect>
@@ -116,20 +165,30 @@
      </rect>
     </property>
     <property name="text">
-     <string>Socios:</string>
+     <string>Socio:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lBecado">
+   <widget class="QLineEdit" name="eSocio">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>20</y>
-      <width>61</width>
-      <height>19</height>
+      <x>130</x>
+      <y>310</y>
+      <width>511</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bCambiar">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>700</y>
+      <width>86</width>
+      <height>29</height>
      </rect>
     </property>
     <property name="text">
-     <string>Becados:</string>
+     <string>Cambiar</string>
     </property>
    </widget>
   </widget>

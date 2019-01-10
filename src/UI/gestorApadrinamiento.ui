@@ -349,6 +349,19 @@
      <string>C. Residencia</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="bApadrinamientos">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>440</y>
+      <width>131</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Apadrinamientos</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

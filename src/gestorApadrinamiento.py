@@ -3,9 +3,8 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QTableWidgetItem, QHeaderView
 from BD.Joven import Joven
 from BD.Usuario import Usuario
-from BD.Colonia import Colonia
-from BD.Colegio import Colegio
 from perfilBecado import PerfilBecado
+from consultaApadrinamiento import ConsultaApadrinamiento
 from warningNoUserSelected import WarningNoUserSelected
 from gestorProyecto import GestorProyecto
 
@@ -22,9 +21,13 @@ class GestorApadrinamiento(base_1, form_1):
         self.parent = parent
         self.child = None
         self.user = Usuario()
-        if self.user.getUsuario(self.idUsuario).getRolId() == 'Agente Local':
+        self.bApadrinamientos.hide()
+        if self.rolUsuario == 'Agente Local':
             self.bAnadirBecado.hide()
             self.bEditarBecado.hide()
+        if self.rolUsuario == 'Agente Local' or self.rolUsuario == 'Coordinador General':
+            self.bApadrinamientos.show()
+
         # datos comunes a socios y voluntarios
         self.datosComunes = ['nombre', 'apellidos', 'estado', 'fechaNacimiento', 'grado', 'coloniaNacimiento', 'coloniaResidencia', 'colegio']
         # lista de nombres de las columnas
@@ -41,6 +44,7 @@ class GestorApadrinamiento(base_1, form_1):
         self.bEditarBecado.clicked.connect(self.editBecado)
         self.bActualizar.clicked.connect(self.refresh)
         self.bProyectos.clicked.connect(self.proyectos)
+        self.bApadrinamientos.clicked.connect(self.apadrinamientos)
 
         self.cEstado.currentIndexChanged.connect(self.busqueda)
         self.cCNacimiento.currentIndexChanged.connect(self.busqueda)
@@ -48,6 +52,11 @@ class GestorApadrinamiento(base_1, form_1):
         self.cColegio.currentIndexChanged.connect(self.busqueda)
         self.eNombre.textChanged.connect(self.busqueda)
         self.eApellidos.textChanged.connect(self.busqueda)
+
+    def apadrinamientos(self):
+        self.child = ConsultaApadrinamiento(self.idUsuario, self)
+        self.child.show()
+        self.hide()
 
     def proyectos(self):
         self.child = GestorProyecto(self)

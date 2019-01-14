@@ -14,6 +14,9 @@ class WarningNoUserSelected(base_1, form_1):
         if self.mensaje == 'Pago':
             self.lWarning.setText('Seleccione un pago para realizar la consulta')
 
+        elif self. mensaje == 'Proyecto':
+        	self.lWarning.setText('Seleccione un proyecto para editar')
+
         self.bAtras.clicked.connect(self.close)
 
 if __name__ == '__main__':

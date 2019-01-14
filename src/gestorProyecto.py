@@ -61,7 +61,7 @@ class GestorProyecto(base_1, form_1):
         if self.actual != None :
             self.child = DatosProyecto(self, proyecto = self.actual)
         else :
-            self.child = WarningNoUserSelected(self)
+            self.child = WarningNoUserSelected(self, mensaje = "Proyecto")
         self.child.show()
 
         

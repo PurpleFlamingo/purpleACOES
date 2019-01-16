@@ -44,7 +44,11 @@ class CurrencyConverter:
         result = requests.get(query)
 
         status = result.status_code
-        return result.json(), status
+        if status == 200:
+            return result.json(), status
+        else:
+            print('Error getting updates from the server')
+            return None, status
 
     def eurToHnl(self, quantity):
         return quantity*self.EUR_HNL

@@ -392,7 +392,11 @@ class Socio:
     def setFechaDeBaja(self, fecha_de_baja: str = None):
         bd = BD()
         condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
-        setter = 'fecha_de_baja = \'' + fecha_de_baja + '\''
+        if not fecha_de_baja:
+            setter = 'fecha_de_baja = null'
+        else:
+            setter = 'fecha_de_baja = \'' + fecha_de_baja + '\''
+        print('Setter = ',setter)
         bd.update(Socio.tabla, setter, condicion)
         self.fecha_de_baja = fecha_de_baja
 

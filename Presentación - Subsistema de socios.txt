@@ -1,0 +1,12 @@
+      Voy a hablar de las opciones disponibles para los socios apadrinadores.
+      Cuando inicia sesión un socio el sistema le muestra la interfaz con las opciones de perfil de usuario, consulta de pagos y jóvenes apadrinados.
+      En perfil de usuario el socio tiene acceso a la información personal que hay en el sistema, pudiendo modificarla.
+      En caso de dejar en blanco uno de los campos obligatorios, que son los marcados con asterisco el sistema le muestra un mensaje de error al intentar guardar los cambios, igualmente ocurre si intenta registrar un nombre de usuario repetido. 
+      Para realizar un cambio de contraseña debe hacer clic en el botón Cambiar contraseña que le muestra un nuevo cuadro de dialogo donde deberá introducir la contraseña actual y dos veces la nueva contraseña.
+      Una vez realizadas las modificaciones el sistema le permitirá guardar los cambios o salir sin guardar, en cuyo caso le preguntará si desea perder los cambios realizados.
+      
+      En consulta de pagos el sistema le muestra una lista de los pagos que ha realizado y también le permite ver un detalle de los mismos, con más información. 
+      
+      Y en jóvenes apadrinados el sistema le muestra al socio una lista con los apadrinamientos en los que participa.
+
+

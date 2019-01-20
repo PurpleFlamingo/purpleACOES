@@ -1,0 +1,33 @@
+Ahora voy a hablar del susbsistema financiero.
+
+Una vez que entramos a la vista de gestion financiera, lo primero que veremos sera una lista de transacciones, 
+esta lista solo mostraria las transacciones que esten bajo nuestro cargo,
+por ejemplo si somos un coordiandor de proyecto solo veriamos las transacciones que esten relacionadas con dicho proyecto,
+en este caso como estamos con un usuario de coordinador general. 
+
+Estas transacciones las podemos filtrar por partida, fecha o cantidad entre otros
+*ejemplo*
+
+Para anadir una nueva transaccion, utilizariamos esta interfaz,
+en la que una vez que rellenariamos los datos y corfirmariamos la transaccion
+Esta nueva transaccion no se mostraria en la lista automaticamente debido a
+que nuevas transacciones deben de ser validadas por el responsable economico general primero.
+Una vez que sean validadas aparecerian en la vista como una transaccion mas.
+
+Como las transacciones pueden estar tanto en Euro como en Lempiras, disponemos de un
+conversor de moneda que nos permite cambiar entre ellas. 
+El conversor utiliza el ratio actual, recibiendolo de un servidor web externo,
+en el caso de que no haya conexion con el servidor la aplicacion actualiza el ultimo ratio que es almacenado localmente
+
+
+Tambien tenemos la posiblidad de generar un informe, 
+en el informe se puede filtrar de varias formas,
+por ejemplo podriamos filtrar por las transacciones entre
+enero de 2017 y  enero de 2018 solo.
+*Pone filtros*
+Cuando queramos generarlo nos preguntara donde guardarlo,
+y una vez que seleccionemos una carpeta nos generara un archivo
+csv, es decir valores separados por coma, con el informe.
+Hemos usado este formato debido a su versatilidad, y puede ser importado en excel por ejemplo.
+
+Por ultimo estos informes tambien son generados automaticamente de forma mensual y anual

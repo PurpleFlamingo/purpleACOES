@@ -9,7 +9,7 @@ class Socio:
     def __init__(self, usuario: int = None, nombre_pila: str = None, apellidos: str = None, nif: str = None
         , direccion: str = None, poblacion: str = None, codigo_postal: str = None, provincia: str = None, estado: str = None
         , telefono1: str = None, telefono2: str = None, correo_electronico: str = None, relacion: str = None
-        , sector: str = None, certificado: int = None, fecha_de_alta: str = None, fecha_de_baja: str = None, observaciones: str = None):
+        , certificado: int = None,  sector: str = None, fecha_de_alta: str = None, fecha_de_baja: str = None, observaciones: str = None, cuota: int= None):
 
         self.usuario = Usuario.getUsuario(usuario) if usuario != None else None
         self.nombre_pila = nombre_pila
@@ -24,52 +24,21 @@ class Socio:
         self.telefono2 =  telefono2
         self.correo_electronico = correo_electronico
         self.relacion = relacion
-        self.sector = sector 
         self.certificado = certificado
+        self.sector = sector 
         self.fecha_de_alta = fecha_de_alta
         self.fecha_de_baja = fecha_de_baja
         self.observaciones = observaciones
+        self.cuota = cuota
 
     @staticmethod
     def newSocio(usuario: int = None, nombre_pila: str = None, apellidos: str = None, nif: str = None, direccion: str = None
         , poblacion: str = None, codigo_postal: str = None, provincia: str = None, estado: str = None, telefono1: str = None
-        , telefono2: str = None, correo_electronico: str = None, relacion: str = None, sector: str = None, certificado: int = None
-        , fecha_de_alta: str = None, fecha_de_baja: str = None, observaciones: str = None):
+                 , telefono2: str = None, correo_electronico: str = None, relacion: str = None, certificado: int = None, sector: str = None
+        , fecha_de_alta: str = None, fecha_de_baja: str = None, observaciones: str = None, cuota: str = None):
         if usuario == None or fecha_de_alta == None:
             print('Error: la identificación del socio o la fecha de alta no pueden ser nulos')
             return None
-        if nombre_pila == None:
-            nombre_pila = 'null'
-        if apellidos == None:
-            apellidos = 'null'
-        if nif == None:
-            nif = 'null'
-        if direccion == None:
-            direccion = 'null'
-        if poblacion == None:
-            poblacion = 'null'
-        if codigo_postal == None:
-            codigo_postal = 'null'
-        if provincia == None:
-            provincia = 'null'
-        if estado == None:
-            estado = 'null'
-        if telefono1 == None:
-            telefono1 = 'null'
-        if telefono2 == None:
-            telefono2 = 'null'
-        if correo_electronico == None:
-            correo_electronico = 'null'
-        if relacion == None:
-            relacion = 'null'
-        if certificado == None:
-            certificado = 'null'
-        if sector == None:
-            sector = 'null'
-        if fecha_de_baja == None:
-            fecha_de_baja = 'null'
-        if observaciones == None:
-            observaciones = 'null'
 
         bd = BD() 
             
@@ -81,17 +50,20 @@ class Socio:
             print('Usuario no existente')
             return None
             
+        condicion = 'usuario = ' + str(usuario) 
         #consulto si los valores estan en la tabla
         ap = bd.select('*',Socio.tabla,condicion)
 
         #inserto los valores en la tabla si no existen
         if not ap:
-            valores = [usuario, nombre_pila if nombre_pila != None else 'null', apellidos if apellidos != None else 'null', nif if nif != None else 'null', direccion if direccion != None else 'null', poblacion if poblacion != None else 'null', codigo_postal if codigo_postal != None else 'null', provincia if provincia != None else 'null', estado if estado != None else 'null', telefono1 if telefono1 != None else 'null', telefono2 if telefono2  != None else 'null', correo_electronico if correo_electronico != None else 'null', relacion if relacion != None else 'null', certificado if certificado != None else 'null', sector if sector != None else 'null', fecha_de_alta, fecha_de_baja if fecha_de_baja != None else 'null', observaciones if observaciones != None else 'null']
+            valores = [usuario, nombre_pila if nombre_pila != None else 'null', apellidos if apellidos != None else 'null', nif if nif != None else 'null', direccion if direccion != None else 'null', poblacion if poblacion != None else 'null', codigo_postal if codigo_postal != None else 'null', provincia if provincia != None else 'null', estado if estado != None else 'null', telefono1 if telefono1 != None else 'null', telefono2 if telefono2  != None else 'null', correo_electronico if correo_electronico != None else 'null', relacion if relacion != None else 'null', certificado if certificado != None else 'null', sector if sector != None else 'null', fecha_de_alta, fecha_de_baja if fecha_de_baja != None else 'null', observaciones if observaciones != None else 'null', cuota if cuota != None else 'null']
+            #print('Los valores a ingresar en la tabla son: ',valores)
+
             bd.insert(valores, Socio.tabla)
             #inicializo las variables de la instancia
             newS = Socio(usuario, nombre_pila, apellidos, nif, direccion, poblacion, codigo_postal, provincia, estado, telefono1, telefono2
-            , correo_electronico, relacion, certificado, sector, fecha_de_alta, fecha_de_baja, observaciones)
-            print(newS)
+            , correo_electronico, relacion, certificado, sector, fecha_de_alta, fecha_de_baja, observaciones, cuota)
+            #print(newS)
             return newS
         else:
             print('Error: La id {} ya esta en uso',format(usuario))
@@ -122,8 +94,8 @@ class Socio:
             telefono2 =  ap[10]
             correo_electronico = ap[11]
             relacion = ap[12]
-            sector = ap[13]
-            certificado = ap[14]
+            certificado = ap[13]
+            sector = ap[14]
             fecha_de_alta = ap[15]
             if not fecha_de_alta:
                 fecha_de_alta = None
@@ -135,9 +107,10 @@ class Socio:
             else:
                 fecha_de_baja = fecha_de_baja.strftime('%Y-%m-%d')
             observaciones = ap[17]
+            cuota = ap[18]
             newSocio = Socio(usuario, nombre_pila, apellidos, nif, direccion, poblacion, codigo_postal
                         , provincia, estado, telefono1, telefono2, correo_electronico, relacion, certificado
-                        , sector, fecha_de_alta, fecha_de_baja, observaciones)
+                        , sector, fecha_de_alta, fecha_de_baja, observaciones, cuota)
             return (newSocio)
 
 
@@ -198,6 +171,9 @@ class Socio:
     
     def getObservaciones(self):
         return self.observaciones
+
+    def getCuota(self):
+        return self.cuota
     
     def delete(self):
         bd = BD()
@@ -221,6 +197,7 @@ class Socio:
         self.fecha_de_alta = None
         self.fecha_de_baja = None
         self.observaciones = None
+        self.cuota = None
 
     def setUsuario(self):
         print ('El id de usuaro no es modificable, es autoincremental')
@@ -392,7 +369,11 @@ class Socio:
     def setFechaDeBaja(self, fecha_de_baja: str = None):
         bd = BD()
         condicion = 'usuario = ' + str(self.usuario.getIdUsuario())
-        setter = 'fecha_de_baja = \'' + fecha_de_baja + '\''
+        if not fecha_de_baja:
+            setter = 'fecha_de_baja = null'
+        else:
+            setter = 'fecha_de_baja = \'' + fecha_de_baja + '\''
+        print('Setter = ',setter)
         bd.update(Socio.tabla, setter, condicion)
         self.fecha_de_baja = fecha_de_baja
 
@@ -402,6 +383,14 @@ class Socio:
         setter = 'observaciones = \'' + observaciones + '\''
         bd.update(Socio.tabla, setter, condicion)
         self.observaciones = observaciones
+
+    def setCuota(self, cuota: int = None):
+        bd = BD()
+        condicion = 'usuario = \'' + str(self.usuario) + '\''
+        setter = 'cuota = ' + str(cuota) 
+        bd.update(Socio.tabla, setter, condicion)
+        self.observaciones = observaciones
+
 
     @staticmethod
     def listaSocios():
@@ -430,9 +419,10 @@ class Socio:
             fecha_de_alta = ap[15].strftime('%Y-%m-%d')
             fecha_de_baja = ap[16].strftime('%Y-%m-%d') if ap[16] != None else None
             observaciones = ap[17]
+            cuota = ap[18]
             newSocio = Socio(usuario, nombre_pila, apellidos, nif, direccion, poblacion, codigo_postal
                         , provincia, estado, telefono1, telefono2, correo_electronico, relacion, certificado
-                        , sector, fecha_de_alta, fecha_de_baja, observaciones)
+                        , sector, fecha_de_alta, fecha_de_baja, observaciones,cuota)
             lista.append(newSocio)
         return lista
 
@@ -475,6 +465,8 @@ class Socio:
             cadena += 'Fecha de baja ' + self.fecha_de_baja + ' - '
         if self.observaciones != None and self.observaciones != 'null':
             cadena += 'Observaciones ' + self.observaciones + ' - '
+        if self.cuota != None:
+            cadena += 'Cuota ' + str(self.cuota) + ' - '
         if cadena == '':
             cadena = 'Socio sin inicializar - '
         return cadena[:-3]

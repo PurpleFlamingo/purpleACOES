@@ -51,7 +51,7 @@ class Usuario:
                 #print(newUser)
                 return newUser
             else:
-                print('Error: El usuario {} ya esta en uso',format(nombre))
+                print('Error: El usuario ',nombre,' ya esta en uso')
                 return None
                
     #dado un valor de la clave se lo busca en la tabla y se crea una instancia de la clase con esos valores y en caso de no existir se 

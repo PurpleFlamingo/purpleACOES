@@ -4,11 +4,13 @@ from PyQt5.QtWidgets import QApplication, QWidget
 from BD.BDOperaciones import BDOperaciones
 from BD.Usuario import Usuario
 from BD.Socio import Socio
+from BD.BD import BD
 from BD.Voluntario import Voluntario
 from warningDatosSinRellenar import WarningDatosSinRellenar
 from warningSalirSinGuardar import WarningSalirSinGuardar
 from cambiarContraseña import CambiarContrasenia
 import recursosQT_rc
+import time
 
 form_1, base_1 = uic.loadUiType('UI/perfilUsuario.ui')
 
@@ -24,8 +26,17 @@ class PerfilUsuario(base_1, form_1):
         #rol del usuario que ha iniciado la sesión
         self.rolUsuarioSesion = rolUsuarioSesion
 
+        self.eCertificado.setText('No')
+        
+
         self.eRol.setText(self.rolUser)
+        if(self.rolUser == 'Socio'):
+            self.ePermiso.setText('Socio')
+            self.eEstado.setText('España')
         self.eRol.setEnabled(False)
+
+        if(self.rolUser == 'Coordinador General'):
+            self.ePermiso.setText('General')
         
         if self.rolUsuarioSesion == 'Socio':
             self.eFechaAlta.setEnabled(False)
@@ -65,6 +76,7 @@ class PerfilUsuario(base_1, form_1):
             self.lClave_2.hide()            
             self.bCambiarClave.clicked.connect(self.cambioDeClave)
         else:
+            self.eFechaAlta.setText(str(time.strftime('%Y-%m-%d')))
             self.bGuardarYSalir.clicked.connect(self.insertar)
             self.bCambiarClave.hide()
 
@@ -103,7 +115,7 @@ class PerfilUsuario(base_1, form_1):
             self.eTelefono1.setText(self.socio.getTelefono1())
             self.eTelefono2.setText(self.socio.getTelefono2())
             self.eCorreoElectronico.setText(self.socio.getCorreoElectronico())
-            self.eRelacion.setText(self.socio.getRelacion())
+            self.eRelacion.setText(str('Si' if self.socio.getRelacion() else 'No'))
             self.eCertificado.setText(str('Si' if self.socio.getCertificado() else 'No'))
             self.eSector.setText(self.socio.getSector())
             self.eFechaAlta.setText(self.socio.getFechaDeAlta() if (self.socio.getFechaDeAlta() != None) else '')
@@ -116,7 +128,7 @@ class PerfilUsuario(base_1, form_1):
             self.eApellidos.setText(v[2])
             self.eNif.setText(v[3])
             self.eFechaNacimiento.setText(v[4].strftime('%Y-%m-%d') if (v[4]!=None) else '')
-            self.eFechaAlta.setText(v[5].strftime('%Y-%m-%d') if (v[5]!=None) else '')
+            self.eFechaAlta.setText(v[5].strftime('%Y-%m-%d') if (v[5] != None) else '')
             self.eCorreoElectronico.setText(v[6])
             self.eTelefono1.setText(v[7])
             self.eDireccion.setText(v[8])
@@ -135,13 +147,16 @@ class PerfilUsuario(base_1, form_1):
             #print(datosUsuario)
             #Compruebo si los datos obligatorios estan vacios y si lo estan muestro un mensaje error que no permite guardar los cambios
             #que se hayan hecho hasta que todos los campos obligatorios tengan información en ellos
-            if not datosUsuario[0] or not datosUsuario[1] or not datosUsuario[2] or not datosOtros[0] or not datosOtros[1] or not datosOtros[2] or not datosOtros[3] or not datosOtros[4] or not datosOtros[5] or not datosOtros[6] or not datosOtros[7] or not datosOtros[10] or not datosOtros[14] or not datosOtros[15]:
+            
+            if not datosUsuario[0] or not datosUsuario[1] or not datosUsuario[2] or not datosOtros[0] or not datosOtros[1] or not datosOtros[2] or not datosOtros[3] or not datosOtros[4] or not datosOtros[5] or not datosOtros[6] or not datosOtros[7] or not datosOtros[10] or not datosOtros[14]:
                 print('Error: faltan datos obligatorios')
                 self.child = WarningDatosSinRellenar(self)
                 self.child.show()
                 return False
+            
             #Compruebo que el nombre de usuario nuevo no se encuentre en la tabla usuarios
             condicion = 'nombre = \'' + datosUsuario[0] + '\''
+            #print('Condicion de control: '+condicion)
             resultado = Usuario.estaEnLaTabla('usuario', condicion)
             #print('Resultado :',resultado)
             #si el nombre de usuario ya se encuentra en uso se muestra un mensaje comunicando este hecho y no permitiendo guardar hasta
@@ -183,14 +198,22 @@ class PerfilUsuario(base_1, form_1):
             if self.socio.getCorreoElectronico() != datosOtros[10]:
                 self.socio.setCorreoElectronico(datosOtros[10])
             if self.socio.getRelacion() != datosOtros[11]:
+                if datosOtros[12].lower() == 'si':
+                    datosOtros[12] = 1
+                elif datosOtros[12].lower() == 'no':
+                    datosOtros[12] = 0
                 self.socio.setRelacion(datosOtros[11])
             if self.socio.getCertificado() != datosOtros[12]:
+                if datosOtros[12].lower() == 'si':
+                    datosOtros[12] = 1
+                elif datosOtros[12].lower() == 'no':
+                    datosOtros[12] = 0
                 self.socio.setCertificado(datosOtros[12])
             if self.socio.getSector() != datosOtros[13]:
                 self.socio.setSector(datosOtros[13])
             if self.socio.getFechaDeAlta != datosOtros[14]:
                 self.socio.setFechaDeAlta(datosOtros[14])
-            if self.socio.getFechaDeBaja != datosOtros[15]:
+            if self.rolUsuarioSesion != 'Socio' and self.socio.getFechaDeBaja != datosOtros[15]:
                 self.socio.setFechaDeBaja(datosOtros[15])
             if self.socio.getObservaciones() != datosOtros[16]:
                 self.socio.setObservaciones(datosOtros[16])
@@ -199,8 +222,9 @@ class PerfilUsuario(base_1, form_1):
 
 
         else:
-            db = BDOperaciones()
-            db.actualizarUsuario(datosUsuario, datosOtros, self.idUser, self.rolUser)
+            #db = BDOperaciones()
+            #db.actualizarUsuario(datosUsuario, datosOtros, self.idUser, self.rolUser)
+            pass
         self.salir()
 
     def insertar(self):
@@ -211,9 +235,35 @@ class PerfilUsuario(base_1, form_1):
             return False
 
         datosUsuario, datosOtros = self.leerDatos()
-        db = BDOperaciones()
+        #bd = BD()
+        #resultado = ' MAX(id_usuario) '
+        #user = bd.selectEscalar(resultado,'usuario',None)[0] + 1
+        #datosOtros = [user] + datosOtros
+        #for i in datosOtros:
+            #print('datosOtros',i)
+        #print("newUser = ",newUser)
+        newUser = Usuario.newUsuario(datosUsuario[0],datosUsuario[1],datosUsuario[2],datosUsuario[3])
+        #print("La id de newUser es ",newUser.getIdUsuario())
+        if(newUser):
+            if(self.rolUser == 'Socio'):
+                if not datosUsuario[0] or not datosUsuario[1] or not datosUsuario[2] or not datosOtros[0] or not datosOtros[1] or not datosOtros[2] or not datosOtros[3] or not datosOtros[4] or not datosOtros[5] or not datosOtros[6] or not datosOtros[7] or not datosOtros[10] or not datosOtros[14]:
+                    print('Error: faltan datos obligatorios')
+                    self.child = WarningDatosSinRellenar(self)
+                    self.child.show()
+                    return False
 
-        db.insertarUsuario(datosUsuario, datosOtros)
+                Socio.newSocio(newUser.getIdUsuario(), datosOtros[0], datosOtros[1], datosOtros[2], datosOtros[3],
+                           datosOtros[4], datosOtros[5], datosOtros[6], datosOtros[7], datosOtros[8], datosOtros[9], datosOtros[10], datosOtros[11], 1 if datosOtros[12] == 'Si' else 0, datosOtros[13], datosOtros[14], datosOtros[15], datosOtros[16], datosOtros[17])
+            else:
+                Voluntario.newVoluntario(newUser.getIdUsuario(),datosOtros[0],datosOtros[1],datosOtros[2],datosOtros[3],datosOtros[4],datosOtros[5],datosOtros[6],datosOtros[7],datosOtros[8],datosOtros[9],datosOtros[10])
+        else:
+            print('Error: El usuario ya existe')
+            self.child = WarningDatosSinRellenar(self, 'Usuario')
+            self.child.show()
+            return False
+
+        #db = BDOperaciones()
+        #db.insertarUsuario(datosUsuario, datosOtros)
         self.salir()
 
     def leerDatos(self):
@@ -226,11 +276,14 @@ class PerfilUsuario(base_1, form_1):
 
         datosOtros = []
         if self.rolUser == 'Socio':
+            #print('La fecha de alta leida es :',self.eFechaAlta.text())
+            cuota = 0
             ds1=[self.eNombre.text(),self.eApellidos.text(),self.eNif.text(),self.eDireccion.text()]
             ds2=[self.ePoblacion.text(),self.eCodigoPostal.text(),self.eProvincia.text(),self.eEstado.text()]
             ds3=[self.eTelefono1.text(), self.eTelefono2.text(),self.eCorreoElectronico.text(),self.eRelacion.text()]
-            ds4=[self.eCertificado.text(), self.eSector.text(),self.eFechaAlta.text(),self.eFechaSalida.text(),self.eComentarios.toPlainText()]
+            ds4=[self.eCertificado.text(), self.eSector.text(), self.eFechaAlta.text(),self.eFechaSalida.text() if self.eFechaSalida.text() != '' else None,self.eComentarios.toPlainText(), cuota]
             datosOtros=ds1+ds2+ds3+ds4
+            #print('La fecha de alta en el array es: ',datosOtros[14])
          #   for data in datosOtros:
          #       data = data if (data != None) else ''
         else:

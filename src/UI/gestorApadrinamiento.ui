@@ -352,14 +352,14 @@
    <widget class="QPushButton" name="bApadrinamientos">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>310</x>
       <y>440</y>
-      <width>131</width>
+      <width>181</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>Apadrinamientos</string>
+     <string>Lista de Apadrinamientos</string>
     </property>
    </widget>
   </widget>

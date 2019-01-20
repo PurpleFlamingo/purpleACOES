@@ -26,10 +26,17 @@ class PerfilUsuario(base_1, form_1):
         #rol del usuario que ha iniciado la sesión
         self.rolUsuarioSesion = rolUsuarioSesion
 
+        self.eCertificado.setText('No')
+        
+
         self.eRol.setText(self.rolUser)
         if(self.rolUser == 'Socio'):
             self.ePermiso.setText('Socio')
+            self.eEstado.setText('España')
         self.eRol.setEnabled(False)
+
+        if(self.rolUser == 'Coordinador General'):
+            self.ePermiso.setText('General')
         
         if self.rolUsuarioSesion == 'Socio':
             self.eFechaAlta.setEnabled(False)
@@ -140,29 +147,16 @@ class PerfilUsuario(base_1, form_1):
             #print(datosUsuario)
             #Compruebo si los datos obligatorios estan vacios y si lo estan muestro un mensaje error que no permite guardar los cambios
             #que se hayan hecho hasta que todos los campos obligatorios tengan información en ellos
-            print('Datos usuario 0: ',datosUsuario[0])
-            print('Datos usuario 1: ',datosUsuario[1])
-            print('Datos usuario 2: ',datosUsuario[2])
-            print('Datos otros 0: ',datosOtros[0])
-            print('Datos otros 1: ',datosOtros[1])
-            print('Datos otros 2: ',datosOtros[2])
-            print('Datos otros 3: ',datosOtros[3])
-            print('Datos otros 4: ',datosOtros[4])            
-            print('Datos otros 5: ',datosOtros[5])
-            print('Datos otros 6: ',datosOtros[6])
-            print('Datos otros 7: ',datosOtros[7])
-            print('Datos otros 10: ',datosOtros[10])
-            print('Datos otros 14: ',datosOtros[14])
-            print('Datos otros 15: ', datosOtros[15])
-
+            
             if not datosUsuario[0] or not datosUsuario[1] or not datosUsuario[2] or not datosOtros[0] or not datosOtros[1] or not datosOtros[2] or not datosOtros[3] or not datosOtros[4] or not datosOtros[5] or not datosOtros[6] or not datosOtros[7] or not datosOtros[10] or not datosOtros[14]:
                 print('Error: faltan datos obligatorios')
                 self.child = WarningDatosSinRellenar(self)
                 self.child.show()
                 return False
+            
             #Compruebo que el nombre de usuario nuevo no se encuentre en la tabla usuarios
             condicion = 'nombre = \'' + datosUsuario[0] + '\''
-            print('Condicion de control: '+condicion)
+            #print('Condicion de control: '+condicion)
             resultado = Usuario.estaEnLaTabla('usuario', condicion)
             #print('Resultado :',resultado)
             #si el nombre de usuario ya se encuentra en uso se muestra un mensaje comunicando este hecho y no permitiendo guardar hasta
@@ -228,8 +222,9 @@ class PerfilUsuario(base_1, form_1):
 
 
         else:
-            db = BDOperaciones()
-            db.actualizarUsuario(datosUsuario, datosOtros, self.idUser, self.rolUser)
+            #db = BDOperaciones()
+            #db.actualizarUsuario(datosUsuario, datosOtros, self.idUser, self.rolUser)
+            pass
         self.salir()
 
     def insertar(self):
@@ -240,15 +235,35 @@ class PerfilUsuario(base_1, form_1):
             return False
 
         datosUsuario, datosOtros = self.leerDatos()
-        bd = BD()
-        resultado = ' MAX(id_usuario) '
-        user = bd.selectEscalar(resultado,'usuario',None)[0] + 1
-        datosOtros = [user] + datosOtros
-        for i in datosOtros:
-            print('datosOtros',i)
+        #bd = BD()
+        #resultado = ' MAX(id_usuario) '
+        #user = bd.selectEscalar(resultado,'usuario',None)[0] + 1
+        #datosOtros = [user] + datosOtros
+        #for i in datosOtros:
+            #print('datosOtros',i)
+        #print("newUser = ",newUser)
+        newUser = Usuario.newUsuario(datosUsuario[0],datosUsuario[1],datosUsuario[2],datosUsuario[3])
+        #print("La id de newUser es ",newUser.getIdUsuario())
+        if(newUser):
+            if(self.rolUser == 'Socio'):
+                if not datosUsuario[0] or not datosUsuario[1] or not datosUsuario[2] or not datosOtros[0] or not datosOtros[1] or not datosOtros[2] or not datosOtros[3] or not datosOtros[4] or not datosOtros[5] or not datosOtros[6] or not datosOtros[7] or not datosOtros[10] or not datosOtros[14]:
+                    print('Error: faltan datos obligatorios')
+                    self.child = WarningDatosSinRellenar(self)
+                    self.child.show()
+                    return False
 
-        db = BDOperaciones()
-        db.insertarUsuario(datosUsuario, datosOtros)
+                Socio.newSocio(newUser.getIdUsuario(), datosOtros[0], datosOtros[1], datosOtros[2], datosOtros[3],
+                           datosOtros[4], datosOtros[5], datosOtros[6], datosOtros[7], datosOtros[8], datosOtros[9], datosOtros[10], datosOtros[11], 1 if datosOtros[12] == 'Si' else 0, datosOtros[13], datosOtros[14], datosOtros[15], datosOtros[16], datosOtros[17])
+            else:
+                Voluntario.newVoluntario(newUser.getIdUsuario(),datosOtros[0],datosOtros[1],datosOtros[2],datosOtros[3],datosOtros[4],datosOtros[5],datosOtros[6],datosOtros[7],datosOtros[8],datosOtros[9],datosOtros[10])
+        else:
+            print('Error: El usuario ya existe')
+            self.child = WarningDatosSinRellenar(self, 'Usuario')
+            self.child.show()
+            return False
+
+        #db = BDOperaciones()
+        #db.insertarUsuario(datosUsuario, datosOtros)
         self.salir()
 
     def leerDatos(self):
@@ -261,13 +276,14 @@ class PerfilUsuario(base_1, form_1):
 
         datosOtros = []
         if self.rolUser == 'Socio':
-            print('La fecha de alta leida es :',self.eFechaAlta.text())
+            #print('La fecha de alta leida es :',self.eFechaAlta.text())
+            cuota = 0
             ds1=[self.eNombre.text(),self.eApellidos.text(),self.eNif.text(),self.eDireccion.text()]
             ds2=[self.ePoblacion.text(),self.eCodigoPostal.text(),self.eProvincia.text(),self.eEstado.text()]
             ds3=[self.eTelefono1.text(), self.eTelefono2.text(),self.eCorreoElectronico.text(),self.eRelacion.text()]
-            ds4=[self.eCertificado.text(), self.eSector.text(),self.eFechaAlta.text(),self.eFechaSalida.text(),self.eComentarios.toPlainText()]
+            ds4=[self.eCertificado.text(), self.eSector.text(), self.eFechaAlta.text(),self.eFechaSalida.text() if self.eFechaSalida.text() != '' else None,self.eComentarios.toPlainText(), cuota]
             datosOtros=ds1+ds2+ds3+ds4
-            print('La fecha de alta en el array es: ',datosOtros[14])
+            #print('La fecha de alta en el array es: ',datosOtros[14])
          #   for data in datosOtros:
          #       data = data if (data != None) else ''
         else:

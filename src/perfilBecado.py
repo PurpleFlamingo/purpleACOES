@@ -151,13 +151,13 @@ class PerfilBecado(base_1, form_1):
 
                 id = bd.maxId('id_colegio', 'colegio')
                 id += 1
-                nc3 = self.Colegio.newColegio(id, False, self.eColegio.text(), 1)
+                nc3 = Colegio.newColegio(id, False, self.eColegio.text(), 1)
                 h1 = self.eHistorial.toPlainText()
                 o1 = self.eObservaciones.toPlainText()
 
                 id = bd.maxId('id_usuario', 'usuario')
                 id += 1
-                self.joven = Joven.newJoven(idJoven = id, nombre = n1, apellidos = a1, nombrePadre = n2, nombreMadre = n3, estado = e1, urlFoto = u1, fechaNacimiento=f1, fechaAlta=f2, fechaAltaACOES=f3, fechaSalidaACOES=f4, grado=g1, historial=h1, observaciones=o1, coloniaNacimiento=nc1, coloniaResidencia=nc2, colegio=nc3)
+                self.joven = Joven.newJoven(idJoven = id, nombre = n1, apellidos = a1, nombrePadre = n2, nombreMadre = n3, estado = e1, urlFoto = u1, fechaNacimiento=f1, fechaAlta=f2, fechaAltaACOES=f3, fechaSalidaACOES=f4, grado=g1, historial=h1, observaciones=o1, coloniaNacimiento=nc1.getIdColonia(), coloniaResidencia=nc2.getIdColonia(), colegio=nc3.getIdColegio())
                 '''
                 Falta comprobar si el colegio y colonia que se estan creando ya estan en la base de datos.
                 Falta comprobar si funciona la creacion de joven.

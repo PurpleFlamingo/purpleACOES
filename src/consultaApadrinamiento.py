@@ -42,7 +42,7 @@ class ConsultaApadrinamiento(base_1, form_1):
         self.close()
 
     def crear(self):
-        self.child = PerfilApadrinamientos()
+        self.child = PerfilApadrinamientos(iduser = self.idUsuario)
         self.child.show()
 
     def editar(self):

@@ -25,8 +25,6 @@ class PerfilApadrinamientos(base_1, form_1):
         self.cabeceras1 = ['Nombre', 'Apellidos', 'Provincia', 'Pais']
         self.cabeceras2 = ['Nombre', 'Apellidos', 'Estado', 'Fecha Nacimiento', 'Grado', 'Colonia de Nacimiento',
                           'Colonia de Residencia', 'Colegio']
-        self.socio = self.apadrinamiento.getSocio()
-        self.becado = Joven.getJoven(self.apadrinamiento.getJoven())
         self.socios = Socio.listaSocios()
         self.jovenes = Joven.listaJovenes()
         self.bSalirSinGuardar.clicked.connect(self.salirSinGuardar)
@@ -34,6 +32,8 @@ class PerfilApadrinamientos(base_1, form_1):
         self.bCambiar.clicked.connect(self.cambiar)
         if self.idApadrinamiento != None:
             self.cargarDatos()
+            self.socio = self.apadrinamiento.getSocio()
+            self.becado = Joven.getJoven(self.apadrinamiento.getJoven())
         else:
             self.cargarTabla()
 
@@ -165,10 +165,13 @@ class PerfilApadrinamientos(base_1, form_1):
                 bd = BDOperaciones()
                 id = bd.maxId('id_apadrinamiento', 'apadrinamiento')
                 id += 1
-                if self.eFechaBaja.text() != '':
-                    Apadrinamiento.newApadrinamiento(id, self.becado.getIdJoven(), self.socio.getUsuarioId(), self.idUser, self.eFechaInicio.text(), self.eFechaBaja.text())
-                else:
-                    Apadrinamiento.newApadrinamiento(id, self.becado.getIdJoven(), self.socio.getUsuarioId(), self.idUser, self.eFechaInicio.text())
+                print(id)
+                print(self.becado.getIdJoven())
+                print(self.socio.getUsuarioId())
+                print(self.idUser)
+                print(self.eFechaInicio.text())
+                print(self.eFechaBaja.text())
+                Apadrinamiento.newApadrinamiento(id, self.becado.getIdJoven(), self.socio.getUsuarioId(), self.idUser, self.eFechaInicio.text(), self.eFechaBaja.text())
         self.close()
 
     def cambiar(self):

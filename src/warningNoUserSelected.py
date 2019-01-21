@@ -11,6 +11,9 @@ class WarningNoUserSelected(base_1, form_1):
         self.parent = parent
         self.mensaje = mensaje
 
+        if self.mensaje == 'Joven':
+            self.lWarning.setText('Seleccione un apadrinamiento \npara realizar la consulta')
+
         if self.mensaje == 'Pago':
             self.lWarning.setText('Seleccione un pago para realizar la consulta')
 

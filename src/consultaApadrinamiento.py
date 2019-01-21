@@ -7,6 +7,7 @@ from BD.Socio import Socio
 from BD.Voluntario import Voluntario
 from perfilApadrinamientos import PerfilApadrinamientos
 from warningNoUserSelected import WarningNoUserSelected
+from perfilBecado import PerfilBecado
 
 form_1, base_1 = uic.loadUiType('UI/consultaApadrinamiento.ui')
 
@@ -28,6 +29,15 @@ class ConsultaApadrinamiento(base_1, form_1):
             self.bNuevoApadrinamiento.hide()
             self.bEditarApadrinamiento.hide()
 
+        if(self.rolUsuario == 'Socio'):
+            self.bActualizar.setText("Consultar")
+            self.bActualizar.clicked.connect(self.consultar)
+        else:
+            self.bActualizar.clicked.connect(self.refresh)
+
+
+
+
         self.cabeceras = ['Joven', 'Asociado a', 'Fecha de Inicio', 'Fecha de Fin']
         self.apadrinamientos = []
         self.refresh()
@@ -35,11 +45,23 @@ class ConsultaApadrinamiento(base_1, form_1):
         self.bAtras.clicked.connect(self.atras)
         self.bNuevoApadrinamiento.clicked.connect(self.crear)
         self.bEditarApadrinamiento.clicked.connect(self.editar)
-        self.bActualizar.clicked.connect(self.refresh)
 
     def atras(self):
         self.parent.show()
         self.close()
+
+    def consultar(self):
+        index = self.tApadrinamientos.selectedIndexes()
+        if not index:
+            self.child = WarningNoUserSelected(self, 'Joven')
+            self.child.show()
+            print('No se ha seleccionado ningun becado.')
+        else:
+            kid = index[0].row()
+            idSeleccionado = self.apadrinamientos[kid].getJoven().getIdJoven()
+            self.child = PerfilBecado(id = idSeleccionado, rolUser = self.rolUsuario)
+            self.child.show()
+
 
     def crear(self):
         self.child = PerfilApadrinamientos(iduser = self.idUsuario)

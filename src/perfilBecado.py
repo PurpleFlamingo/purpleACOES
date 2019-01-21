@@ -12,15 +12,23 @@ form_1, base_1 = uic.loadUiType('UI/perfilBecado.ui')
 
 
 class PerfilBecado(base_1, form_1):
-    def __init__(self, id=None, modo = 'aniadir'):
+    def __init__(self, id=None, modo = 'aniadir', rolUser = None):
         super(base_1, self).__init__()
         self.setupUi(self)
         self.idjoven = id
         self.joven = Joven.getJoven(self.idjoven)
         self.datos = []
         self.modo = modo
+
+        
+        if rolUser == 'Socio':
+            self.bGuardarYSalir.setText('Atras')
+            self.bSalirSinGuardar.hide()
+            self.bGuardarYSalir.clicked.connect(self.salir)
+        else:
+            self.bGuardarYSalir.clicked.connect(self.guardarYSalir)
         self.bSalirSinGuardar.clicked.connect(self.salirSinGuardar)
-        self.bGuardarYSalir.clicked.connect(self.guardarYSalir)
+        
         if self.idjoven != None:
             self.cargarDatos()
 

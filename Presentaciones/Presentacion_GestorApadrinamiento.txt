@@ -1,0 +1,13 @@
+Voy a hablar sobre el Subsistema de Apadrinamientos. Cuando un Coordinador General se introduce en el sistema y pulsa el
+botón de Subsistema de Apadrinamientos, aparecerá una ventana que será el Gestor de Apadrinamientos. En esta aparecerán todos
+los becados del sistema y podrá filtrar los becados según su Nombre, Apellidos, Estado, Colonia de Nacimiento, Colonia de Residencia
+y Colegio. A su vez puede refrescar la tabla con el botón de actualizar o puede añadir un nuevo becado en la que aparecerá la 
+ficha de un becado donde introducira los datos y le dará al botón de guardar y salir para guardar los cambios o salir sin guardar
+en la que aparece una ventana emergente para que el coordinador general confirme de que esta saliendo sin guardar los cambios.
+Esto ocurre igual cuando el Coordinador General selecciona un becado en la tabla y pulsa el boton Editar Becado en el que aparecerá
+la ficha del becado en la que saldrán los datos ya rellenos y el Coordinador General podrá cambiarlos.
+Si pulsa el botón Lista de apadrinamientos, aparecerá una nueva ventana de consulta de apadrinamientos en la que se podrán ver todos
+los apadrinamientos de la base de datos con el joven y el socio al que esta asociado. Dispondrá de un boton para actualizar los
+datos de la tabla o puede crear un nuevo apadrinamiento donde podrá seleccionar un socio y un becado para crear el nuevo apadrinamiento
+o simplemente seleccionar un nuevo apadrinamiento de la tabla y editar el apadrinamiento para cambiar el socio o el becado o alguna 
+informacion relativa

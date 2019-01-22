@@ -1,12 +1,12 @@
       Voy a hablar de las opciones disponibles para los socios apadrinadores.
-      Cuando inicia sesiÛn un socio el sistema le muestra la interfaz con las opciones de perfil de usuario, consulta de pagos y jÛvenes apadrinados.
-      En perfil de usuario el socio tiene acceso a la informaciÛn personal que hay en el sistema, pudiendo modificarla.
+      Cuando inicia sesi√≥n un socio el sistema le muestra la interfaz con las opciones de perfil de usuario, consulta de pagos y j√≥venes apadrinados.
+      En perfil de usuario el socio tiene acceso a la informaci√≥n personal que hay en el sistema, pudiendo modificarla.
       En caso de dejar en blanco uno de los campos obligatorios, que son los marcados con asterisco el sistema le muestra un mensaje de error al intentar guardar los cambios, igualmente ocurre si intenta registrar un nombre de usuario repetido. 
-      Para realizar un cambio de contraseÒa debe hacer clic en el botÛn Cambiar contraseÒa que le muestra un nuevo cuadro de dialogo donde deber· introducir la contraseÒa actual y dos veces la nueva contraseÒa.
-      Una vez realizadas las modificaciones el sistema le permitir· guardar los cambios o salir sin guardar, en cuyo caso le preguntar· si desea perder los cambios realizados.
+      Para realizar un cambio de contrase√±a debe hacer clic en el bot√≥n Cambiar contrase√±a que le muestra un nuevo cuadro de dialogo donde deber√° introducir la contrase√±a actual y dos veces la nueva contrase√±a.
+      Una vez realizadas las modificaciones el sistema le permitir√° guardar los cambios o salir sin guardar, en cuyo caso le preguntar√° si desea perder los cambios realizados.
       
-      En consulta de pagos el sistema le muestra una lista de los pagos que ha realizado y tambiÈn le permite ver un detalle de los mismos, con m·s informaciÛn. 
+      En consulta de pagos el sistema le muestra una lista de los pagos que ha realizado y tambi√©n le permite ver un detalle de los mismos, con m√°s informaci√≥n. 
       
-      Y en jÛvenes apadrinados el sistema le muestra al socio una lista con los apadrinamientos en los que participa.
+      Y en j√≥venes apadrinados el sistema le muestra al socio una lista con los apadrinamientos en los que participa, pudiendo seleccionar un apadrinamiento y haciendo clic en el bot√≥n consultar se pueden ver los datos del joven apadrinado.
 
 

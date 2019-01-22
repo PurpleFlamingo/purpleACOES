@@ -1,5 +1,6 @@
 import sys
 from PyQt5 import uic
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QWidget
 from recovery import Recovery
 from warningFifthWrongTry import WarningFifthWrongTry
@@ -22,6 +23,10 @@ class LogIn(base_1, form_1):
         self.bExit.clicked.connect(self.salir)
 
 
+    def keyPressEvent(self, e):
+        if e.key() == QtCore.Qt.Key_Return:
+            self.usuario()
+        
     def usuario(self):
         #si el usuario no introduce el nombre de usuario o la contraseña el botón no hace nada
         if (self.eUser.text() != '') and (self.ePassword.text()) != '':

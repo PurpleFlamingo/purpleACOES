@@ -1,5 +1,5 @@
 <RCC>
   <qresource prefix="Fotos">
-    <file>imagenes/Prueba1.png</file>
+    <file>imagenes/Icono.png</file>
   </qresource>
 </RCC>
